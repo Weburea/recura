@@ -9,6 +9,7 @@ import { Testimonials } from '@/components/marketing/testimonials';
 import Integration from '@/components/marketing/integration';
 import { Contact } from '@/components/marketing/contact';
 import { Faq } from '@/components/marketing/faq';
+import { Footer } from '@/components/marketing/footer';
 
 export default function LandingPage() {
   return (
@@ -23,6 +24,7 @@ export default function LandingPage() {
       <Integration />
       <Faq />
       <Contact />
+      <Footer />
     </main>
   );
 }

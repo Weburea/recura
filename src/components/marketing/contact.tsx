@@ -4,6 +4,13 @@ import React from 'react';
 import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
 import Image from 'next/image';
 
+interface GeographyObject {
+  rsmKey: string;
+  properties?: Record<string, unknown>;
+  geometry?: Record<string, unknown>;
+  [key: string]: unknown;
+}
+
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
 // Approximate coordinates for the markers based on the design
@@ -119,8 +126,8 @@ export function Contact() {
               className="w-full h-full"
             >
               <Geographies geography={geoUrl}>
-                {({ geographies }: { geographies: any[] }) =>
-                  geographies.map((geo: any) => (
+                {({ geographies }: { geographies: GeographyObject[] }) =>
+                  geographies.map((geo: GeographyObject) => (
                     <Geography
                       key={geo.rsmKey}
                       geography={geo}
@@ -139,22 +146,15 @@ export function Contact() {
               
               {mapMarkers.map(({ name, coordinates, image }) => (
                 <Marker key={name} coordinates={coordinates}>
-                  <foreignObject x="-40" y="-25" width="80" height="50">
+                  <foreignObject x="-104" y="-100" width="208" height="104">
                     <div className="relative group cursor-pointer transition-transform hover:scale-110 hover:z-10">
-                        <div className="bg-white p-1 rounded-lg shadow-lg flex items-center gap-2 w-max">
-                             <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 relative">
-                                <Image 
-                                    src={image} 
-                                    alt={name} 
-                                    width={32} 
-                                    height={32} 
-                                    className="object-cover"
-                                />
-                             </div>
-                             <span className="text-xs font-semibold text-gray-800 pr-2">{name}</span>
-                        </div>
-                         {/* Triangle pointer */}
-                         <div className="absolute left-4 -bottom-1 w-2 h-2 bg-white transform rotate-45 shadow-sm"></div>
+                        <Image 
+                            src={image} 
+                            alt={name} 
+                            width={208} 
+                            height={104} 
+                            className="w-52 h-auto object-contain drop-shadow-xl"
+                        />
                     </div>
                   </foreignObject>
                 </Marker>
