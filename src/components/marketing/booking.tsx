@@ -9,13 +9,13 @@ export function Booking() {
         <div className="bg-white rounded-[2.5rem] p-2 md:p-4 shadow-sm border border-slate-100 flex flex-col md:flex-row items-center gap-12 overflow-hidden relative">
             
           {/* Image Section */}
-          <div className="w-full md:w-3/12 relative min-h-[300px] md:min-h-[400px]">
+          <div className="w-full md:w-3/12 relative min-h-[100px] md:min-h-[200px]">
              <div className="relative w-full h-full">
                 <Image
                 src="/images/landing/Cash-machines.png"
                 alt="Recura Billing Cash Machines"
-                width={500}
-                height={500}
+                width={300}
+                height={300}
                 className="w-full h-auto object-contain"
                 priority
                 />
@@ -23,7 +23,7 @@ export function Booking() {
           </div>
 
           {/* Text Content */}
-          <div className="w-full md:w-9/12 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="w-full md:w-10/12 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div className="">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
                 <span className="text-gradient">
@@ -37,7 +37,7 @@ export function Booking() {
                 </p>
             </div>
 
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 pe-10">
                 <Link href="#">
                     <Button variant="ghost" className="btn-primary px-8 py-6 text-lg shadow-primary/25">
                         Schedule a Call
