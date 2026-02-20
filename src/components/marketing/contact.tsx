@@ -1,4 +1,5 @@
 'use client';
+import { Button } from '@/components/ui/button';
 
 import React from 'react';
 import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
@@ -57,9 +58,9 @@ export function Contact() {
   return (
     <section className="py-24 bg-white relative overflow-hidden" id="contact">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-dark mb-4">Contact Us</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+        <div className="text-center mb-16 max-w-3xl mx-auto">
+          <h2 className="section-title text-dark">Contact Us</h2>
+          <p className="section-description text-gray-600 mx-auto">
             Have a question or need support? Our team is ready to help you get the most out of Recura.
           </p>
         </div>
@@ -108,9 +109,9 @@ export function Contact() {
                 ></textarea>
               </div>
 
-              <button type="button" className="btn-primary w-full py-4 rounded-xl font-medium text-lg">
+              <Button type="button" variant="brand" className="w-full py-6 rounded-xl font-medium text-lg">
                 Send Message
-              </button>
+              </Button>
             </form>
           </div>
 

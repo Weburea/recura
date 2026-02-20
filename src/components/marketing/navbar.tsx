@@ -19,9 +19,6 @@ export function Navbar() {
     }
   }, [isSearchOpen]);
 
-  // Close dropdowns when clicking outside could be added here for robustness, 
-  // but for now simple toggles work.
-
   return (
     <nav className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-white/10">
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
@@ -59,8 +56,8 @@ export function Navbar() {
               onMouseEnter={() => setIsFeaturesOpen(true)}
               onMouseLeave={() => setIsFeaturesOpen(false)}
             >
-              <Link href="/signin" className="block px-4 py-2 hover:bg-gray-50 text-gray-700">Sign In</Link>
-              <Link href="/signup" className="block px-4 py-2 hover:bg-gray-50 text-gray-700">Sign Up</Link>
+              <Link href="/sign-in" className="block px-4 py-2 hover:bg-gray-50 text-gray-700">Sign In</Link>
+              <Link href="/sign-up" className="block px-4 py-2 hover:bg-gray-50 text-gray-700">Sign Up</Link>
               <Link href="/dashboard" className="block px-4 py-2 hover:bg-gray-50 text-gray-700">Dashboard</Link>
             </div>
           </div>
@@ -96,13 +93,13 @@ export function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center gap-4">
-            <Link href="/signin">
-                <Button variant="ghost" className="btn-outline px-6">
+            <Link href="/sign-in">
+                <Button variant="outline-brand" className="px-6">
                 Sign In
                 </Button>
             </Link>
-            <Link href="/signup">
-                <Button variant="ghost" className="btn-primary px-6">
+            <Link href="/sign-up">
+                <Button variant="brand" className="px-6">
                 Sign Up
                 </Button>
             </Link>
@@ -131,8 +128,8 @@ export function Navbar() {
                 </button>
                 {isFeaturesOpen && (
                     <div className="pl-4 flex flex-col gap-2 border-l-2 border-primary/20 bg-gray-50/50 rounded-sm py-2">
-                        <Link href="/signin" onClick={() => setIsMobileMenuOpen(false)} className="py-2 text-gray-600">Sign In</Link>
-                        <Link href="/signup" onClick={() => setIsMobileMenuOpen(false)} className="py-2 text-gray-600">Sign Up</Link>
+                        <Link href="/sign-in" onClick={() => setIsMobileMenuOpen(false)} className="py-2 text-gray-600">Sign In</Link>
+                        <Link href="/sign-up" onClick={() => setIsMobileMenuOpen(false)} className="py-2 text-gray-600">Sign Up</Link>
                         <Link href="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="py-2 text-gray-600">Dashboard</Link>
                     </div>
                 )}
@@ -143,11 +140,11 @@ export function Navbar() {
             <Link href="#about" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-gray-700 py-2 border-b border-gray-50">About Us</Link>
             
             <div className="flex flex-col gap-3 mt-4">
-                 <Link href="/signin" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button variant="ghost" className="w-full btn-outline justify-center">Sign In</Button>
+                 <Link href="/sign-in" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Button variant="outline-brand" className="w-full justify-center">Sign In</Button>
                  </Link>
-                 <Link href="/signup" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button variant="ghost" className="w-full btn-primary justify-center">Sign Up</Button>
+                 <Link href="/sign-up" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Button variant="brand" className="w-full justify-center">Sign Up</Button>
                  </Link>
             </div>
         </div>

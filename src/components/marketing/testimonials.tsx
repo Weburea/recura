@@ -52,10 +52,10 @@ export function Testimonials() {
       <div className="container mx-auto px-4">
         {/* Header - Aligned to the start of the card container */}
         <div className="max-w-6xl mx-auto ps-3 mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gradient-bold inline-block">
+          <h2 className="section-title mb-4 text-gradient-bold inline-block">
             Testimonials
           </h2>
-          <p className="text-gray-600 text-lg max-w-3xl">
+          <p className="section-description text-gray-600 max-w-3xl mx-0">
             Business across different industries use (webname) to manage
             subscription with ease
           </p>

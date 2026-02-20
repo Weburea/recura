@@ -61,6 +61,19 @@ body {
     @apply text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary;
   }
 
+  /* Shared Marketing Utilities */
+  .section-title {
+    @apply text-3xl md:text-5xl font-bold mb-6 text-slate-900;
+  }
+
+  .section-description {
+    @apply text-lg text-slate-600 mb-10 max-w-3xl mx-auto leading-relaxed;
+  }
+
+  .card-glass {
+    @apply bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300;
+  }
+
   .bg-gradient-purple {
     @apply bg-gradient-to-br from-[#FAB2FF] to-[#8400DB];
   }

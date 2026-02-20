@@ -46,7 +46,7 @@ export const Faq = () => {
         
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold">
+          <h2 className="section-title">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-400">
               Frequently Asked Questions
             </span>

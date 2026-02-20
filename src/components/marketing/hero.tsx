@@ -35,12 +35,12 @@ export function Hero() {
         {/* Action Buttons */}
         <div className="flex items-center justify-center gap-4 mb-16">
           <Link href="/start-trial">
-            <Button variant="ghost" className="btn-primary px-8 py-6 text-lg shadow-primary/25">
+            <Button variant="brand" className="px-8 py-6 text-lg">
               Start your free trial
             </Button>
           </Link>
           <Link href="/demo">
-            <Button variant="ghost" className="btn-outline px-8 py-6 text-lg">
+            <Button variant="outline-brand" className="px-8 py-6 text-lg">
               Request Demo
             </Button>
           </Link>

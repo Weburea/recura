@@ -52,10 +52,10 @@ export function Features() {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">
+          <h2 className="section-title text-white">
             Everything you need to <span className="text-gradient">scale faster</span>
           </h2>
-          <p className="text-muted text-lg leading-relaxed">
+          <p className="section-description text-muted">
             A comprehensive suite of tools designed to help you manage every aspect of your business finances from a single, intuitive platform.
           </p>
         </div>
@@ -65,7 +65,7 @@ export function Features() {
           {features.map((feature, index) => (
             <div 
               key={index}
-              className="group relative p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:-translate-y-1"
+              className="group relative p-8 rounded-2xl card-glass hover:-translate-y-1"
             >
               <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                 <feature.icon className="w-6 h-6 text-white" />

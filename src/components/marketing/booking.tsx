@@ -25,21 +25,21 @@ export function Booking() {
           {/* Text Content */}
           <div className="w-full md:w-10/12 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div className="">
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+                <h2 className="section-title">
                 <span className="text-gradient">
                     Get Recura Billing and Elevate
                 </span>{' '}
                 <br className="hidden md:block" />
                 <span className="text-gradient-bold"> your billing experience </span>
                 </h2>
-                <p className="text-slate-500 text-lg md:text-lg leading-relaxed">
+                <p className="section-description mx-0 mb-6">
                 Get a quick overview of Recura&apos;s capabilities over a 45-minute session with our product experts.
                 </p>
             </div>
 
             <div className="flex-shrink-0 pe-10">
                 <Link href="#">
-                    <Button variant="ghost" className="btn-primary px-8 py-6 text-lg shadow-primary/25">
+                    <Button variant="brand" className="px-8 py-6 text-lg">
                         Schedule a Call
                     </Button>
                 </Link>

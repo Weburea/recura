@@ -44,7 +44,7 @@ export function BusinessTypes() {
     <section className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center max-w-4xl mx-auto mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-400">
+          <h2 className="section-title tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-400">
             One Platform For Every Subscription Business
           </h2>
           <div className="inline-block px-6 py-2 rounded-full text-md text-gray-300 mb-8">

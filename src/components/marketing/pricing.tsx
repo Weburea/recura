@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from '@/components/ui/button';
 import { useState } from "react";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -61,10 +62,10 @@ export function Pricing() {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
+          <h2 className="section-title text-primary">
             The Right Plan for Your Business
           </h2>
-          <p className="text-gray-600 text-lg">
+          <p className="section-description text-gray-600">
             We have several powerful plans to showcase your business and get
             discovered as a creative entrepreneurs. Everything you need.
           </p>
@@ -196,18 +197,19 @@ export function Pricing() {
                 ))}
               </ul>
 
-              <button
+              <Button
+                variant={plan.highlight ? "outline" : plan.buttonText === "Contact Us" ? "brand" : "default"}
                 className={cn(
-                  "w-full py-4 px-6 rounded-full font-semibold transition-transform active:scale-95",
+                  "w-full py-6 rounded-full font-semibold transition-transform active:scale-95 text-base",
                   plan.highlight
-                    ? "bg-white text-primary hover:bg-gray-50"
+                    ? "bg-white text-primary hover:bg-gray-50 border-white/20"
                     : plan.buttonText === "Contact Us"
-                    ? "bg-primary text-white hover:bg-primary/90"
+                    ? ""
                     : "bg-gray-900 text-white hover:bg-gray-800"
                 )}
               >
                 {plan.buttonText}
-              </button>
+              </Button>
             </div>
           ))}
         </div>

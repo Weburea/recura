@@ -10,14 +10,14 @@ const Integration = () => {
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+          <h2 className="section-title mb-6">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-400">
               Streamline Operations And Experience
             </span>
             <br />
             <span className="text-slate-900">The Benefits Of Recura Workflow</span>
           </h2>
-          <p className="text-gray-600 text-lg mb-8">
+          <p className="section-description text-gray-600 mb-8">
             Connect effortlessly with the Recura Ecosystem and other external
             apps, streamlining your workflows and unlocking endless possibilities
             for your billing processes.
