@@ -160,8 +160,8 @@ const Integration = () => {
             <MobileIntegrationItem icon="/images/landing/integration/Group 1000001625.png" label="Data Insights" />
             
             <div className="col-span-2 my-8">
-                <div className="w-24 h-24 bg-dark erounded-full flex items-center justify-center border-4 border-purple-100 shadow-[0_0_30px_rgba(168,85,247,0.2)] mx-auto">
-                    <Image src="/images/landing/integration/Group 1000001633.png" alt="Recura" width={50} height={50} className="w-12 h-auto" />
+                <div className="w-28 h-28 bg-dark rounded-full flex items-center justify-center border-4 border-purple-100 shadow-[0_0_30px_rgba(168,85,247,0.2)] mx-auto">
+                    <Image src="/images/landing/integration/Group 1000001633.png" alt="Recura" width={50} height={50} className="w-18 h-auto" />
                 </div>
             </div>
 

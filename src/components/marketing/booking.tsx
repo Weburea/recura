@@ -37,7 +37,7 @@ export function Booking() {
                 </p>
             </div>
 
-            <div className="flex-shrink-0 pe-10">
+            <div className="flex-shrink-0 pe-10 pb-6">
                 <Link href="#">
                     <Button variant="brand" className="px-8 py-6 text-lg">
                         Schedule a Call

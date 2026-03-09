@@ -15,7 +15,7 @@ export function AuthTabs() {
         href="/sign-up" 
         className={`flex-1 text-center py-2.5 rounded-md text-sm font-medium transition-all ${
           isSignUp 
-            ? 'bg-white text-purple-600 shadow-sm border border-gray-100 ring-1 ring-black/5' 
+            ? 'bg-purple-600 text-white shadow-md' 
             : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
         }`}
       >

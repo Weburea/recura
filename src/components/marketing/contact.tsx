@@ -14,15 +14,6 @@ interface GeographyObject {
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
-// Approximate coordinates for the markers based on the design
-const markers = [
-  { name: "North America", coordinates: [-100, 40] as [number, number], image: "/images/landing/map/tag-2.png" }, // Canada/US area
-  { name: "South America", coordinates: [-55, -10] as [number, number], image: "/images/landing/map/tag-3.png" }, // Brazil
-  { name: "Europe", coordinates: [10, 50] as [number, number], image: "/images/landing/map/tag-1.png" }, // Germany/Europe
-  { name: "Australia", coordinates: [135, -25] as [number, number], image: "/images/landing/map/tag.png" }, // Australia
-  { name: "Asia", coordinates: [70, 30] as [number, number], image: "/images/landing/map/tag.png" }, // Pakistan/India area - re-using tag.png as placeholder or specific one if available
-];
-
 // Based on the user image:
 // tag-2.png looks like Canada/North America (Maple leaf?)
 // tag-3.png looks like Brazil?

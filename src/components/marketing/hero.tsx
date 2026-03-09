@@ -33,14 +33,14 @@ export function Hero() {
         </p>
 
         {/* Action Buttons */}
-        <div className="flex items-center justify-center gap-4 mb-16">
-          <Link href="/start-trial">
-            <Button variant="brand" className="px-8 py-6 text-lg">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 px-4">
+          <Link href="/start-trial" className="w-full sm:w-auto">
+            <Button variant="brand" className="w-full px-8 py-6 text-lg">
               Start your free trial
             </Button>
           </Link>
-          <Link href="/demo">
-            <Button variant="outline-brand" className="px-8 py-6 text-lg">
+          <Link href="/demo" className="w-full sm:w-auto">
+            <Button variant="outline-brand" className="w-full px-8 py-6 text-lg">
               Request Demo
             </Button>
           </Link>

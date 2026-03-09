@@ -1,0 +1,136 @@
+export interface Invoice {
+  id: string
+  customer: string
+  email: string
+  plan: string
+  amount: string
+  date: string
+  dueDate: string
+  status: string
+  avatar?: string
+}
+
+export const billingInvoices: Invoice[] = [
+  {
+    id: "INV-1267",
+    customer: "James Davis",
+    email: "james.d@email.com",
+    plan: "Premium Plan",
+    amount: "$49.99",
+    date: "2024-01-12",
+    dueDate: "2024-01-12",
+    status: "Paid",
+    avatar: "/images/dashboard/24 1.png",
+  },
+  {
+    id: "INV-1256",
+    customer: "Emma Wilson",
+    email: "emma.w@email.com",
+    plan: "Enterprise Plan",
+    amount: "$999.99",
+    date: "2024-01-08",
+    dueDate: "2024-01-08",
+    status: "Paid",
+    avatar: "/images/dashboard/11 1.png",
+  },
+  {
+    id: "INV-1245",
+    customer: "Olivia Martinez",
+    email: "olivia.m@email.com",
+    plan: "Basic Plan",
+    amount: "$19.99",
+    date: "2024-01-05",
+    dueDate: "2024-01-05",
+    status: "Paid",
+    avatar: "/images/dashboard/61 1.png",
+  },
+  {
+    id: "INV-1234",
+    customer: "Sarah Johnson",
+    email: "sarah.j@email.com",
+    plan: "Premium Plan",
+    amount: "$49.99",
+    date: "2024-01-15",
+    dueDate: "2024-01-15",
+    status: "Unpaid",
+    avatar: "/images/dashboard/9 1.png",
+  },
+  {
+    id: "INV-1223",
+    customer: "James Davis",
+    email: "james.d@email.com",
+    plan: "Premium Plan",
+    amount: "$49.99",
+    date: "2023-12-12",
+    dueDate: "2023-12-12",
+    status: "Paid",
+    avatar: "/images/dashboard/24 1.png",
+  },
+  {
+    id: "INV-1201",
+    customer: "Olivia Martinez",
+    email: "olivia.m@email.com",
+    plan: "Basic Plan",
+    amount: "$19.99",
+    date: "2023-12-05",
+    dueDate: "2023-12-05",
+    status: "Refund",
+    avatar: "/images/dashboard/61 1.png",
+  },
+  {
+    id: "INV-1189",
+    customer: "Sarah Johnson",
+    email: "sarah.j@email.com",
+    plan: "Premium Plan",
+    amount: "$49.99",
+    date: "2024-01-15",
+    dueDate: "2024-01-15",
+    status: "Refund",
+    avatar: "/images/dashboard/9 1.png",
+  },
+  {
+    id: "INV-1178",
+    customer: "William Taylor",
+    email: "william.t@email.com",
+    plan: "Premium Plan",
+    amount: "$139.99",
+    date: "2024-01-18",
+    dueDate: "2024-01-18",
+    status: "Unpaid",
+    avatar: "/images/dashboard/60 1.png",
+  },
+  {
+    id: "INV-1165",
+    customer: "Mark Luck",
+    email: "mark.l@email.com",
+    plan: "Enterprise Corp",
+    amount: "$299.00",
+    date: "2024-01-20",
+    dueDate: "2024-01-25",
+    status: "Paid",
+    avatar: "/images/dashboard/11 1.png",
+  },
+  {
+    id: "INV-1154",
+    customer: "Lisa Goodwill",
+    email: "lisa.g@email.com",
+    plan: "MTN Plan",
+    amount: "$150.00",
+    date: "2024-01-22",
+    dueDate: "2024-01-22",
+    status: "Refund",
+    avatar: "/images/dashboard/61 1.png",
+  },
+  {
+    id: "INV-1143",
+    customer: "Tech Trump",
+    email: "tech.t@email.com",
+    plan: "Enterprise Plan",
+    amount: "$500.00",
+    date: "2024-01-24",
+    dueDate: "2024-01-24",
+    status: "Unpaid",
+    avatar: "/images/dashboard/60 1.png",
+  },
+]
+

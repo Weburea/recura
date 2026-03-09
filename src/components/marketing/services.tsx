@@ -31,7 +31,7 @@ export function Services() {
           {services.map((service, index) => (
             <div 
               key={index} 
-              className="bg-white rounded-[2rem] py-8  md:p-12 shadow-sm border border-slate-100 flex flex-col h-full hover:shadow-md transition-shadow duration-300"
+              className="bg-white rounded-[2rem] p-8 md:p-12 shadow-sm border border-slate-100 flex flex-col h-full hover:shadow-md transition-shadow duration-300"
             >
               <div className="mb-8">
                 <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-6">
