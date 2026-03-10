@@ -5,19 +5,27 @@ import Image from "next/image"
 import Link from "next/link"
 import { 
   ChevronDown, 
-  Plus, 
-  Bell, 
-  Globe, 
-  CheckCircle2, 
-  Edit2, 
   RotateCcw,
+  FileSpreadsheet, 
+  ChevronLeft, 
+  ChevronRight,
   Zap,
-  Apple
+  Bell,
+  CheckCircle2,
+  Globe,
+  Apple,
+  Edit2
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { StatusModal, StatusType } from "@/components/dashboard/shared/status-modal"
+import { ReceiptModal, Transaction } from "@/components/dashboard/shared/receipt-modal"
+import { 
+  CreditCard,
+  Building2,
+  Smartphone
+} from "lucide-react"
 
-type Tab = "gateway" | "customization" | "billing" | "transactions" | "invoices" | "webhooks"
+type Tab = "gateway" | "customization" | "billing" | "transactions"
 
 interface OverviewCardProps {
   type: string
@@ -109,6 +117,12 @@ export function PaymentSettingsForm() {
   const [modalMessage, setModalMessage] = useState("")
   const [isPreviewFlipped, setIsPreviewFlipped] = useState(false)
 
+  // Transaction States
+  const [isReceiptModalOpen, setIsReceiptModalOpen] = useState(false)
+  const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 6
+
   // Card Customization State
   const [cardDesign, setCardDesign] = useState({
     background: "linear-gradient(135deg, #1e1b4b 0%, #4338ca 100%)",
@@ -184,25 +198,61 @@ export function PaymentSettingsForm() {
     })
   }
 
+  const mockTransactions: Transaction[] = [
+    { id: "A1X9-B223", customer: "Alex Johnson", email: "alex.j@email.com", plan: "Premium", amount: "$124.00", method: { type: "Credit Card", details: "•••• 4242", icon: CreditCard }, date: "Mar 02, 2024", status: "Approved", avatar: "/images/dashboard/24 1.png" },
+    { id: "C4M7-K991", customer: "Sarah Miller", email: "sarah.m@company.com", plan: "Basic", amount: "$50.00", method: { type: "Apple Pay", details: "Device •••• 1122", icon: Smartphone }, date: "Mar 01, 2024", status: "Failed", avatar: "/images/dashboard/61 1.png" },
+    { id: "D8N2-P334", customer: "Mike Ross", email: "mike.ross@legal.co", plan: "Enterprise", amount: "$89.99", method: { type: "Bank Transfer", details: "ACH •••• 9876", icon: Building2 }, date: "Feb 28, 2024", status: "Pending", avatar: "/images/dashboard/11 1.png" },
+    { id: "X9Q1-L445", customer: "John Doe", email: "john.doe@gmail.com", plan: "Premium", amount: "$210.00", method: { type: "Credit Card", details: "•••• 5544", icon: CreditCard }, date: "Feb 27, 2024", status: "Approved", avatar: "/images/dashboard/9 1.png" },
+    { id: "B2W5-Z889", customer: "Emma Wilson", email: "emma.w@design.io", plan: "Basic", amount: "$49.00", method: { type: "Apple Pay", details: "Device •••• 3322", icon: Smartphone }, date: "Feb 26, 2024", status: "Approved", avatar: "/images/dashboard/60 1.png" },
+    { id: "M5V8-R112", customer: "James Bond", email: "007@mi6.gov.uk", plan: "Enterprise", amount: "$999.00", method: { type: "Bank Transfer", details: "Wire Transfer", icon: Building2 }, date: "Feb 25, 2024", status: "Approved", avatar: "/images/dashboard/59 1.png" },
+    { id: "J7K4-T667", customer: "Olivia Brown", email: "olivia.b@web.com", plan: "Premium", amount: "$150.00", method: { type: "Credit Card", details: "•••• 1234", icon: CreditCard }, date: "Feb 24, 2024", status: "Failed", avatar: "/images/dashboard/24 1.png" },
+    { id: "P3H6-Y221", customer: "William Smith", email: "will.s@actor.me", plan: "Basic", amount: "$25.00", method: { type: "Apple Pay", details: "Device •••• 9988", icon: Smartphone }, date: "Feb 23, 2024", status: "Approved", avatar: "/images/dashboard/61 1.png" },
+    { id: "Z9Q1-L445", customer: "Thomas Shelby", email: "thomas@shelby.co", plan: "Enterprise", amount: "$1500.00", method: { type: "Bank Transfer", details: "ACH •••• 1122", icon: Building2 }, date: "Feb 22, 2024", status: "Approved", avatar: "/images/dashboard/11 1.png" },
+    { id: "X8M2-P334", customer: "Arthur Shelby", email: "arthur@shelby.co", plan: "Premium", amount: "$250.00", method: { type: "Credit Card", details: "•••• 9988", icon: CreditCard }, date: "Feb 21, 2024", status: "Approved", avatar: "/images/dashboard/9 1.png" },
+    { id: "Y7N5-K445", customer: "Polly Gray", email: "polly@shelby.co", plan: "Basic", amount: "$100.00", method: { type: "Apple Pay", details: "Device •••• 4455", icon: Smartphone }, date: "Feb 20, 2024", status: "Approved", avatar: "/images/dashboard/60 1.png" },
+    { id: "W6P3-M112", customer: "John Shelby", email: "johns@shelby.co", plan: "Enterprise", amount: "$500.00", method: { type: "Bank Transfer", details: "ACH •••• 6677", icon: Building2 }, date: "Feb 19, 2024", status: "Pending", avatar: "/images/dashboard/59 1.png" },
+    { id: "V5Q2-L112", customer: "Michael Gray", email: "michael@shelby.co", plan: "Premium", amount: "$175.00", method: { type: "Credit Card", details: "•••• 3344", icon: CreditCard }, date: "Feb 18, 2024", status: "Approved", avatar: "/images/dashboard/24 1.png" },
+    { id: "U4R1-K112", customer: "Ada Thorne", email: "ada@shelby.co", plan: "Basic", amount: "$75.00", method: { type: "Apple Pay", details: "Device •••• 2211", icon: Smartphone }, date: "Feb 17, 2024", status: "Failed", avatar: "/images/dashboard/61 1.png" },
+  ]
+
+  const handleExportCSV = () => {
+    const headers = ["Transaction ID", "Customer", "Email", "Plan", "Amount", "Method", "Date", "Status"]
+    const csvContent = [
+      headers.join(","),
+      ...mockTransactions.map(t => [
+        `"${t.id}"`,
+        `"${t.customer}"`,
+        `"${t.email}"`,
+        `"${t.plan}"`,
+        `"${t.amount}"`,
+        `"${t.method.type}"`,
+        `"${t.date}"`,
+        `"${t.status}"`
+      ].join(","))
+    ].join("\n")
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement("a")
+    link.setAttribute("href", url)
+    link.setAttribute("download", "recura_recent_transactions.csv")
+    link.style.visibility = "hidden"
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
+  const openReceipt = (transaction: Transaction) => {
+    setSelectedTransaction(transaction)
+    setIsReceiptModalOpen(true)
+  }
+
+  const totalPages = Math.ceil(mockTransactions.length / itemsPerPage)
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const paginatedTransactions = mockTransactions.slice(startIndex, startIndex + itemsPerPage)
+
   return (
     <div className="space-y-8">
-      {/* Page Header Actions */}
-      <div className="flex items-center justify-between -mt-4 mb-2">
-        <div className="flex items-center gap-4">
-          <button className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-purple-50 text-purple-600 font-bold text-sm tracking-tight hover:bg-purple-100 transition-all">
-            <Plus className="w-4 h-4" />
-            Add New Card
-          </button>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="relative">
-            <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-100 bg-white text-slate-600 font-bold text-sm tracking-tight hover:border-gray-200 transition-all">
-              Preview as Customer
-              <ChevronDown className="w-4 h-4 text-slate-400" />
-            </button>
-          </div>
-        </div>
-      </div>
 
       {/* Payment Methods Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -247,8 +297,6 @@ export function PaymentSettingsForm() {
             { id: "customization", label: "Card Customization" },
             { id: "billing", label: "Billing Rules" },
             { id: "transactions", label: "Transactions" },
-            { id: "invoices", label: "Invoices" },
-            { id: "webhooks", label: "Webhooks" },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -948,16 +996,17 @@ export function PaymentSettingsForm() {
 
         {activeTab === "transactions" && (
           <div className="bg-white rounded-[32px] border border-gray-100 overflow-hidden shadow-sm">
-            <div className="px-8 py-6 border-b border-gray-50 flex items-center justify-between">
+            <div className="px-8 py-6 border-b border-gray-50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                <div>
                   <h3 className="text-base font-black text-slate-900">Recent Transactions</h3>
                   <p className="text-xs font-medium text-slate-400">Track and manage your customer payments</p>
                </div>
                <div className="flex items-center gap-2">
-                 <button className="p-2.5 rounded-xl border border-gray-100 hover:bg-slate-50 text-slate-400">
-                    <RotateCcw className="w-4 h-4" />
-                 </button>
-                 <button className="px-5 py-2.5 rounded-xl bg-slate-900 text-white font-black text-sm">
+                 <button 
+                  onClick={handleExportCSV}
+                  className="px-5 py-2.5 rounded-xl bg-slate-900 text-white font-black text-sm hover:bg-slate-800 transition-all active:scale-95 shadow-lg shadow-slate-900/10 cursor-pointer flex items-center gap-2"
+                 >
+                    <FileSpreadsheet className="w-4 h-4" />
                     Export CSV
                  </button>
                </div>
@@ -973,27 +1022,22 @@ export function PaymentSettingsForm() {
                       <th className="px-8 py-4 text-right text-[10px] font-black text-slate-400 uppercase tracking-widest">Action</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-50">
-                    {[
-                      { name: "Alex Johnson", amount: "$124.00", status: "Success", date: "Mar 02, 2024" },
-                      { name: "Sarah Miller", amount: "$50.00", status: "Failed", date: "Mar 01, 2024" },
-                      { name: "Mike Ross", amount: "$89.99", status: "Pending", date: "Feb 28, 2024" },
-                      { name: "John Doe", amount: "$210.00", status: "Success", date: "Feb 27, 2024" },
-                    ].map((tx, i) => (
+                   <tbody className="divide-y divide-gray-50">
+                    {paginatedTransactions.map((tx, i) => (
                       <tr key={i} className="hover:bg-slate-50/30 transition-colors">
                         <td className="px-8 py-6">
                            <div className="flex items-center gap-3">
                              <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-black text-slate-600">
-                                {tx.name[0]}
+                                {tx.customer ? tx.customer[0] : ""}
                              </div>
-                             <span className="text-sm font-bold text-slate-900">{tx.name}</span>
+                             <span className="text-sm font-bold text-slate-900">{tx.customer}</span>
                            </div>
                         </td>
                         <td className="px-8 py-6 text-sm font-black text-slate-900">{tx.amount}</td>
                         <td className="px-8 py-6">
                            <span className={cn(
                              "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest",
-                             tx.status === "Success" ? "bg-emerald-50 text-emerald-600" :
+                             tx.status === "Approved" ? "bg-emerald-50 text-emerald-600" :
                              tx.status === "Failed" ? "bg-rose-50 text-rose-600" : "bg-orange-50 text-orange-600"
                            )}>
                               {tx.status}
@@ -1001,167 +1045,62 @@ export function PaymentSettingsForm() {
                         </td>
                         <td className="px-8 py-6 text-xs font-bold text-slate-400">{tx.date}</td>
                         <td className="px-8 py-6 text-right">
-                           <button className="text-purple-600 text-xs font-black hover:underline uppercase tracking-widest">View</button>
+                           <button 
+                            onClick={() => openReceipt(tx)}
+                            className="text-purple-600 text-xs font-black hover:underline uppercase tracking-widest cursor-pointer"
+                           >
+                            View
+                           </button>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                </table>
             </div>
-          </div>
-        )}
 
-        {activeTab === "invoices" && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div className="lg:col-span-7 space-y-8">
-               <div className="bg-white rounded-[32px] border border-gray-100 p-8 space-y-8 shadow-sm">
-                  <div className="space-y-1">
-                    <h3 className="text-base font-black text-slate-900">Invoice Customization</h3>
-                    <p className="text-xs font-medium text-slate-400">Brand your PDF receipts and invoices</p>
-                  </div>
-
-                  <div className="space-y-6">
-                    <div className="flex items-center justify-between p-6 rounded-2xl bg-slate-50 border border-gray-100">
-                      <div>
-                        <h4 className="text-sm font-bold text-slate-800">Invoice Branding</h4>
-                        <p className="text-[11px] text-slate-500 mt-1">Include your logo and colors</p>
-                      </div>
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-white border border-gray-100 p-2">
-                           <Image src="/images/logo_dark.svg" alt="Recura" width={40} height={20} className="w-full h-full object-contain" />
-                        </div>
-                        <button className="px-5 py-2.5 rounded-xl bg-white border border-gray-100 text-xs font-black text-slate-600 shadow-sm">Change</button>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-6">
-                       <div className="space-y-2">
-                         <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Template Type</label>
-                         <button className="w-full px-4 py-3 rounded-xl border border-gray-100 bg-white flex items-center justify-between text-sm font-bold text-slate-700">
-                            Modern POS
-                            <ChevronDown className="w-4 h-4" />
-                         </button>
-                       </div>
-                       <div className="space-y-2">
-                         <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Language</label>
-                         <button className="w-full px-4 py-3 rounded-xl border border-gray-100 bg-white flex items-center justify-between text-sm font-bold text-slate-700">
-                            English (US)
-                            <ChevronDown className="w-4 h-4" />
-                         </button>
-                       </div>
-                    </div>
-
-                    <ToggleControl 
-                      icon={<Bell className="w-4 h-4" />}
-                      title="Auto-Email Invoices"
-                      subtitle="Send PDF to customer after every charge"
-                      active={true}
-                      onToggle={() => {}}
-                    />
-                  </div>
-               </div>
-            </div>
-            
-            <div className="lg:col-span-5">
-               <div className="bg-slate-900 rounded-[32px] p-8 text-white space-y-6 shadow-2xl">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h4 className="font-black text-lg">Preview</h4>
-                      <p className="text-xs text-slate-400">Live Invoice Glance</p>
-                    </div>
-                    <div className="px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest">Template Active</div>
-                  </div>
-                  
-                  <div className="bg-white rounded-2xl p-6 text-slate-900 space-y-6 shadow-xl transform scale-[0.9] origin-top">
-                     <div className="flex justify-between items-start border-b border-dashed border-slate-200 pb-4">
-                        <Image src="/images/logo_dark.svg" alt="Logo" width={60} height={30} className="object-contain" />
-                        <div className="text-right">
-                           <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Invoice</p>
-                           <p className="text-sm font-black">#REC-1024</p>
-                        </div>
-                     </div>
-                     <div className="space-y-4">
-                        <div className="flex justify-between items-center text-xs">
-                           <span className="font-bold text-slate-400">Standard Plan</span>
-                           <span className="font-black">$89.00</span>
-                        </div>
-                        <div className="flex justify-between items-center text-xs">
-                           <span className="font-bold text-slate-400">Processing Fee</span>
-                           <span className="font-black">$2.50</span>
-                        </div>
-                        <div className="flex justify-between items-center pt-4 border-t border-slate-100">
-                           <span className="text-sm font-black text-slate-900">Total</span>
-                           <span className="text-lg font-black text-purple-600">$91.50</span>
-                        </div>
-                     </div>
-                     <div className="text-center pt-2">
-                        <p className="text-[10px] font-bold text-slate-400">Thank you for your business!</p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-          </div>
-        )}
-
-        {activeTab === "webhooks" && (
-          <div className="max-w-4xl mx-auto space-y-8">
-            <div className="bg-white rounded-[32px] border border-gray-100 p-10 space-y-8 shadow-sm">
-               <div className="flex items-center gap-4">
-                 <div className="w-14 h-14 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600">
-                    <Globe className="w-7 h-7" />
-                 </div>
-                 <div>
-                    <h3 className="text-lg font-black text-slate-900">Developer Webhooks</h3>
-                    <p className="text-sm font-medium text-slate-400">Listen for real-time payment events</p>
-                 </div>
-               </div>
-
-               <div className="space-y-6">
-                 <div className="space-y-2">
-                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-wider">Endpoint URL</label>
-                    <div className="flex gap-2">
-                       <input 
-                        type="text" 
-                        readOnly
-                        value="https://api.yourdomain.com/webhooks/recura"
-                        className="flex-1 px-4 py-3.5 rounded-xl border border-gray-100 bg-slate-50 font-mono text-xs text-slate-500"
-                       />
-                       <button className="px-6 py-3.5 rounded-xl bg-slate-900 text-white font-black text-xs hover:bg-slate-800 transition-all">Update</button>
-                    </div>
-                 </div>
-
-                 <div className="space-y-2">
-                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-wider">Signing Secret</label>
-                    <div className="flex gap-2">
-                       <input 
-                        type="password" 
-                        readOnly
-                        value="whsec_k2j8s7f9a0d1g3h5j6k7l8m9n0b2v1c"
-                        className="flex-1 px-4 py-3.5 rounded-xl border border-gray-100 bg-slate-50 font-mono text-xs text-slate-500"
-                       />
-                       <button className="px-6 py-3.5 rounded-xl border border-gray-100 bg-white text-slate-600 font-black text-xs hover:bg-slate-50 transition-all">Reveal</button>
-                    </div>
-                 </div>
+            {/* Pagination UI */}
+            <div className="px-8 py-5 bg-slate-50/50 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <p className="text-xs font-bold text-slate-400 text-center sm:text-left">
+                Showing <span className="text-slate-900">{startIndex + 1}</span> to <span className="text-slate-900">{Math.min(startIndex + itemsPerPage, mockTransactions.length)}</span> of <span className="text-slate-900">{mockTransactions.length}</span> results
+              </p>
+              <div className="flex items-center justify-center gap-2">
+                <button 
+                  onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                  disabled={currentPage === 1}
+                  className="p-2 rounded-xl border border-gray-100 bg-white text-slate-400 hover:text-purple-600 hover:border-purple-100 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
                 
-                 <div className="pt-4 space-y-4">
-                    <h4 className="text-sm font-black text-slate-800">Events to send</h4>
-                    <div className="grid grid-cols-2 gap-4">
-                       {[
-                         "payment.succeeded", "payment.failed", "invoice.created", "subscription.cancelled"
-                       ].map(event => (
-                         <div key={event} className="flex items-center gap-3 p-4 rounded-xl border border-gray-50 bg-slate-50/30">
-                           <div className="w-4 h-4 rounded-md bg-purple-600 flex items-center justify-center">
-                              <CheckCircle2 className="w-3 h-3 text-white" />
-                           </div>
-                           <span className="text-xs font-bold text-slate-600 font-mono">{event}</span>
-                         </div>
-                       ))}
-                    </div>
-                 </div>
-               </div>
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={cn(
+                        "w-9 h-9 rounded-xl text-xs font-black transition-all cursor-pointer",
+                        currentPage === page 
+                          ? "bg-purple-600 text-white shadow-lg shadow-purple-600/30" 
+                          : "bg-white border border-gray-100 text-slate-400 hover:border-purple-100 hover:text-purple-600"
+                      )}
+                    >
+                      {page}
+                    </button>
+                  ))}
+                </div>
+
+                <button 
+                  onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                  disabled={currentPage === totalPages}
+                  className="p-2 rounded-xl border border-gray-100 bg-white text-slate-400 hover:text-purple-600 hover:border-purple-100 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
             </div>
           </div>
         )}
+
       </div>
 
       <StatusModal 
@@ -1170,6 +1109,12 @@ export function PaymentSettingsForm() {
         type={modalType}
         title={modalTitle}
         message={modalMessage}
+      />
+
+      <ReceiptModal 
+        isOpen={isReceiptModalOpen}
+        onClose={() => setIsReceiptModalOpen(false)}
+        transaction={selectedTransaction}
       />
     </div>
   )
