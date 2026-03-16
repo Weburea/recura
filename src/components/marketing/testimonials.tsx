@@ -48,23 +48,23 @@ export function Testimonials() {
   const current = TESTIMONIALS[currentIndex];
 
   return (
-    <section className="py-24 bg-white overflow-hidden">
+    <section className="py-24 bg-white dark:bg-transparent overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Header - Aligned to the start of the card container */}
         <div className="max-w-6xl mx-auto ps-3 mb-12">
-          <h2 className="section-title mb-4 text-gradient-bold inline-block">
+          <h2 className="section-title mb-4 text-gradient-bold dark:bg-white dark:bg-clip-text dark:text-transparent inline-block">
             Testimonials
           </h2>
-          <p className="section-description text-gray-600 max-w-3xl mx-0">
+          <p className="section-description text-gray-600 dark:text-slate-300 max-w-3xl mx-0">
             Business across different industries use (webname) to manage
             subscription with ease
           </p>
         </div>
 
         {/* Main Card */}
-        <div className="max-w-6xl mx-auto rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row min-h-[500px]">
+        <div className="max-w-6xl mx-auto rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row min-h-[500px] border border-transparent dark:border-white/10">
           {/* Left Side - Brand/Logo Area */}
-          <div className="md:w-5/12 bg-fuchsia-50 flex items-center justify-center p-12 min-h-[300px] transition-all duration-300">
+          <div className="md:w-5/12 bg-fuchsia-50 dark:bg-[#1a0f30] flex items-center justify-center p-12 min-h-[300px] transition-all duration-300">
              <div className="flex items-center gap-2 animate-in fade-in zoom-in duration-300" key={currentIndex}>
                 <div className={cn("w-12 h-12 border-2 flex items-center justify-center font-bold text-2xl rounded-sm", current.borderColor, current.color)}>
                     {current.iconText}

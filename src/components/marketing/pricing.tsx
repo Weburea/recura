@@ -58,14 +58,14 @@ export function Pricing() {
   const [billing, setBilling] = useState<"monthly" | "annually">("monthly");
 
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-white dark:bg-transparent">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="section-title text-primary">
+          <h2 className="section-title text-primary dark:text-primary">
             The Right Plan for Your Business
           </h2>
-          <p className="section-description text-gray-600">
+          <p className="section-description text-gray-600 dark:text-slate-300">
             We have several powerful plans to showcase your business and get
             discovered as a creative entrepreneurs. Everything you need.
           </p>
@@ -76,7 +76,7 @@ export function Pricing() {
           <span
             className={cn(
               "text-sm font-medium transition-colors",
-              billing === "monthly" ? "text-primary font-bold" : "text-gray-500"
+              billing === "monthly" ? "text-primary font-bold" : "text-gray-500 dark:text-slate-400"
             )}
           >
             Bill Monthly
@@ -85,7 +85,7 @@ export function Pricing() {
             onClick={() =>
               setBilling(billing === "monthly" ? "annually" : "monthly")
             }
-            className="w-14 h-8 rounded-full bg-gray-200 p-1 relative transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20"
+            className="w-14 h-8 rounded-full bg-gray-200 dark:bg-slate-700 p-1 relative transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20"
             role="switch"
             aria-checked={billing === "annually"}
           >
@@ -107,7 +107,7 @@ export function Pricing() {
               "text-sm font-medium transition-colors",
               billing === "annually"
                 ? "text-primary font-bold"
-                : "text-gray-500"
+                : "text-gray-500 dark:text-slate-400"
             )}
           >
             Bill Annually
@@ -123,7 +123,7 @@ export function Pricing() {
                 "rounded-2xl p-8 flex flex-col relative transition-all duration-300 hover:shadow-xl",
                 plan.highlight
                   ? "bg-gradient-purple text-white shadow-2xl scale-105 md:-mt-4 md:mb-4 z-10" // Growth card styling
-                  : "bg-white text-gray-900 border border-gray-100 shadow-lg"
+                  : "bg-white dark:bg-white/5 text-gray-900 dark:text-white border border-gray-100 dark:border-white/10 shadow-lg"
               )}
             >
               {plan.highlight && (
@@ -139,7 +139,7 @@ export function Pricing() {
                 <p
                   className={cn(
                     "text-sm",
-                    plan.highlight ? "text-white/80" : "text-gray-500"
+                    plan.highlight ? "text-white/80" : "text-gray-500 dark:text-slate-400"
                   )}
                 >
                   {plan.description}
@@ -154,7 +154,7 @@ export function Pricing() {
                   <span
                     className={cn(
                       "text-sm font-medium",
-                      plan.highlight ? "text-white/80" : "text-gray-400"
+                      plan.highlight ? "text-white/80" : "text-gray-400 dark:text-slate-500"
                     )}
                   >
                     /{billing === "monthly" ? "month" : "year"} 
@@ -172,7 +172,7 @@ export function Pricing() {
               <div
                 className={cn(
                   "h-px w-full mb-8",
-                  plan.highlight ? "bg-white/20" : "bg-gray-100"
+                  plan.highlight ? "bg-white/20" : "bg-gray-100 dark:bg-white/10"
                 )}
               />
 
@@ -182,13 +182,13 @@ export function Pricing() {
                     <Check
                       className={cn(
                         "w-5 h-5 shrink-0",
-                        plan.highlight ? "text-white" : "text-gray-800"
+                        plan.highlight ? "text-white" : "text-gray-800 dark:text-slate-300"
                       )}
                     />
                     <span
                       className={cn(
                         "text-sm",
-                        plan.highlight ? "text-white/90" : "text-gray-600"
+                        plan.highlight ? "text-white/90" : "text-gray-600 dark:text-slate-300"
                       )}
                     >
                       {feature}
@@ -205,7 +205,7 @@ export function Pricing() {
                     ? "bg-white text-primary hover:bg-gray-50 border-white/20"
                     : plan.buttonText === "Contact Us"
                     ? ""
-                    : "bg-gray-900 text-white hover:bg-gray-800"
+                    : "bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-200"
                 )}
               >
                 {plan.buttonText}

@@ -21,7 +21,7 @@ export default function AnalyticsPage() {
         
         {/* Header section */}
         <div>
-          <h1 className="dashboard-title text-3xl font-black text-slate-900 tracking-tight">Reports & Analytics</h1>
+          <h1 className="dashboard-title text-3xl font-black tracking-tight">Reports & Analytics</h1>
           <p className="dashboard-subtitle mt-2">Data-driven insights for your business</p>
         </div>
 
@@ -33,8 +33,8 @@ export default function AnalyticsPage() {
             trend="+23.5%"
             trendType="up"
             icon={LineChart}
-            iconColor="text-emerald-500"
-            iconBg="bg-emerald-50"
+            iconColor="text-emerald-500 dark:text-emerald-400"
+            iconBg="bg-emerald-50 dark:bg-emerald-500/20"
             trendContext="YoY"
           />
           <StatsCard 
@@ -43,8 +43,8 @@ export default function AnalyticsPage() {
             trend="+5.2%"
             trendType="up"
             icon={TrendingUp}
-            iconColor="text-blue-500"
-            iconBg="bg-blue-50"
+            iconColor="text-blue-500 dark:text-blue-400"
+            iconBg="bg-blue-50 dark:bg-blue-500/20"
             trendContext="vs last quarter"
           />
           <StatsCard 
@@ -53,8 +53,8 @@ export default function AnalyticsPage() {
             trend="-1.1%"
             trendType="down"
             icon={UserMinus}
-            iconColor="text-orange-500"
-            iconBg="bg-orange-50"
+            iconColor="text-orange-500 dark:text-orange-400"
+            iconBg="bg-orange-50 dark:bg-orange-500/20"
             trendContext="improvement"
           />
           <StatsCard 
@@ -63,8 +63,8 @@ export default function AnalyticsPage() {
             trend="+12.3%"
             trendType="up"
             icon={DollarSign}
-            iconColor="text-emerald-500"
-            iconBg="bg-emerald-50"
+            iconColor="text-emerald-500 dark:text-emerald-400"
+            iconBg="bg-emerald-50 dark:bg-emerald-500/20"
             trendContext="increase"
           />
         </div>

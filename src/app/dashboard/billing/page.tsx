@@ -15,8 +15,8 @@ export default function BillingPage() {
     <DashboardLayout>
       <div className="max-w-[1400px] mx-auto space-y-8 pb-10">
         <div>
-          <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mb-2">Billing & Invoices</h1>
-          <p className="text-slate-500 font-bold tracking-tight text-lg">Manage invoices and track payments</p>
+          <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-2">Billing & Invoices</h1>
+          <p className="text-slate-500 dark:text-slate-400 font-bold tracking-tight text-lg">Manage invoices and track payments</p>
         </div>
 
         {/* Stats Grid */}
@@ -27,8 +27,8 @@ export default function BillingPage() {
             trend="+12.5%"
             trendType="up"
             icon={DollarSign}
-            iconColor="text-emerald-600"
-            iconBg="bg-emerald-50"
+            iconColor="text-emerald-600 dark:text-emerald-400"
+            iconBg="bg-emerald-50 dark:bg-emerald-500/20"
           />
           <StatsCard
             title="Pending Payments"
@@ -36,8 +36,8 @@ export default function BillingPage() {
             trend="+8.5%"
             trendType="up"
             icon={Users}
-            iconColor="text-blue-600"
-            iconBg="bg-blue-50"
+            iconColor="text-blue-600 dark:text-blue-400"
+            iconBg="bg-blue-50 dark:bg-blue-500/20"
           />
           <StatsCard
             title="Total Invoices"
@@ -45,8 +45,8 @@ export default function BillingPage() {
             trend="+2 this week"
             trendType="up"
             icon={RefreshCcw}
-            iconColor="text-cyan-600"
-            iconBg="bg-cyan-50"
+            iconColor="text-cyan-600 dark:text-cyan-400"
+            iconBg="bg-cyan-50 dark:bg-cyan-500/20"
           />
         </div>
 

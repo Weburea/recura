@@ -43,21 +43,21 @@ export function SignIn() {
     }
   };
 
-  const inputClasses = "w-full px-6 py-4 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 transition-all text-gray-800 placeholder:text-gray-400 pl-12 shadow-sm";
-  const iconClasses = "absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5";
+  const inputClasses = "w-full px-6 py-4 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 dark:focus:border-purple-500 transition-all text-gray-800 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 pl-12 shadow-sm";
+  const iconClasses = "absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5";
 
   return (
     <div className="w-full">
       <div className="mb-8 text-center sm:text-left">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome back</h1>
-        <p className="text-gray-600">Start your experience with Recura by signing in or signing up</p>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Welcome back</h1>
+        <p className="text-gray-600 dark:text-gray-300">Start your experience with Recura by signing in or signing up</p>
       </div>
 
       <AuthTabs />
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div className="space-y-1">
-          <label htmlFor="email" className="text-sm font-medium text-gray-700 ml-1">Email</label>
+          <label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300 ml-1">Email</label>
           <div className="relative">
             <Mail className={iconClasses} />
             <input
@@ -73,7 +73,7 @@ export function SignIn() {
         </div>
 
         <div className="space-y-1">
-            <label htmlFor="password" className="text-sm font-medium text-gray-700 ml-1">Password</label>
+            <label htmlFor="password" className="text-sm font-medium text-gray-700 dark:text-gray-300 ml-1">Password</label>
             <div className="relative">
                 <Lock className={iconClasses} />
                 <input
@@ -98,10 +98,10 @@ export function SignIn() {
 
         <div className="flex items-center justify-between mt-2">
             <div className="flex items-center gap-2">
-                <input type="checkbox" id="remember" className="rounded border-gray-300 text-purple-600 focus:ring-purple-500 w-4 h-4 cursor-pointer" />
-                <label htmlFor="remember" className="text-sm text-gray-600 cursor-pointer user-select-none">Remember me</label>
+                <input type="checkbox" id="remember" className="rounded border-gray-300 dark:border-white/20 dark:bg-white/5 text-purple-600 focus:ring-purple-500 dark:focus:ring-offset-gray-900 w-4 h-4 cursor-pointer" />
+                <label htmlFor="remember" className="text-sm text-gray-600 dark:text-gray-300 cursor-pointer user-select-none">Remember me</label>
             </div>
-            <Link href="/forgot-password" className="text-sm font-medium text-gray-700 hover:text-purple-600 transition-colors">
+            <Link href="/forgot-password" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
                 Forgot Password?
             </Link>
         </div>
@@ -112,10 +112,10 @@ export function SignIn() {
 
         <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-200"></div>
+                <div className="w-full border-t border-gray-200 dark:border-white/10"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-                <span className="bg-white px-4 text-gray-500">Or continue with</span>
+                <span className="bg-white dark:bg-[#0D0518] px-4 text-gray-500 dark:text-gray-400">Or continue with</span>
             </div>
         </div>
 

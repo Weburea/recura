@@ -42,11 +42,11 @@ export function PlanDistribution() {
         {plans.map((plan, index) => (
           <div key={index} className="space-y-2">
             <div className="flex justify-between items-center text-sm font-bold">
-              <span className="text-slate-700">{plan.name}</span>
-              <span className="text-slate-900">{plan.percentage}%</span>
+              <span className="text-slate-700 dark:text-slate-300">{plan.name}</span>
+              <span className="text-slate-900 dark:text-white">{plan.percentage}%</span>
             </div>
             
-            <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+            <div className="h-2 w-full bg-slate-100 dark:bg-white/10 rounded-full overflow-hidden">
               <div 
                 className={cn(
                   "h-full rounded-full transition-all duration-1000 ease-out",
@@ -56,7 +56,7 @@ export function PlanDistribution() {
               />
             </div>
             
-            <div className="flex justify-between items-center text-xs font-bold text-slate-400">
+            <div className="flex justify-between items-center text-xs font-bold text-slate-400 dark:text-slate-500">
               <span>{plan.subscribers} subscribers</span>
               <span>{plan.revenue}</span>
             </div>

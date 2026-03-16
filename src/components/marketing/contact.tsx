@@ -47,11 +47,11 @@ const mapMarkers = [
 
 export function Contact() {
   return (
-    <section className="py-24 bg-white relative overflow-hidden" id="contact">
+    <section className="py-24 bg-white dark:bg-transparent relative overflow-hidden" id="contact">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 max-w-3xl mx-auto">
-          <h2 className="section-title text-dark">Contact Us</h2>
-          <p className="section-description text-gray-600 mx-auto">
+          <h2 className="section-title text-dark dark:text-white">Contact Us</h2>
+          <p className="section-description text-gray-600 dark:text-slate-300 mx-auto">
             Have a question or need support? Our team is ready to help you get the most out of Recura.
           </p>
         </div>
@@ -66,7 +66,7 @@ export function Contact() {
                   type="text"
                   id="name"
                   placeholder="Name"
-                  className="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/50 transition-all text-gray-800 placeholder:text-gray-400"
+                  className="w-full px-6 py-4 bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/50 transition-all text-gray-800 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
                 />
               </div>
               
@@ -76,7 +76,7 @@ export function Contact() {
                   type="email"
                   id="email"
                   placeholder="Email"
-                  className="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/50 transition-all text-gray-800 placeholder:text-gray-400"
+                  className="w-full px-6 py-4 bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/50 transition-all text-gray-800 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
                 />
               </div>
 
@@ -86,7 +86,7 @@ export function Contact() {
                   type="text"
                   id="subject"
                   placeholder="Subject"
-                  className="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/50 transition-all text-gray-800 placeholder:text-gray-400"
+                  className="w-full px-6 py-4 bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/50 transition-all text-gray-800 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
                 />
               </div>
 
@@ -96,7 +96,7 @@ export function Contact() {
                   id="message"
                   rows={4}
                   placeholder="Message"
-                  className="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/50 transition-all text-gray-800 placeholder:text-gray-400 resize-none"
+                  className="w-full px-6 py-4 bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/50 transition-all text-gray-800 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 resize-none"
                 ></textarea>
               </div>
 

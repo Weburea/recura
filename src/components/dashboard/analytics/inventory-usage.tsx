@@ -46,18 +46,18 @@ export function InventoryUsage() {
         {data.map((item, index) => (
           <div key={index} className="space-y-2">
             <div className="flex justify-between items-center text-sm font-bold">
-              <span className="text-purple-600">{item.name}</span>
-              <span className="text-slate-900">{item.percentage}%</span>
+              <span className="text-purple-600 dark:text-purple-400">{item.name}</span>
+              <span className="text-slate-900 dark:text-white">{item.percentage}%</span>
             </div>
             
-            <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+            <div className="h-2 w-full bg-slate-100 dark:bg-white/10 rounded-full overflow-hidden">
               <div 
                 className="h-full bg-purple-500 rounded-full transition-all duration-1000 ease-out"
                 style={{ width: `${item.percentage}%` }}
               />
             </div>
             
-            <div className="flex justify-between items-center text-xs font-bold text-slate-400">
+            <div className="flex justify-between items-center text-xs font-bold text-slate-400 dark:text-slate-500">
               <span>{item.sold} sold</span>
               <span>{item.stock} in stock</span>
             </div>

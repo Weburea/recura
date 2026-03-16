@@ -10,13 +10,13 @@ export function AuthTabs() {
   const isSignIn = pathname === '/sign-in';
 
   return (
-    <div className="flex w-full mb-8 border border-gray-200 rounded-lg p-1 bg-white">
+    <div className="flex w-full mb-8 border border-gray-200 dark:border-white/10 rounded-lg p-1 bg-white dark:bg-white/5">
       <Link 
         href="/sign-up" 
         className={`flex-1 text-center py-2.5 rounded-md text-sm font-medium transition-all ${
           isSignUp 
             ? 'bg-purple-600 text-white shadow-md' 
-            : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+            : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-white/5'
         }`}
       >
         Sign Up
@@ -26,7 +26,7 @@ export function AuthTabs() {
         className={`flex-1 text-center py-2.5 rounded-md text-sm font-medium transition-all ${
           isSignIn 
             ? 'bg-purple-600 text-white shadow-md' 
-            : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+            : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-white/5'
         }`}
       >
         Sign In

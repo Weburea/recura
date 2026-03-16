@@ -18,8 +18,8 @@ export default function DashboardPage() {
     <DashboardLayout>
       <div className="max-w-[1400px] mx-auto space-y-8">
         <div>
-          <h1 className="text-3xl font-extrabold text-slate-900 mb-1">Welcome back, Business Owner</h1>
-          <p className="text-slate-500 font-bold">Here&apos;s what&apos;s happening with your business today.</p>
+          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-1">Welcome back, Business Owner</h1>
+          <p className="text-slate-500 dark:text-slate-400 font-bold">Here&apos;s what&apos;s happening with your business today.</p>
         </div>
 
         {/* Stats Grid */}
@@ -30,8 +30,8 @@ export default function DashboardPage() {
             trend="+12.5%"
             trendType="up"
             icon={DollarSign}
-            iconColor="text-emerald-600"
-            iconBg="bg-emerald-50"
+            iconColor="text-emerald-600 dark:text-emerald-400"
+            iconBg="bg-emerald-50 dark:bg-emerald-500/20"
           />
           <StatsCard
             title="Active Subscriptions"
@@ -39,8 +39,8 @@ export default function DashboardPage() {
             trend="+8.5%"
             trendType="up"
             icon={Users}
-            iconColor="text-blue-600"
-            iconBg="bg-blue-50"
+            iconColor="text-blue-600 dark:text-blue-400"
+            iconBg="bg-blue-50 dark:bg-blue-500/20"
           />
           <StatsCard
             title="Monthly Recurring Revenue"
@@ -48,8 +48,8 @@ export default function DashboardPage() {
             trend="+15.3%"
             trendType="up"
             icon={RefreshCcw}
-            iconColor="text-cyan-600"
-            iconBg="bg-cyan-50"
+            iconColor="text-cyan-600 dark:text-cyan-400"
+            iconBg="bg-cyan-50 dark:bg-cyan-500/20"
           />
           <StatsCard
             title="Low Inventory Alerts"
@@ -57,8 +57,8 @@ export default function DashboardPage() {
             trend="-3 items"
             trendType="down"
             icon={AlertTriangle}
-            iconColor="text-rose-600"
-            iconBg="bg-rose-50"
+            iconColor="text-rose-600 dark:text-rose-400"
+            iconBg="bg-rose-50 dark:bg-rose-500/20"
           />
         </div>
 

@@ -3,9 +3,9 @@ import Image from "next/image";
 
 const Integration = () => {
   return (
-    <section className="relative w-full py-20 overflow-hidden bg-white">
+    <section className="relative w-full py-20 overflow-hidden bg-white dark:bg-transparent">
       {/* Background Gradient / Glow - Adjusted for light theme */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-purple-200/40 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-purple-200/40 dark:bg-purple-900/20 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
@@ -15,9 +15,9 @@ const Integration = () => {
               Streamline Operations And Experience
             </span>
             <br />
-            <span className="text-slate-900">The Benefits Of Recura Workflow</span>
+            <span className="text-slate-900 dark:text-white">The Benefits Of Recura Workflow</span>
           </h2>
-          <p className="section-description text-gray-600 mb-8">
+          <p className="section-description text-gray-600 dark:text-slate-300 mb-8">
             Connect effortlessly with the Recura Ecosystem and other external
             apps, streamlining your workflows and unlocking endless possibilities
             for your billing processes.
@@ -43,7 +43,7 @@ const Integration = () => {
                 height={90}
                 className="relative z-10 drop-shadow-[0_0_15px_rgba(99,91,255,0.5)]"
               />
-              <span className="text-gray-500 font-medium text-sm whitespace-nowrap">Payment Sync</span>
+              <span className="text-gray-500 dark:text-slate-400 font-medium text-sm whitespace-nowrap">Payment Sync</span>
             </div>
 
             {/* GitHub (Mid-High Left) */}
@@ -53,9 +53,9 @@ const Integration = () => {
                 alt="GitHub"
                 width={90}
                 height={90}
-                 className="relative z-10 drop-shadow-[0_0_15px_rgba(0,0,0,0.2)]"
+                 className="relative z-10 drop-shadow-[0_0_15px_rgba(0,0,0,0.2)] dark:drop-shadow-[0_0_15px_rgba(255,255,255,0.2)] dark:invert"
               />
-              <span className="text-gray-500 font-medium text-sm whitespace-nowrap">Code Tracking</span>
+              <span className="text-gray-500 dark:text-slate-400 font-medium text-sm whitespace-nowrap">Code Tracking</span>
             </div>
 
             {/* Jira (Mid-Low Left) */}
@@ -67,7 +67,7 @@ const Integration = () => {
                 height={90}
                  className="relative z-10 drop-shadow-[0_0_15px_rgba(38,132,255,0.5)]"
               />
-              <span className="text-gray-500 font-medium text-sm whitespace-nowrap">Task Sync</span>
+              <span className="text-gray-500 dark:text-slate-400 font-medium text-sm whitespace-nowrap">Task Sync</span>
             </div>
 
             {/* Monday (Low Left) */}
@@ -79,7 +79,7 @@ const Integration = () => {
                 height={90}
                  className="relative z-10 drop-shadow-[0_0_15px_rgba(255,204,0,0.4)]"
               />
-              <span className="text-gray-500 font-medium text-sm whitespace-nowrap">Data Insights</span>
+              <span className="text-gray-500 dark:text-slate-400 font-medium text-sm whitespace-nowrap">Data Insights</span>
             </div>
 
             {/* --- Center Hub --- */}
@@ -109,7 +109,7 @@ const Integration = () => {
                 height={90}
                  className="relative z-10 drop-shadow-[0_0_15px_rgba(255,99,71,0.4)]"
               />
-              <span className="text-gray-500 font-medium text-sm whitespace-nowrap">Customer Support</span>
+              <span className="text-gray-500 dark:text-slate-400 font-medium text-sm whitespace-nowrap">Customer Support</span>
             </div>
 
             {/* Slack (Mid-Low Right) - "Workflow Sync" */}
@@ -121,7 +121,7 @@ const Integration = () => {
                 height={90}
                  className="relative z-10 drop-shadow-[0_0_15px_rgba(74,21,75,0.5)]"
               />
-              <span className="text-gray-500 font-medium text-sm whitespace-nowrap">Workflow Sync</span>
+              <span className="text-gray-500 dark:text-slate-400 font-medium text-sm whitespace-nowrap">Workflow Sync</span>
             </div>
 
             {/* OpenAI (Mid-High Right) - "Smart Automation" */}
@@ -133,7 +133,7 @@ const Integration = () => {
                 height={90}
                  className="relative z-10 drop-shadow-[0_0_15px_rgba(16,163,127,0.4)]"
               />
-              <span className="text-gray-500 font-medium text-sm whitespace-nowrap">Smart Automation</span>
+              <span className="text-gray-500 dark:text-slate-400 font-medium text-sm whitespace-nowrap">Smart Automation</span>
             </div>
 
             {/* Trello (Top Right) - "Instant Alerts" */}
@@ -145,7 +145,7 @@ const Integration = () => {
                 height={90}
                  className="relative z-10 drop-shadow-[0_0_15px_rgba(0,121,191,0.5)]"
               />
-              <span className="text-gray-500 font-medium text-sm whitespace-nowrap">Instant Alerts</span>
+              <span className="text-gray-500 dark:text-slate-400 font-medium text-sm whitespace-nowrap">Instant Alerts</span>
             </div>
 
           </div>
@@ -177,10 +177,10 @@ const Integration = () => {
 
 const MobileIntegrationItem = ({ icon, label }: { icon: string; label: string }) => (
   <div className="flex flex-col items-center gap-2 group">
-    <div className="w-16 h-16 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-lg group-hover:border-purple-500/50 transition-colors">
-      <Image src={icon} alt={label} width={40} height={40} className="w-10 h-10 object-contain" />
+    <div className="w-16 h-16 rounded-full bg-white dark:bg-white/10 border border-gray-200 dark:border-white/20 flex items-center justify-center shadow-lg group-hover:border-purple-500/50 transition-colors">
+      <Image src={icon} alt={label} width={40} height={40} className={`w-10 h-10 object-contain ${label === "Code Tracking" ? "dark:invert" : ""}`} />
     </div>
-    <span className="text-sm text-gray-600 font-medium">{label}</span>
+    <span className="text-sm text-gray-600 dark:text-slate-300 font-medium">{label}</span>
   </div>
 );
 

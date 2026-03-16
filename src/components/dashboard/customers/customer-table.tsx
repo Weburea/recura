@@ -177,7 +177,7 @@ export function CustomerTable() {
   };
 
   return (
-    <div className="dashboard-card bg-white border border-slate-100 rounded-3xl p-0 overflow-hidden shadow-sm">
+    <div className="dashboard-card bg-white dark:bg-[#150a2e] border border-slate-100 dark:border-white/10 rounded-3xl p-0 overflow-hidden shadow-sm">
       {/* Header with Search and Actions */}
       <div className="p-8 pb-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
@@ -239,8 +239,8 @@ export function CustomerTable() {
                 className={cn(
                   "px-5 py-2.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap",
                   isActive 
-                    ? "bg-purple-50 text-purple-600 shadow-sm shadow-purple-100" 
-                    : "bg-transparent text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+                    ? "bg-purple-50 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 shadow-sm shadow-purple-100 dark:shadow-none" 
+                    : "bg-transparent text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white"
                 )}
               >
                 {label === "All" ? "All Customers" : label} ({count})
@@ -250,7 +250,7 @@ export function CustomerTable() {
         </div>
       </div>
 
-      <div className="table-container border-t border-slate-50">
+      <div className="table-container border-t border-slate-50 dark:border-white/5">
         <table className="w-full">
           <thead>
             <tr>
@@ -279,7 +279,7 @@ export function CustomerTable() {
             </tr>
           </thead>
           <tbody className={cn(
-            "divide-y divide-slate-50 transition-opacity duration-200",
+            "divide-y divide-slate-50 dark:divide-white/5 transition-opacity duration-200",
             isTransitioning ? "opacity-0" : "opacity-100"
           )}>
             {paginatedCustomers.map((customer) => {
@@ -305,7 +305,7 @@ export function CustomerTable() {
                   </td>
                   <td className="table-data-cell">
                     <div className="flex items-center gap-3">
-                    <div className="relative w-8 h-8 rounded-full overflow-hidden bg-slate-100">
+                    <div className="relative w-8 h-8 rounded-full overflow-hidden bg-slate-100 dark:bg-white/10">
                       <Image 
                         src={customer.avatar} 
                         alt={customer.name} 
@@ -313,10 +313,10 @@ export function CustomerTable() {
                         className="object-cover"
                       />
                     </div>
-                    <span className="font-bold text-slate-900 capitalize">{customer.name}</span>
+                    <span className="font-bold text-slate-900 dark:text-white capitalize">{customer.name}</span>
                   </div>
                 </td>
-                <td className="table-data-cell font-bold text-slate-500 lowercase">{customer.email}</td>
+                <td className="table-data-cell font-bold text-slate-500 dark:text-slate-400 lowercase">{customer.email}</td>
                 <td className="table-data-cell">
                   <span className={cn(
                     "status-badge",
@@ -325,14 +325,14 @@ export function CustomerTable() {
                     {customer.status}
                   </span>
                 </td>
-                <td className="table-data-cell font-bold text-slate-600">{customer.plan}</td>
-                <td className="table-data-cell font-bold text-slate-900">{customer.spent}</td>
-                <td className="table-data-cell font-bold text-slate-500">{customer.lastActivity}</td>
+                <td className="table-data-cell font-bold text-slate-600 dark:text-slate-300">{customer.plan}</td>
+                <td className="table-data-cell font-bold text-slate-900 dark:text-white">{customer.spent}</td>
+                <td className="table-data-cell font-bold text-slate-500 dark:text-slate-400">{customer.lastActivity}</td>
                 <td className="table-data-cell relative">
                   <div className="flex items-center gap-3">
                     <Link 
                       href={`/dashboard/customers/${customer.id}`}
-                      className="px-5 py-1.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 transition-all cursor-pointer"
+                      className="px-5 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-all cursor-pointer"
                     >
                       View Profile
                     </Link>
@@ -351,25 +351,25 @@ export function CustomerTable() {
                   {activeMenuId === customer.id && (
                     <div 
                       ref={menuRef}
-                      className="absolute top-[70%] right-10 w-52 bg-white border border-slate-100 rounded-2xl shadow-xl shadow-purple-500/10 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200"
+                      className="absolute top-[70%] right-10 w-52 bg-white dark:bg-[#150a2e] border border-slate-100 dark:border-white/10 rounded-2xl shadow-xl shadow-purple-500/10 dark:shadow-purple-900/40 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200"
                     >
                       <Link 
                         href={`/dashboard/customers/${customer.id}`}
-                        className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 flex items-center gap-3 transition-colors text-left cursor-pointer"
+                        className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white flex items-center gap-3 transition-colors text-left cursor-pointer"
                       >
                         <Eye className="w-4 h-4 text-slate-400" />
                         View Profile
                       </Link>
-                      <button className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 flex items-center gap-3 transition-colors text-left cursor-pointer">
+                      <button className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white flex items-center gap-3 transition-colors text-left cursor-pointer">
                         <FileEdit className="w-4 h-4 text-slate-400" />
                         Edit Customer
                       </button>
-                      <button className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 flex items-center gap-3 transition-colors text-left cursor-pointer">
+                      <button className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white flex items-center gap-3 transition-colors text-left cursor-pointer">
                         <Mail className="w-4 h-4 text-slate-400" />
                         Send Message
                       </button>
-                      <div className="h-[1px] bg-slate-50 my-1 mx-2" />
-                      <button className="w-full px-4 py-2.5 text-sm font-bold text-rose-600 hover:bg-rose-50 flex items-center gap-3 transition-colors text-left cursor-pointer">
+                      <div className="h-[1px] bg-slate-50 dark:bg-white/5 my-1 mx-2" />
+                      <button className="w-full px-4 py-2.5 text-sm font-bold text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-500/10 flex items-center gap-3 transition-colors text-left cursor-pointer">
                         <Trash2 className="w-4 h-4 text-rose-500" />
                         Delete Customer
                       </button>
@@ -385,13 +385,13 @@ export function CustomerTable() {
         {/* Empty State */}
         {!isTransitioning && paginatedCustomers.length === 0 && (
           <div className="p-20 text-center">
-            <p className="text-slate-400 font-bold">No customers found.</p>
+            <p className="text-slate-400 dark:text-slate-500 font-bold">No customers found.</p>
           </div>
         )}
       </div>
 
       {/* Pagination */}
-      <div className="p-8 border-t border-slate-50 flex items-center justify-center">
+      <div className="p-8 border-t border-slate-50 dark:border-white/5 flex items-center justify-center">
         <div className="flex items-center gap-2">
           <button 
             onClick={() => handlePageChange(currentPage - 1)}

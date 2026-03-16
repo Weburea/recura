@@ -23,8 +23,8 @@ export function SettingsSidebar() {
   const pathname = usePathname()
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 p-6">
-      <h2 className="text-lg font-bold text-slate-900 mb-4 px-2 tracking-tight">Plan Distribution</h2>
+    <div className="bg-white dark:bg-[#150a2e] rounded-2xl border border-gray-100 dark:border-white/10 p-6">
+      <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4 px-2 tracking-tight">Settings</h2>
       
       <nav className="space-y-1">
         {settingsNav.map((item) => {
@@ -38,8 +38,8 @@ export function SettingsSidebar() {
               className={cn(
                 "flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 group font-bold text-[15px] tracking-tight",
                 isActive 
-                  ? "bg-purple-50 text-purple-600" 
-                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  ? "bg-purple-50 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400" 
+                  : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white"
               )}
             >
               <item.icon className={cn(

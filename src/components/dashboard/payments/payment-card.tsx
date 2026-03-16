@@ -43,10 +43,10 @@ export function PaymentCard({
       case "apple-pay":
         return {
           background: "#ffffff",
-          textColor: "text-slate-900",
+          textColor: "text-slate-900 dark:text-white",
           logo: null,
           chip: "/images/payment/sim.svg",
-          className: "bg-white border border-slate-100 shadow-sm"
+          className: "bg-white dark:bg-slate-800 border border-slate-100 dark:border-white/10 shadow-sm"
         }
     }
   }
@@ -65,7 +65,7 @@ export function PaymentCard({
         <div className="flip-card-inner">
           {/* Front Side */}
           <div className={cn(
-            "flip-card-front p-6 flex flex-col justify-between overflow-hidden",
+            "flip-card-front p-6 flex flex-col justify-between overflow-hidden rounded-3xl",
             styles.className
           )}>
             {/* Background elements (waves/patterns if possible, otherwise simple) */}
@@ -128,7 +128,7 @@ export function PaymentCard({
 
           {/* Back Side */}
           <div className={cn(
-            "flip-card-back p-6 flex flex-col justify-between overflow-hidden",
+            "flip-card-back p-6 flex flex-col justify-between overflow-hidden rounded-3xl",
             styles.className
           )}>
             <div className="absolute top-8 left-0 w-full h-10 bg-slate-900 opacity-80" />
@@ -151,15 +151,15 @@ export function PaymentCard({
       {/* Label/Status below card */}
       <div className="flex items-center justify-between px-1">
         <div>
-          <p className="font-black text-slate-900 text-sm">
+          <p className="font-black text-slate-900 dark:text-white text-sm">
             {type === "credit-card" ? "Credit Card" : 
              type === "bank-transfer" ? "Bank Transfer" : "Apple Pay"}
           </p>
           {activeCustomers && (
-            <p className="text-xs font-bold text-slate-400">{activeCustomers} Active Customers</p>
+            <p className="text-xs font-bold text-slate-400 dark:text-slate-500">{activeCustomers} Active Customers</p>
           )}
         </div>
-        <div className="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center">
+        <div className="w-8 h-8 rounded-full bg-slate-50 dark:bg-white/10 border border-slate-100 dark:border-white/20 flex items-center justify-center">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
         </div>
       </div>

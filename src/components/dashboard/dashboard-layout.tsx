@@ -9,7 +9,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false)
 
   return (
-    <div className="min-h-screen bg-[#F8F9FC]">
+    <div className="min-h-screen bg-[#F8F9FC] dark:bg-transparent">
       <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       
       {/* Overlay for mobile */}
@@ -22,7 +22,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
       <div className="lg:pl-[250px] flex flex-col min-h-screen">
         <TopBar onMenuClick={() => setIsSidebarOpen(true)} />
-        <main className="flex-1 p-4 md:p-10">
+        <main className="flex-1 p-4 md:p-8">
           {children}
         </main>
         <DashboardFooter />

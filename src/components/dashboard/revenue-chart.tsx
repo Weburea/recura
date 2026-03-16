@@ -34,7 +34,7 @@ export function RevenueChart() {
           </button>
           
           {isDropdownOpen && (
-            <div className="absolute right-0 mt-2 w-32 bg-white border border-slate-100 rounded-2xl shadow-xl z-30 py-2 overflow-hidden">
+            <div className="absolute right-0 mt-2 w-32 bg-white dark:bg-[#150a2e] border border-slate-100 dark:border-white/10 rounded-2xl shadow-xl z-30 py-2 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
               {Object.keys(yearData).sort().reverse().map((year) => (
                 <button
                   key={year}
@@ -43,8 +43,8 @@ export function RevenueChart() {
                     setIsDropdownOpen(false)
                   }}
                   className={cn(
-                    "w-full text-left px-4 py-2 text-sm font-bold transition-colors hover:bg-purple-50",
-                    selectedYear === year ? "text-purple-600 bg-purple-50/50" : "text-slate-600"
+                    "w-full text-left px-4 py-2 text-sm font-bold transition-colors hover:bg-purple-50 dark:hover:bg-purple-500/10",
+                    selectedYear === year ? "text-purple-600 dark:text-purple-400 bg-purple-50/50 dark:bg-purple-500/20" : "text-slate-600 dark:text-slate-400"
                   )}
                 >
                   {year}
@@ -61,7 +61,7 @@ export function RevenueChart() {
           <div key={i} className="flex-1 flex flex-col items-center gap-6 group h-full justify-end">
             <div className="relative w-full flex flex-col justify-end h-full min-h-[1px]">
                {/* Background bar track */}
-               <div className="absolute inset-0 bg-slate-50/50 rounded-lg w-full" />
+               <div className="absolute inset-0 bg-slate-50/50 dark:bg-white/5 rounded-lg w-full" />
                
                {/* Actual data bar */}
               <div 

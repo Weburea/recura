@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Eye, EyeOff, Check, X, User, Mail, Lock } from 'lucide-react';
 import { AuthTabs } from './auth-tabs';
@@ -64,22 +63,22 @@ export function SignUp() {
     }
   };
 
-  const inputClasses = "w-full px-6 py-4 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 transition-all text-gray-800 placeholder:text-gray-400 pl-12 shadow-sm";
-  const iconClasses = "absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5";
+  const inputClasses = "w-full px-6 py-4 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 dark:focus:border-purple-500 transition-all text-gray-800 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 pl-12 shadow-sm";
+  const iconClasses = "absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5";
 
   return (
     <div className="w-full">
       <div className="mb-8 text-center sm:text-left">
          {/* Logo moved to AuthLayout */}
-         <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome</h1>
-         <p className="text-gray-600">Join thousands of teams managing their workflow with ease</p>
+         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Welcome</h1>
+         <p className="text-gray-600 dark:text-gray-300">Join thousands of teams managing their workflow with ease</p>
       </div>
 
       <AuthTabs />
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div className="space-y-1">
-          <label htmlFor="fullName" className="text-sm font-medium text-gray-700 ml-1">Full Name</label>
+          <label htmlFor="fullName" className="text-sm font-medium text-gray-700 dark:text-gray-300 ml-1">Full Name</label>
           <div className="relative">
             <User className={iconClasses} />
             <input
@@ -98,7 +97,7 @@ export function SignUp() {
         </div>
 
         <div className="space-y-1">
-          <label htmlFor="email" className="text-sm font-medium text-gray-700 ml-1">Email</label>
+          <label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300 ml-1">Email</label>
           <div className="relative">
             <Mail className={iconClasses} />
             <input
@@ -114,7 +113,7 @@ export function SignUp() {
         </div>
 
         <div className="space-y-1">
-            <label htmlFor="password" className="text-sm font-medium text-gray-700 ml-1">Password</label>
+            <label htmlFor="password" className="text-sm font-medium text-gray-700 dark:text-gray-300 ml-1">Password</label>
             <div className="relative">
                 <Lock className={iconClasses} />
                 <input
@@ -135,32 +134,31 @@ export function SignUp() {
                 </button>
             </div>
              
-             {/* Dynamic Password Strength Indicator Bars */}
              <div className="flex gap-2 mt-3">
-                <div className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${formData.password.length > 0 ? (passwordValidations.minLength || passwordValidations.hasNumber || passwordValidations.hasSpecialChar ? 'bg-green-500' : 'bg-green-500') : 'bg-gray-200'}`}></div>
-                <div className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${formData.password.length > 0 && (Number(passwordValidations.minLength) + Number(passwordValidations.hasNumber) + Number(passwordValidations.hasSpecialChar) >= 2) ? 'bg-green-500' : 'bg-gray-200'}`}></div>
-                <div className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${formData.password.length > 0 && passwordValidations.minLength && passwordValidations.hasNumber && passwordValidations.hasSpecialChar ? 'bg-green-500' : 'bg-gray-200'}`}></div>
+                <div className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${formData.password.length > 0 ? (passwordValidations.minLength || passwordValidations.hasNumber || passwordValidations.hasSpecialChar ? 'bg-green-500' : 'bg-green-500') : 'bg-gray-200 dark:bg-gray-700'}`}></div>
+                <div className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${formData.password.length > 0 && (Number(passwordValidations.minLength) + Number(passwordValidations.hasNumber) + Number(passwordValidations.hasSpecialChar) >= 2) ? 'bg-green-500' : 'bg-gray-200 dark:bg-gray-700'}`}></div>
+                <div className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${formData.password.length > 0 && passwordValidations.minLength && passwordValidations.hasNumber && passwordValidations.hasSpecialChar ? 'bg-green-500' : 'bg-gray-200 dark:bg-gray-700'}`}></div>
             </div>
 
             <ul className="text-sm space-y-1 mt-2">
-                <li className={`flex items-center gap-2 transition-colors ${passwordValidations.hasSpecialChar ? 'text-green-600' : 'text-gray-500'}`}>
+                <li className={`flex items-center gap-2 transition-colors ${passwordValidations.hasSpecialChar ? 'text-green-600' : 'text-gray-500 dark:text-gray-400'}`}>
                     {passwordValidations.hasSpecialChar ? <Check className="w-4 h-4" /> : <Check className="w-4 h-4 text-transparent" />} {/* Keeping layout stable */}
-                    <span className={passwordValidations.hasSpecialChar ? "" : "text-gray-500"}>At least one special character</span>
+                    <span className={passwordValidations.hasSpecialChar ? "" : "text-gray-500 dark:text-gray-400"}>At least one special character</span>
                 </li>
-                 <li className={`flex items-center gap-2 transition-colors ${passwordValidations.minLength ? 'text-green-600' : 'text-gray-500'}`}>
+                 <li className={`flex items-center gap-2 transition-colors ${passwordValidations.minLength ? 'text-green-600' : 'text-gray-500 dark:text-gray-400'}`}>
                     {passwordValidations.minLength ? <Check className="w-4 h-4" /> : <Check className="w-4 h-4 text-transparent" />}
-                    <span className={passwordValidations.minLength ? "" : "text-gray-500"}>8 - 20 Characters</span>
+                    <span className={passwordValidations.minLength ? "" : "text-gray-500 dark:text-gray-400"}>8 - 20 Characters</span>
                 </li>
-                 <li className={`flex items-center gap-2 transition-colors ${passwordValidations.hasNumber ? 'text-green-600' : 'text-gray-500'}`}>
+                 <li className={`flex items-center gap-2 transition-colors ${passwordValidations.hasNumber ? 'text-green-600' : 'text-gray-500 dark:text-gray-400'}`}>
                     {passwordValidations.hasNumber ? <Check className="w-4 h-4" /> : <Check className="w-4 h-4 text-transparent" />}
-                    <span className={passwordValidations.hasNumber ? "" : "text-gray-500"}>Contain number</span>
+                    <span className={passwordValidations.hasNumber ? "" : "text-gray-500 dark:text-gray-400"}>Contain number</span>
                 </li>
             </ul>
         </div>
         
 
         <div className="space-y-1">
-          <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700 ml-1">Confirm Password</label>
+          <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700 dark:text-gray-300 ml-1">Confirm Password</label>
           <div className="relative">
              <Lock className={iconClasses} />
             <input
@@ -193,10 +191,10 @@ export function SignUp() {
 
         <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-200"></div>
+                <div className="w-full border-t border-gray-200 dark:border-white/10"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-                <span className="bg-white px-4 text-gray-500">Or continue with</span>
+                <span className="bg-white dark:bg-[#0D0518] px-4 text-gray-500 dark:text-gray-400">Or continue with</span>
             </div>
         </div>
 

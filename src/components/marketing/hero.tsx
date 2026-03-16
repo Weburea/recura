@@ -1,17 +1,16 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
 export function Hero() {
   return (
-    <section className="relative bg-white pt-32 pb-20 overflow-hidden">
+    <section className="relative bg-white dark:bg-transparent pt-32 pb-20 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/landing/line_bg.png"
           alt="Background Pattern"
           fill
-          className="object-cover opacity-80 pointer-events-none"
+          className="object-cover opacity-80 dark:opacity-30 pointer-events-none"
           priority
         />
       </div>
@@ -28,22 +27,22 @@ export function Hero() {
         </h1>
 
         {/* Subheadline */}
-        <p className="text-lg text-slate-600 mb-10 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-lg text-slate-600 dark:text-slate-300 mb-10 max-w-3xl mx-auto leading-relaxed">
           Master your financial operations with a unified platform that integrates efficient invoicing, flexible subscription management, and full tax regulatory compliance
         </p>
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 px-4">
-          <Link href="/start-trial" className="w-full sm:w-auto">
+          <div className="w-full sm:w-auto">
             <Button variant="brand" className="w-full px-8 py-6 text-lg">
               Start your free trial
             </Button>
-          </Link>
-          <Link href="/demo" className="w-full sm:w-auto">
+          </div>
+          <div className="w-full sm:w-auto">
             <Button variant="outline-brand" className="w-full px-8 py-6 text-lg">
               Request Demo
             </Button>
-          </Link>
+          </div>
         </div>
 
         {/* Dashboard Image Preview */}

@@ -10,16 +10,16 @@ const brands = [
 
 export function Brands() {
   return (
-    <section className="py-4 bg-white shadow-sm">
-      <div className="container mx-auto px-2  flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 border-y border-slate-200 bg-slate-50/50 ">
+    <section className="py-4 bg-white dark:bg-transparent shadow-sm dark:shadow-none">
+      <div className="container mx-auto px-2  flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 border-y border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 py-4">
         <div className="md:w-auto shrink-0">
-          <p className="text-slate-600 font-medium text-lg text-center md:text-left">
+          <p className="text-slate-600 dark:text-slate-300 font-medium text-lg text-center md:text-left">
             Trusted by businesses <br className="hidden md:inline" />
             worldwide
           </p>
         </div>
         
-        <div className="flex flex-wrap items-center justify-center md:justify-start gap-8 md:gap-12 opacity-80 mix-blend-multiply">
+        <div className="flex flex-wrap items-center justify-center md:justify-start gap-8 md:gap-12 opacity-80 mix-blend-multiply dark:mix-blend-normal dark:invert">
           {brands.map((brand) => (
             <div 
               key={brand.name} 

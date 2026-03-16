@@ -9,8 +9,7 @@ import type { Invoice } from "@/components/dashboard/billing/mock-data"
 interface InvoiceModalProps {
   isOpen: boolean
   onClose: () => void
-  invoice: Invoice | null
-  autoDownload?: boolean // Kept for compatibility but unused
+  invoice: Invoice
 }
 
 export function InvoiceModal({ isOpen, onClose, invoice }: InvoiceModalProps) {
@@ -19,7 +18,15 @@ export function InvoiceModal({ isOpen, onClose, invoice }: InvoiceModalProps) {
 
   React.useEffect(() => {
     setMounted(true)
-  }, [])
+    if (isOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = "unset"
+    }
+    return () => {
+      document.body.style.overflow = "unset"
+    }
+  }, [isOpen])
 
   const handlePrint = () => {
     window.print()
@@ -35,72 +42,43 @@ export function InvoiceModal({ isOpen, onClose, invoice }: InvoiceModalProps) {
 
   const modalContent = (
     <>
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style>{`
         @media print {
-          @page {
-            size: A4;
-            margin: 0;
+          body {
+             background: white !important;
+             margin: 0 !important;
+             padding: 0 !important;
           }
-          /* ABSOLUTE ISOLATION: Hide every direct child of body except our portal container */
-          body > *:not(.print-modal-container) {
-            display: none !important;
-          }
-          
-          html, body {
-            height: auto !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            background: white !important;
-            overflow: visible !important;
-          }
-          
-          .print-modal-container {
-            position: static !important;
-            display: block !important;
-            padding: 0 !important;
-            margin: 0 !important;
-            background: white !important;
-            z-index: auto !important;
-          }
-          
-          /* Reset modal container for print */
-          .print-modal-container > div {
-            box-shadow: none !important;
-            border: none !important;
-            margin: 0 !important;
-            max-height: none !important;
-            border-radius: 0 !important;
-            width: 100% !important;
-            display: block !important;
-            position: relative !important;
-          }
-          
-          [data-invoice-container] {
-            width: 100% !important;
-            padding: 0 !important;
-            background: white !important;
-          }
-          
           .no-print {
             display: none !important;
           }
-          
-          * {
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-            animation: none !important;
-            transition: none !important;
-            transform: none !important;
+          .print-area {
+            position: absolute !important;
+            left: 0 !important;
+            top: 0 !important;
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            visibility: visible !important;
+          }
+          header, footer, nav, .dashboard-sidebar, .dashboard-header {
+            display: none !important;
+          }
+          .print-modal-container {
+            background: white !important;
+            position: static !important;
+            display: block !important;
+            padding: 0 !important;
           }
         }
-      `}} />
+      `}</style>
       
-      <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm overflow-y-auto custom-scrollbar p-0 sm:p-2 print-modal-container">
+      <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm overflow-y-auto no-print print-modal-container px-0 sm:px-4">
         {/* Overlay Close Trigger */}
         <div className="fixed inset-0 z-0 print:hidden no-print" onClick={onClose} />
         
         {/* Modal Content - Refined Visual Weight */}
-        <div className="relative z-10 w-full max-w-5xl bg-white rounded-xl sm:rounded-2xl shadow-2xl animate-in fade-in slide-in-from-bottom sm:zoom-in duration-300 print:shadow-none print:rounded-none flex flex-col h-auto max-h-[98vh] sm:max-h-[96vh] my-0 print:my-0 print:w-full print:block">
+        <div className="relative z-10 w-full max-w-5xl bg-white rounded-xl sm:rounded-2xl shadow-2xl animate-in fade-in slide-in-from-bottom sm:zoom-in duration-300 print:shadow-none print:rounded-none flex flex-col h-auto max-h-[98vh] sm:max-h-[96vh] my-0 print:my-0 print:w-full print:block print-area">
           
           {/* Controls */}
           <div className="absolute top-3 right-3 sm:top-4 sm:right-6 flex items-center gap-2 z-[1100] print:hidden no-print">

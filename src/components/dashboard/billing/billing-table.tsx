@@ -5,20 +5,16 @@ import Image from "next/image"
 import { 
   Search, 
   ListFilter, 
-  Printer, 
   FileSpreadsheet, 
   Eye, 
-  Folder,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Printer
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { billingInvoices, type Invoice } from "./mock-data"
-import dynamic from "next/dynamic"
 
-const InvoiceModal = dynamic(() => import("@/components/dashboard/shared/invoice-modal").then(mod => mod.InvoiceModal), {
-  ssr: false,
-})
+import { InvoiceModal } from "@/components/dashboard/shared/modals/invoice-modal"
 
 const statusStyles = {
   Paid: "status-badge-active",
@@ -37,7 +33,6 @@ export function BillingTable() {
   // Invoice Modal State
   const [isModalOpen, setIsModalOpen] = React.useState(false)
   const [selectedInvoice, setSelectedInvoice] = React.useState<Invoice | null>(null)
-  const [autoDownload, setAutoDownload] = React.useState(false)
 
   const itemsPerPage = 6
 
@@ -81,7 +76,6 @@ export function BillingTable() {
   const handleViewInvoice = (invoice: Invoice) => {
     setSelectedInvoice(invoice)
     setIsModalOpen(true)
-    setAutoDownload(false)
   }
 
   const handlePrint = () => {
@@ -166,7 +160,7 @@ export function BillingTable() {
   }
 
   return (
-    <div className="dashboard-card bg-white border border-slate-100 rounded-3xl p-0 overflow-hidden shadow-sm">
+    <div className="dashboard-card bg-white dark:bg-[#150a2e] border border-slate-100 dark:border-white/10 rounded-3xl p-0 overflow-hidden shadow-sm">
       {/* Header */}
       <div className="p-8 pb-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
@@ -216,8 +210,8 @@ export function BillingTable() {
               className={cn(
                 "px-5 py-2.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap",
                 activeTab === label 
-                  ? "bg-purple-50 text-purple-600 shadow-sm shadow-purple-100" 
-                  : "bg-transparent text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+                  ? "bg-purple-50 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 shadow-sm shadow-purple-100 dark:shadow-none" 
+                  : "bg-transparent text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white"
               )}
             >
               {label} ({counts[label as keyof typeof counts]})
@@ -227,7 +221,7 @@ export function BillingTable() {
       </div>
 
       {/* Table */}
-      <div className="table-container border-t border-slate-50">
+      <div className="table-container border-t border-slate-50 dark:border-white/5">
         <table className="w-full">
           <thead>
             <tr>
@@ -257,7 +251,7 @@ export function BillingTable() {
             </tr>
           </thead>
           <tbody className={cn(
-            "divide-y divide-slate-50 transition-opacity duration-200",
+            "divide-y divide-slate-50 dark:divide-white/5 transition-opacity duration-200",
             isTransitioning ? "opacity-0" : "opacity-100"
           )}>
             {paginatedInvoices.map((invoice) => {
@@ -281,10 +275,10 @@ export function BillingTable() {
                       }}
                     />
                   </td>
-                  <td className="table-data-cell font-bold text-slate-900">{invoice.id}</td>
+                  <td className="table-data-cell font-bold text-slate-900 dark:text-white">{invoice.id}</td>
                   <td className="table-data-cell">
                     <div className="flex items-center gap-3">
-                      <div className="relative w-8 h-8 rounded-full overflow-hidden bg-slate-100 flex-shrink-0">
+                      <div className="relative w-8 h-8 rounded-full overflow-hidden bg-slate-100 dark:bg-white/10 flex-shrink-0">
                         {invoice.avatar ? (
                           <Image 
                             src={invoice.avatar} 
@@ -293,21 +287,21 @@ export function BillingTable() {
                             className="object-cover"
                           />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center bg-purple-100 text-purple-600 text-[10px] font-bold">
+                          <div className="w-full h-full flex items-center justify-center bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 text-[10px] font-bold">
                             {invoice.customer.charAt(0)}
                           </div>
                         )}
                       </div>
                       <div className="flex flex-col min-w-0">
-                        <span className="font-bold text-slate-900 truncate">{invoice.customer}</span>
-                        <span className="text-[10px] font-bold text-slate-400 lowercase truncate">{invoice.email}</span>
+                        <span className="font-bold text-slate-900 dark:text-white truncate">{invoice.customer}</span>
+                        <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 lowercase truncate">{invoice.email}</span>
                       </div>
                     </div>
                   </td>
-                  <td className="table-data-cell font-bold text-slate-600 hidden lg:table-cell">{invoice.plan}</td>
-                  <td className="table-data-cell font-bold text-slate-900">{invoice.amount}</td>
-                  <td className="table-data-cell font-bold text-slate-500 hidden md:table-cell">{invoice.date}</td>
-                  <td className="table-data-cell font-bold text-slate-500 hidden xl:table-cell">{invoice.dueDate}</td>
+                  <td className="table-data-cell font-bold text-slate-600 dark:text-slate-300 hidden lg:table-cell">{invoice.plan}</td>
+                  <td className="table-data-cell font-bold text-slate-900 dark:text-white">{invoice.amount}</td>
+                  <td className="table-data-cell font-bold text-slate-500 dark:text-slate-400 hidden md:table-cell">{invoice.date}</td>
+                  <td className="table-data-cell font-bold text-slate-500 dark:text-slate-400 hidden xl:table-cell">{invoice.dueDate}</td>
                   <td className="table-data-cell">
                     <span className={cn("status-badge", statusStyles[invoice.status as keyof typeof statusStyles])}>
                       {invoice.status}
@@ -334,12 +328,12 @@ export function BillingTable() {
         </table>
 
         {!isTransitioning && paginatedInvoices.length === 0 && (
-          <div className="p-20 text-center text-slate-400 font-bold">No invoices found.</div>
+          <div className="p-20 text-center text-slate-400 dark:text-slate-500 font-bold">No invoices found.</div>
         )}
       </div>
 
       {/* Pagination */}
-      <div className="p-8 border-t border-slate-50 flex items-center justify-center">
+      <div className="p-8 border-t border-slate-50 dark:border-white/5 flex items-center justify-center">
         <div className="flex items-center gap-2">
           <button 
             onClick={() => handlePageChange(currentPage - 1)}
@@ -374,10 +368,8 @@ export function BillingTable() {
         isOpen={isModalOpen} 
         onClose={() => {
           setIsModalOpen(false)
-          setAutoDownload(false)
         }} 
-        invoice={selectedInvoice} 
-        autoDownload={autoDownload}
+        invoice={selectedInvoice as Invoice} 
       />
     </div>
   )

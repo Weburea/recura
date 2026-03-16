@@ -6,10 +6,20 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
 });
 
+import { ThemeProvider } from "@/components/theme-provider";
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={plusJakartaSans.variable}>
-      <body className="antialiased font-sans">{children}</body>
+    <html lang="en" className={plusJakartaSans.variable} suppressHydrationWarning>
+      <body className="antialiased font-sans flex flex-col min-h-screen">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

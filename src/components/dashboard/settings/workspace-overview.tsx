@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 import NextImage from "next/image"
 import * as htmlToImage from 'html-to-image'
-import { StatusModal, StatusType } from "@/components/dashboard/shared/status-modal"
+import { StatusModal, StatusType } from "@/components/dashboard/shared/modals/status-modal"
 
 interface User {
   id: number;
@@ -131,9 +131,27 @@ export function WorkspaceOverview() {
       setProfileErrors({});
     }
 
+    // Dynamic messaging based on current active modal
+    let successTitle = "Changes Saved";
+    let successMessage = "Your workspace settings have been updated successfully.";
+
+    if (activeModal === 'users') {
+      successTitle = "Team Updated";
+      successMessage = "Team member configuration has been saved successfully.";
+    } else if (activeModal === 'roles') {
+      successTitle = "Roles Updated";
+      successMessage = "Workspace roles and permissions have been updated.";
+    } else if (activeModal === 'security') {
+      successTitle = "Security Updated";
+      successMessage = "Workspace security protocols have been reinforced.";
+    } else if (activeModal === 'billing') {
+      successTitle = "Billing Updated";
+      successMessage = "Payment provider and billing controls updated.";
+    }
+
     setStatusType("success");
-    setStatusTitle("Changes Saved");
-    setStatusMessage("Your workspace settings have been updated successfully.");
+    setStatusTitle(successTitle);
+    setStatusMessage(successMessage);
     setShowStatus(true);
     setActiveModal(null);
     setEditingUser(null);
@@ -242,35 +260,35 @@ export function WorkspaceOverview() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
         {/* Company Details Card */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-6 flex flex-col h-full">
+        <div className="bg-white dark:bg-[#150a2e] rounded-2xl border border-gray-100 dark:border-white/10 p-6 flex flex-col h-full">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center border border-gray-100">
-              <Building2 className="w-5 h-5 text-slate-600" />
+            <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-white/5 flex items-center justify-center border border-gray-100 dark:border-white/10">
+              <Building2 className="w-5 h-5 text-slate-600 dark:text-slate-400" />
             </div>
-            <h3 className="font-bold text-slate-900">Company Details</h3>
+            <h3 className="font-bold text-slate-900 dark:text-white">Company Details</h3>
           </div>
           <div className="space-y-4 flex-1">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-slate-500">Industry</span>
-              <span className="text-sm font-bold text-slate-900">{selectedIndustry}</span>
+              <span className="text-sm font-medium text-slate-500 dark:text-slate-400">Industry</span>
+              <span className="text-sm font-bold text-slate-900 dark:text-white">{selectedIndustry}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-slate-500">Phone No</span>
-              <span className="text-xs font-bold text-slate-900">+1 (555) 123-4567</span>
+              <span className="text-sm font-medium text-slate-500 dark:text-slate-400">Phone No</span>
+              <span className="text-xs font-bold text-slate-900 dark:text-white">+1 (555) 123-4567</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-slate-500">Website</span>
-              <span className="text-xs font-bold text-slate-900 tracking-tight">{profileData.website}</span>
+              <span className="text-sm font-medium text-slate-500 dark:text-slate-400">Website</span>
+              <span className="text-xs font-bold text-slate-900 dark:text-white tracking-tight">{profileData.website}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-slate-500">Address</span>
-              <span className="text-[10px] font-bold text-slate-900 text-right leading-tight max-w-[140px]">
+              <span className="text-sm font-medium text-slate-500 dark:text-slate-400">Address</span>
+              <span className="text-[10px] font-bold text-slate-900 dark:text-white text-right leading-tight max-w-[140px]">
                 {profileData.address}
               </span>
             </div>
-            <div className="flex items-center justify-between pt-2 border-t border-slate-50">
-              <span className="text-sm font-medium text-slate-500">Members</span>
-              <span className="text-sm font-bold text-slate-900">8 members</span>
+            <div className="flex items-center justify-between pt-2 border-t border-slate-50 dark:border-white/5">
+              <span className="text-sm font-medium text-slate-500 dark:text-slate-400">Members</span>
+              <span className="text-sm font-bold text-slate-900 dark:text-white">8 members</span>
             </div>
           </div>
           <button 
@@ -282,19 +300,19 @@ export function WorkspaceOverview() {
         </div>
 
         {/* Billing & Payments Card */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-6 flex flex-col h-full">
+        <div className="bg-white dark:bg-[#150a2e] rounded-2xl border border-gray-100 dark:border-white/10 p-6 flex flex-col h-full">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center border border-gray-100">
-                <Layout className="w-5 h-5 text-slate-600" />
+              <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-white/5 flex items-center justify-center border border-gray-100 dark:border-white/10">
+                <Layout className="w-5 h-5 text-slate-600 dark:text-slate-400" />
               </div>
-              <h3 className="font-bold text-slate-900">Billing & Payments</h3>
+              <h3 className="font-bold text-slate-900 dark:text-white">Billing & Payments</h3>
             </div>
           </div>
           <div className="space-y-4 flex-1">
             <div className="flex items-center justify-between">
               <div>
-                <h4 className="text-xl font-black text-slate-900 capitalize">{activeProvider}</h4>
+                <h4 className="text-xl font-black text-slate-900 dark:text-white capitalize">{activeProvider}</h4>
                 <div className="flex items-center gap-1 mt-0.5">
                   <div className={cn(
                     "w-1.5 h-1.5 rounded-full animate-pulse",
@@ -302,7 +320,7 @@ export function WorkspaceOverview() {
                   )} />
                   <span className={cn(
                     "text-[10px] font-bold tracking-tight",
-                    providersConfig[activeProvider].enabled ? "text-emerald-600" : "text-slate-400"
+                    providersConfig[activeProvider].enabled ? "text-emerald-600" : "text-slate-400 dark:text-slate-500"
                   )}>
                     {providersConfig[activeProvider].enabled ? 'Connected' : 'Disconnected'}
                   </span>
@@ -310,10 +328,10 @@ export function WorkspaceOverview() {
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-slate-500">Autobilling</span>
+              <span className="text-sm font-medium text-slate-500 dark:text-slate-400">Autobilling</span>
               <div className={cn(
                 "flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold rounded-lg",
-                isAutobillingEnabled ? "bg-purple-50 text-purple-700" : "bg-slate-100 text-slate-400"
+                isAutobillingEnabled ? "bg-purple-50 dark:bg-purple-500/20 text-purple-700 dark:text-purple-400" : "bg-slate-100 dark:bg-white/10 text-slate-400 dark:text-slate-500"
               )}>
                 {isAutobillingEnabled ? (
                   <>
@@ -329,25 +347,25 @@ export function WorkspaceOverview() {
               </div>
             </div>
             <div className="pt-2">
-              <span className="text-2xl font-black text-slate-900">$12,378.25</span>
-              <span className="text-xs font-medium text-slate-500 ml-2">revenue</span>
+              <span className="text-2xl font-black text-slate-900 dark:text-white">$12,378.25</span>
+              <span className="text-xs font-medium text-slate-500 dark:text-slate-400 ml-2">revenue</span>
             </div>
           </div>
           <button 
             onClick={() => setActiveModal('billing')}
-            className="w-full mt-6 py-2.5 rounded-xl border border-gray-100 bg-slate-50 text-slate-900 font-bold text-sm tracking-tight hover:bg-slate-100 transition-colors"
+            className="w-full mt-6 py-2.5 rounded-xl border border-gray-100 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-900 dark:text-white font-bold text-sm tracking-tight hover:bg-slate-100 dark:hover:bg-white/10 transition-colors"
           >
             Manage
           </button>
         </div>
 
         {/* Security Card */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-6 flex flex-col h-full">
+        <div className="bg-white dark:bg-[#150a2e] rounded-2xl border border-gray-100 dark:border-white/10 p-6 flex flex-col h-full">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center border border-gray-100">
-              <ShieldCheck className="w-5 h-5 text-slate-600" />
+            <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-white/5 flex items-center justify-center border border-gray-100 dark:border-white/10">
+              <ShieldCheck className="w-5 h-5 text-slate-600 dark:text-slate-400" />
             </div>
-            <h3 className="font-bold text-slate-900">Security</h3>
+            <h3 className="font-bold text-slate-900 dark:text-white">Security</h3>
           </div>
           <div className="space-y-4 flex-1">
             <div className="flex items-center justify-between">
@@ -375,24 +393,24 @@ export function WorkspaceOverview() {
         </div>
 
         {/* Users & Permissions Card */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-6 flex flex-col h-full lg:col-span-1">
+        <div className="bg-white dark:bg-[#150a2e] rounded-2xl border border-gray-100 dark:border-white/10 p-6 flex flex-col h-full lg:col-span-1">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center border border-gray-100">
-              <Users className="w-5 h-5 text-slate-600" />
+            <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-white/5 flex items-center justify-center border border-gray-100 dark:border-white/10">
+              <Users className="w-5 h-5 text-slate-600 dark:text-slate-400" />
             </div>
-            <h3 className="font-bold text-slate-900">Users & Permissions</h3>
+            <h3 className="font-bold text-slate-900 dark:text-white">Users & Permissions</h3>
           </div>
           <div className="flex-1">
-            <h4 className="text-xl font-black text-slate-900">{users.filter(u => u.active).length} Active Users</h4>
-            <p className="text-xs font-medium text-slate-400 mt-1">{users.filter(u => !u.active).length} Inactive</p>
+            <h4 className="text-xl font-black text-slate-900 dark:text-white">{users.filter(u => u.active).length} Active Users</h4>
+            <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mt-1">{users.filter(u => !u.active).length} Inactive</p>
           </div>
           <div className="flex items-center gap-2 mt-6">
             <div className="flex -space-x-2">
               {users.slice(0, 3).map((user) => (
-                <NextImage key={user.id} src={user.img} width={32} height={32} className="w-8 h-8 rounded-full border-2 border-white object-cover" alt={user.name} />
+                <NextImage key={user.id} src={user.img} width={32} height={32} className="w-8 h-8 rounded-full border-2 border-white dark:border-[#150a2e] object-cover" alt={user.name} />
               ))}
               {users.length > 3 && (
-                <div className="w-8 h-8 rounded-full bg-slate-100 border-2 border-white flex items-center justify-center text-[10px] font-black text-slate-400">+{users.length - 3}</div>
+                <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/10 border-2 border-white dark:border-[#150a2e] flex items-center justify-center text-[10px] font-black text-slate-400 dark:text-slate-500">+{users.length - 3}</div>
               )}
             </div>
           <button 
@@ -405,24 +423,24 @@ export function WorkspaceOverview() {
         </div>
 
         {/* Team Roles Card */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-6 flex flex-col h-full lg:col-span-1">
+        <div className="bg-white dark:bg-[#150a2e] rounded-2xl border border-gray-100 dark:border-white/10 p-6 flex flex-col h-full lg:col-span-1">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center border border-gray-100">
-              <ShieldCheck className="w-5 h-5 text-slate-600" />
+            <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-white/5 flex items-center justify-center border border-gray-100 dark:border-white/10">
+              <ShieldCheck className="w-5 h-5 text-slate-600 dark:text-slate-400" />
             </div>
-            <h3 className="font-bold text-slate-900">Team Roles</h3>
+            <h3 className="font-bold text-slate-900 dark:text-white">Team Roles</h3>
           </div>
           <div className="flex-1">
             <div className="flex items-baseline gap-2">
-              <h4 className="text-xl font-black text-slate-900">4 Admins</h4>
-              <span className="text-slate-400 font-medium">/</span>
-              <span className="text-lg font-bold text-slate-500">2 Mgrs</span>
+              <h4 className="text-xl font-black text-slate-900 dark:text-white">4 Admins</h4>
+              <span className="text-slate-400 dark:text-slate-500 font-medium">/</span>
+              <span className="text-lg font-bold text-slate-500 dark:text-slate-400">2 Mgrs</span>
             </div>
           </div>
           <div className="mt-6">
              <button 
                 onClick={() => setActiveModal('users')}
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-gray-100 bg-slate-50 text-slate-900 font-bold text-sm tracking-tight hover:bg-slate-100 transition-colors"
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-gray-100 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-900 dark:text-white font-bold text-sm tracking-tight hover:bg-slate-100 dark:hover:bg-white/10 transition-colors"
               >
               Permission Groups
               <ChevronRight className="w-4 h-4" />
@@ -431,25 +449,25 @@ export function WorkspaceOverview() {
         </div>
 
         {/* Notifications Card */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-6 flex flex-col h-full lg:col-span-1">
+        <div className="bg-white dark:bg-[#150a2e] rounded-2xl border border-gray-100 dark:border-white/10 p-6 flex flex-col h-full lg:col-span-1">
            <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center border border-gray-100">
-              <Bell className="w-5 h-5 text-slate-600" />
+            <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-white/5 flex items-center justify-center border border-gray-100 dark:border-white/10">
+              <Bell className="w-5 h-5 text-slate-600 dark:text-slate-400" />
             </div>
-            <h3 className="font-bold text-slate-900">Notifications</h3>
+            <h3 className="font-bold text-slate-900 dark:text-white">Notifications</h3>
           </div>
           <div className="space-y-4 flex-1">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-bold text-slate-900 underline underline-offset-4 decoration-purple-600/30">System Alerts</span>
+              <span className="text-sm font-bold text-slate-900 dark:text-white underline underline-offset-4 decoration-purple-600/30">System Alerts</span>
             </div>
             <div className="flex items-center gap-2">
-               <div className="w-8 h-8 rounded-xl bg-slate-50 border border-gray-100 flex items-center justify-center">
-                 <Settings2 className="w-4 h-4 text-slate-400" />
+               <div className="w-8 h-8 rounded-xl bg-slate-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 flex items-center justify-center">
+                 <Settings2 className="w-4 h-4 text-slate-400 dark:text-slate-500" />
                </div>
-               <span className="text-xs font-bold text-slate-900 uppercase tracking-widest">Active Channels</span>
+               <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest">Active Channels</span>
                <div className="flex -space-x-1 ml-auto">
-                 <div className="w-4 h-4 rounded-full bg-emerald-400 border border-white" />
-                 <div className="w-4 h-4 rounded-full bg-slate-200 border border-white" />
+                 <div className="w-4 h-4 rounded-full bg-emerald-400 border border-white dark:border-[#150a2e]" />
+                 <div className="w-4 h-4 rounded-full bg-slate-200 dark:bg-white/20 border border-white dark:border-[#150a2e]" />
                </div>
             </div>
           </div>
@@ -460,10 +478,10 @@ export function WorkspaceOverview() {
       {/* Activity Logs & Billing Preview Section */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Activity Logs */}
-        <div className="lg:col-span-3 bg-white rounded-2xl border border-gray-100 p-8">
+        <div className="lg:col-span-3 bg-white dark:bg-[#150a2e] rounded-2xl border border-gray-100 dark:border-white/10 p-8">
           <div className="flex items-center justify-between mb-8">
-            <h3 className="text-xl font-bold text-slate-900">Activity Logs</h3>
-            <button className="text-purple-600 text-sm font-bold hover:underline">View All</button>
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white">Activity Logs</h3>
+            <button className="text-purple-600 dark:text-purple-400 text-sm font-bold hover:underline">View All</button>
           </div>
           <div className="space-y-4">
             {[ 
@@ -471,19 +489,19 @@ export function WorkspaceOverview() {
               { type: 'success', title: 'Payment succeeded - Acme Inc. ($549.00)', time: '30 mins', details: '192.168.1.112' },
               { type: 'error', title: 'Payment failed for Invoice #INV-00341', time: '1 hour ago', details: '192.168.1.17' },
             ].map((log, idx) => (
-              <div key={idx} className="flex items-start gap-4 p-4 rounded-2xl bg-slate-50/50 border border-slate-50 group hover:border-gray-100 transition-all">
+              <div key={idx} className="flex items-start gap-4 p-4 rounded-2xl bg-slate-50/50 dark:bg-white/5 border border-slate-50 dark:border-white/5 group hover:border-gray-100 dark:hover:border-white/10 transition-all">
                 <div className={cn(
                   "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border",
-                  log.type === 'error' ? "bg-red-50 border-red-100 text-red-500" : "bg-emerald-50 border-emerald-100 text-emerald-500"
+                  log.type === 'error' ? "bg-red-50 dark:bg-red-500/10 border-red-100 dark:border-red-500/20 text-red-500" : "bg-emerald-50 dark:bg-emerald-500/10 border-emerald-100 dark:border-emerald-500/20 text-emerald-500"
                 )}>
                   {log.type === 'error' ? <AlertCircle className="w-5 h-5" /> : <CheckCircle2 className="w-5 h-5" />}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-0.5">
-                    <h4 className="text-sm font-bold text-slate-900 truncate">{log.title}</h4>
-                    <span className="text-[10px] font-bold text-slate-400 whitespace-nowrap">{log.time}</span>
+                    <h4 className="text-sm font-bold text-slate-900 dark:text-white truncate">{log.title}</h4>
+                    <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 whitespace-nowrap">{log.time}</span>
                   </div>
-                  <p className="text-[10px] font-medium text-slate-400 tracking-wide uppercase">{log.details}</p>
+                  <p className="text-[10px] font-medium text-slate-400 dark:text-slate-500 tracking-wide uppercase">{log.details}</p>
                 </div>
               </div>
             ))}
@@ -491,42 +509,42 @@ export function WorkspaceOverview() {
         </div>
 
         {/* Billing Preview */}
-        <div className="lg:col-span-1 bg-white rounded-2xl border border-gray-100 p-6">
-          <h3 className="font-bold text-slate-900 mb-6">Billing Preview</h3>
-          <div className="bg-slate-50/50 rounded-2xl border border-gray-100 p-5 space-y-6">
+        <div className="lg:col-span-1 bg-white dark:bg-[#150a2e] rounded-2xl border border-gray-100 dark:border-white/10 p-6">
+          <h3 className="font-bold text-slate-900 dark:text-white mb-6">Billing Preview</h3>
+          <div className="bg-slate-50/50 dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 p-5 space-y-6">
             <div className="flex justify-between items-start">
                <div>
-                 <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">Invoice #INV-00342</p>
-                 <h4 className="text-xs font-black text-slate-900 mt-1">Acme Inc.</h4>
-                 <p className="text-[8px] font-medium text-slate-400 mt-0.5">123 Street Inc.</p>
+                 <p className="text-[8px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Invoice #INV-00342</p>
+                 <h4 className="text-xs font-black text-slate-900 dark:text-white mt-1">Acme Inc.</h4>
+                 <p className="text-[8px] font-medium text-slate-400 dark:text-slate-500 mt-0.5">123 Street Inc.</p>
                </div>
-               <div className="flex items-center gap-1.5 grayscale opacity-50">
+               <div className="flex items-center gap-1.5 grayscale opacity-50 dark:opacity-40">
                  <div className="w-4 h-4 bg-purple-600 rounded-sm" />
-                 <span className="text-[10px] font-black text-slate-900">Recura</span>
+                 <span className="text-[10px] font-black text-slate-900 dark:text-white">Recura</span>
                </div>
             </div>
             
             <div className="space-y-2">
-              <div className="flex justify-between text-[8px] font-bold text-slate-900 pb-1 border-b border-gray-200">
+              <div className="flex justify-between text-[8px] font-bold text-slate-900 dark:text-white pb-1 border-b border-gray-200 dark:border-white/10 uppercase">
                 <span>Services</span>
                 <span>Total</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-[10px] font-bold text-slate-900">Invoice</span>
-                <span className="text-[10px] font-bold text-slate-900">$120.00</span>
+                <span className="text-[10px] font-bold text-slate-900 dark:text-slate-200">Invoice</span>
+                <span className="text-[10px] font-bold text-slate-900 dark:text-slate-200">$120.00</span>
               </div>
             </div>
 
-            <div className="pt-2 space-y-1.5 border-t border-gray-200">
-              <div className="flex justify-between text-[9px] font-medium text-slate-400">
+            <div className="pt-2 space-y-1.5 border-t border-gray-200 dark:border-white/10">
+              <div className="flex justify-between text-[9px] font-medium text-slate-400 dark:text-slate-500">
                 <span>Subtotal (7.5%)</span>
-                <span className="text-slate-900 font-bold">$120.00</span>
+                <span className="text-slate-900 dark:text-white font-bold">$120.00</span>
               </div>
-              <div className="flex justify-between text-[9px] font-medium text-slate-400">
+              <div className="flex justify-between text-[9px] font-medium text-slate-400 dark:text-slate-500">
                 <span>Tax (8.5%)</span>
-                <span className="text-slate-900 font-bold">$9.00</span>
+                <span className="text-slate-900 dark:text-white font-bold">$9.00</span>
               </div>
-              <div className="flex justify-between text-xs font-black text-slate-900 pt-1">
+              <div className="flex justify-between text-xs font-black text-slate-900 dark:text-white pt-1">
                 <span>Total</span>
                 <span>$129.00 USD</span>
               </div>
@@ -563,37 +581,37 @@ export function WorkspaceOverview() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
         {/* Payment Providers */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-8">
-          <h3 className="text-lg font-bold text-slate-900 mb-8">Payment Providers</h3>
+        <div className="bg-white dark:bg-[#150a2e] rounded-2xl border border-gray-100 dark:border-white/10 p-8">
+          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-8">Payment Providers</h3>
           <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {['stripe', 'flutterwave', 'paystack', 'paypal'].map((key) => {
                 const config = providersConfig[key];
                 return (
                   <div 
                     key={key} 
                     className={cn(
-                      "p-3 rounded-xl border-dotted flex items-center justify-between group transition-all cursor-pointer",
+                      "p-3 rounded-xl border-dotted flex flex-row items-center justify-between gap-3 group transition-all cursor-pointer",
                       config.enabled 
-                        ? "border-2 border-purple-600 bg-purple-50/5" 
-                        : "border border-purple-200 hover:border-purple-400"
+                        ? "border-2 border-purple-600 bg-purple-50/5 dark:bg-purple-500/5" 
+                        : "border border-purple-200 dark:border-purple-500/30 hover:border-purple-400 dark:hover:border-purple-500"
                     )}
                     onClick={() => toggleProvider(key)}
                   >
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-white border border-gray-100 flex items-center justify-center font-bold text-[8px] uppercase">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-8 h-8 rounded-lg bg-white dark:bg-white/10 border border-gray-100 dark:border-white/10 flex items-center justify-center font-bold text-[8px] uppercase shrink-0 dark:text-white">
                         {key[0]}
                       </div>
-                      <span className="text-sm font-bold text-slate-900 capitalize">{key}</span>
+                      <span className="text-sm font-bold text-slate-900 dark:text-white capitalize truncate">{key}</span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1.5 shrink-0">
                       <div className={cn(
-                        "w-1 h-1 rounded-full",
-                        config.enabled ? "bg-purple-600 animate-pulse" : "bg-slate-300"
+                        "w-1.5 h-1.5 rounded-full",
+                        config.enabled ? "bg-purple-600 animate-pulse" : "bg-slate-300 dark:bg-white/20"
                       )} />
                       <span className={cn(
-                        "text-[10px] font-bold",
-                        config.enabled ? "text-purple-600" : "text-slate-400"
+                        "text-[10px] font-bold whitespace-nowrap",
+                        config.enabled ? "text-purple-600 dark:text-purple-400" : "text-slate-400 dark:text-slate-500"
                       )}>
                         {config.enabled ? 'Connected' : 'Disconnected'}
                       </span>
@@ -606,17 +624,17 @@ export function WorkspaceOverview() {
         </div>
 
         {/* Billing Controls */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-8">
+        <div className="bg-white dark:bg-[#150a2e] rounded-2xl border border-gray-100 dark:border-white/10 p-8">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h3 className="text-lg font-bold text-slate-900">Billing Controls</h3>
-              <p className="text-xs font-medium text-slate-400">Manage automation and proration settings</p>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white">Billing Controls</h3>
+              <p className="text-xs font-medium text-slate-400 dark:text-slate-500">Manage automation and proration settings</p>
             </div>
             <button 
               onClick={() => setAutobilling(!autobilling)}
               className={cn(
                 "w-12 h-6 rounded-full transition-colors relative flex items-center px-1",
-                autobilling ? "bg-purple-600" : "bg-slate-200"
+                autobilling ? "bg-purple-600" : "bg-slate-200 dark:bg-white/10"
               )}
             >
               <div className={cn(
@@ -628,10 +646,10 @@ export function WorkspaceOverview() {
 
           <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-bold text-slate-900">Proration Logic</span>
+              <span className="text-sm font-bold text-slate-900 dark:text-white">Proration Logic</span>
               <div className="flex items-center gap-2 px-3 py-1 bg-slate-50 border border-gray-100 rounded-lg">
-                <AlertCircle className="w-3.5 h-3.5 text-slate-400" />
-                <span className="text-xs font-black text-slate-600">{prorationRange}%</span>
+                <AlertCircle className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
+                <span className="text-xs font-black text-slate-600 dark:text-slate-400">{prorationRange}%</span>
               </div>
             </div>
             <div className="space-y-4">
@@ -641,7 +659,7 @@ export function WorkspaceOverview() {
                 max="100" 
                 value={prorationRange}
                 onChange={(e) => setProrationRange(parseInt(e.target.value))}
-                className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-purple-600" 
+                className="w-full h-2 bg-slate-100 dark:bg-white/10 rounded-lg appearance-none cursor-pointer accent-purple-600" 
               />
               <div className="flex justify-between text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">
                 <span>Conservative</span>
@@ -664,8 +682,8 @@ export function WorkspaceOverview() {
       </div>
 
       {/* Bottom Actions */}
-      <div className="flex items-center justify-between bg-white border border-gray-100 rounded-2xl p-4 shadow-xl shadow-slate-900/[0.02]">
-        <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-50 text-emerald-700 text-sm font-bold">
+      <div className="flex items-center justify-between bg-white dark:bg-[#150a2e] border border-gray-100 dark:border-white/10 rounded-2xl p-4 shadow-xl shadow-slate-900/[0.02]">
+        <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-sm font-bold">
           <CheckCircle2 className="w-4 h-4" />
           Saved
         </div>
@@ -681,13 +699,13 @@ export function WorkspaceOverview() {
       {activeModal && (
         <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setActiveModal(null)} />
-          <div className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
-            <div className="p-6 border-b border-gray-100 flex items-center justify-between">
-              <h3 className="text-xl font-bold text-slate-900 capitalize tracking-tight">
+          <div className="relative w-full max-w-2xl bg-white dark:bg-[#150a2e] rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col border border-gray-100 dark:border-white/10">
+            <div className="p-6 border-b border-gray-100 dark:border-white/10 flex items-center justify-between">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white capitalize tracking-tight">
                 {activeModal === 'profile' ? 'Company Profile' : activeModal === 'users' ? 'User Management' : activeModal === 'roles' ? 'Team Roles' : activeModal === 'security' ? 'Security Settings' : 'Payment Settings'}
               </h3>
-              <button onClick={() => { setActiveModal(null); setEditingUser(null); }} className="p-2 hover:bg-slate-50 rounded-xl transition-colors">
-                 <X className="w-5 h-5 text-slate-400" />
+              <button onClick={() => { setActiveModal(null); setEditingUser(null); }} className="p-2 hover:bg-slate-50 dark:hover:bg-white/5 rounded-xl transition-colors">
+                 <X className="w-5 h-5 text-slate-400 dark:text-slate-500" />
               </button>
             </div>
             
@@ -696,31 +714,31 @@ export function WorkspaceOverview() {
               {activeModal === 'profile' && (
                 <div className="space-y-6">
                   <div className="grid grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                       <label className="text-sm font-bold text-slate-800">Company Name</label>
+                        <div className="space-y-1.5 sm:space-y-2">
+                       <label className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-tight sm:tracking-normal">Company Name</label>
                        <input 
                          type="text" 
                          value={profileData.name} 
                          onChange={(e) => setProfileData({...profileData, name: e.target.value})}
                          className={cn(
-                           "w-full px-4 py-3 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/20 transition-all text-slate-900 font-medium",
-                           profileErrors.name ? "border-red-500 focus:border-red-500" : "border-gray-200 focus:border-purple-600"
+                           "w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl border bg-white dark:bg-white/5 focus:outline-none focus:ring-2 focus:ring-purple-600/20 transition-all text-sm sm:text-base text-slate-900 dark:text-white font-medium",
+                           profileErrors.name ? "border-red-500 focus:border-red-500" : "border-gray-200 dark:border-white/10 focus:border-purple-600 dark:focus:border-purple-500"
                          )}
                          placeholder="Company Name"
                        />
                        {profileErrors.name && <p className="text-[10px] font-bold text-red-500 uppercase tracking-widest">{profileErrors.name}</p>}
                     </div>
-                    <div className="space-y-2 relative">
-                       <label className="text-sm font-bold text-slate-800">Industry</label>
+                        <div className="space-y-1.5 sm:space-y-2 relative">
+                       <label className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-[0.05em]">Industry</label>
                        <button 
                          onClick={() => setIsIndustryOpen(!isIndustryOpen)}
-                         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-purple-600 bg-white text-slate-900 font-medium flex items-center justify-between group h-[48px]"
+                         className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:outline-none focus:border-purple-600 dark:focus:border-purple-500 bg-white dark:bg-white/5 text-sm sm:text-base text-slate-900 dark:text-white font-medium flex items-center justify-between group h-[40px] sm:h-[48px] hover:bg-slate-50 dark:hover:bg-white/10 transition-all"
                        >
-                          <span>{selectedIndustry}</span>
-                          <ChevronRight className={cn("w-4 h-4 text-slate-400 transition-transform", isIndustryOpen ? "rotate-90" : "")} />
+                          <span className="truncate">{selectedIndustry}</span>
+                          <ChevronRight className={cn("w-4 h-4 text-slate-400 dark:text-slate-500 transition-transform shrink-0", isIndustryOpen ? "rotate-90 text-purple-600" : "")} />
                        </button>
                        {isIndustryOpen && (
-                         <div className="absolute top-[calc(100%+4px)] left-0 w-full bg-white border border-gray-100 rounded-xl shadow-xl z-20 py-2 animate-in fade-in zoom-in-95 duration-200">
+                         <div className="absolute top-[calc(100%+4px)] left-0 w-full bg-white dark:bg-[#1e143d] border border-gray-100 dark:border-white/10 rounded-xl shadow-xl z-20 py-2 animate-in fade-in zoom-in-95 duration-200">
                             {industries.map((ind) => (
                               <button
                                 key={ind}
@@ -729,8 +747,8 @@ export function WorkspaceOverview() {
                                   setIsIndustryOpen(false);
                                 }}
                                 className={cn(
-                                  "w-full px-4 py-2.5 text-left text-sm font-medium transition-colors hover:bg-slate-50",
-                                  selectedIndustry === ind ? "text-purple-600 bg-purple-50/50" : "text-slate-600"
+                                  "w-full px-4 py-2.5 text-left text-sm font-medium transition-colors hover:bg-slate-50 dark:hover:bg-white/5",
+                                  selectedIndustry === ind ? "text-purple-600 dark:text-purple-400 bg-purple-50/50 dark:bg-purple-500/10" : "text-slate-600 dark:text-slate-300"
                                 )}
                               >
                                 {ind}
@@ -739,57 +757,57 @@ export function WorkspaceOverview() {
                          </div>
                        )}
                     </div>
-                    <div className="col-span-2 space-y-2">
-                       <label className="text-sm font-bold text-slate-800">Email</label>
+                    <div className="col-span-2 space-y-1.5 sm:space-y-2">
+                       <label className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-tight sm:tracking-normal">Email</label>
                        <input 
                          type="email" 
                          value={profileData.email} 
                          onChange={(e) => setProfileData({...profileData, email: e.target.value})}
                          className={cn(
-                           "w-full px-4 py-3 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/20 transition-all text-slate-900 font-medium",
-                           profileErrors.email ? "border-red-500 focus:border-red-500" : "border-gray-200 focus:border-purple-600"
+                           "w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl border bg-white dark:bg-white/5 focus:outline-none focus:ring-2 focus:ring-purple-600/20 transition-all text-sm sm:text-base text-slate-900 dark:text-white font-medium",
+                           profileErrors.email ? "border-red-500 focus:border-red-500" : "border-gray-200 dark:border-white/10 focus:border-purple-600 dark:focus:border-purple-500"
                          )}
                          placeholder="email@example.com"
                        />
                        {profileErrors.email && <p className="text-[10px] font-bold text-red-500 uppercase tracking-widest">{profileErrors.email}</p>}
                     </div>
-                    <div className="col-span-2 space-y-2">
-                       <label className="text-sm font-bold text-slate-800">Phone No</label>
+                    <div className="col-span-2 space-y-1.5 sm:space-y-2">
+                       <label className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-tight sm:tracking-normal">Phone No</label>
                        <input 
                          type="tel" 
                          value={profileData.phone} 
                          onChange={(e) => setProfileData({...profileData, phone: e.target.value})}
                          className={cn(
-                           "w-full px-4 py-3 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/20 transition-all text-slate-900 font-medium",
-                           profileErrors.phone ? "border-red-500 focus:border-red-500" : "border-gray-200 focus:border-purple-600"
+                           "w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl border bg-white dark:bg-white/5 focus:outline-none focus:ring-2 focus:ring-purple-600/20 transition-all text-sm sm:text-base text-slate-900 dark:text-white font-medium",
+                           profileErrors.phone ? "border-red-500 focus:border-red-500" : "border-gray-200 dark:border-white/10 focus:border-purple-600 dark:focus:border-purple-500"
                          )}
                          placeholder="+1 (555) 000-0000"
                        />
                        {profileErrors.phone && <p className="text-[10px] font-bold text-red-500 uppercase tracking-widest">{profileErrors.phone}</p>}
                     </div>
-                    <div className="col-span-2 space-y-2">
-                       <label className="text-sm font-bold text-slate-800">Address</label>
+                    <div className="col-span-2 space-y-1.5 sm:space-y-2">
+                       <label className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-tight sm:tracking-normal">Address</label>
                        <textarea 
                          rows={2} 
                          value={profileData.address} 
                          onChange={(e) => setProfileData({...profileData, address: e.target.value})}
                          className={cn(
-                           "w-full px-4 py-3 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/20 transition-all text-slate-900 font-medium resize-none",
-                           profileErrors.address ? "border-red-500 focus:border-red-500" : "border-gray-200 focus:border-purple-600"
+                           "w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl border bg-white dark:bg-white/5 focus:outline-none focus:ring-2 focus:ring-purple-600/20 transition-all text-sm sm:text-base text-slate-900 dark:text-white font-medium resize-none",
+                           profileErrors.address ? "border-red-500 focus:border-red-500" : "border-gray-200 dark:border-white/10 focus:border-purple-600 dark:focus:border-purple-500"
                          )}
                          placeholder="Enter company address"
                        />
                        {profileErrors.address && <p className="text-[10px] font-bold text-red-500 uppercase tracking-widest">{profileErrors.address}</p>}
                     </div>
-                    <div className="col-span-2 space-y-2">
-                       <label className="text-sm font-bold text-slate-800">Website</label>
+                    <div className="col-span-2 space-y-1.5 sm:space-y-2">
+                       <label className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-tight sm:tracking-normal">Website</label>
                        <input 
                          type="text" 
                          value={profileData.website} 
                          onChange={(e) => setProfileData({...profileData, website: e.target.value})}
                          className={cn(
-                           "w-full px-4 py-3 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/20 transition-all text-slate-900 font-medium",
-                           profileErrors.website ? "border-red-500 focus:border-red-500" : "border-gray-200 focus:border-purple-600"
+                           "w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl border bg-white dark:bg-white/5 focus:outline-none focus:ring-2 focus:ring-purple-600/20 transition-all text-sm sm:text-base text-slate-900 dark:text-white font-medium",
+                           profileErrors.website ? "border-red-500 focus:border-red-500" : "border-gray-200 dark:border-white/10 focus:border-purple-600 dark:focus:border-purple-500"
                          )}
                          placeholder="www.example.com"
                        />
@@ -809,23 +827,23 @@ export function WorkspaceOverview() {
                         </button>
                         <div className="space-y-4">
                            <div className="space-y-2">
-                              <label className="text-sm font-bold text-slate-800">Full Name</label>
+                              <label className="text-sm font-bold text-slate-800 dark:text-slate-200">Full Name</label>
                               <input 
                                 type="text" 
                                 placeholder="Enter member name"
                                 value={newMember.name}
                                 onChange={(e) => setNewMember({...newMember, name: e.target.value})}
-                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-purple-600 text-slate-900 font-medium" 
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:outline-none focus:border-purple-600 dark:focus:border-purple-500 bg-white dark:bg-white/5 text-slate-900 dark:text-white font-medium" 
                               />
                            </div>
                            <div className="space-y-2">
-                              <label className="text-sm font-bold text-slate-800">Role / Designation</label>
+                              <label className="text-sm font-bold text-slate-800 dark:text-slate-200">Role / Designation</label>
                               <input 
                                 type="text" 
                                 placeholder="e.g. Designer, Developer"
                                 value={newMember.role}
                                 onChange={(e) => setNewMember({...newMember, role: e.target.value})}
-                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-purple-600 text-slate-900 font-medium" 
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:outline-none focus:border-purple-600 dark:focus:border-purple-500 bg-white dark:bg-white/5 text-slate-900 dark:text-white font-medium" 
                               />
                            </div>
                            <div className="pt-2">
@@ -848,12 +866,12 @@ export function WorkspaceOverview() {
                         </button>
                         <div className="space-y-4">
                            <div className="space-y-2">
-                              <label className="text-sm font-bold text-slate-800">Full Name</label>
-                              <input type="text" defaultValue={editingUser?.name} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-purple-600 text-slate-900 font-medium" />
+                              <label className="text-sm font-bold text-slate-800 dark:text-slate-200">Full Name</label>
+                              <input type="text" defaultValue={editingUser?.name} className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:outline-none focus:border-purple-600 dark:focus:border-purple-500 bg-white dark:bg-white/5 text-slate-900 dark:text-white font-medium" />
                            </div>
                            <div className="space-y-2">
-                              <label className="text-sm font-bold text-slate-800">Role / Designation</label>
-                              <input type="text" defaultValue={editingUser?.role} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-purple-600 text-slate-900 font-medium" />
+                              <label className="text-sm font-bold text-slate-800 dark:text-slate-200">Role / Designation</label>
+                              <input type="text" defaultValue={editingUser?.role} className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:outline-none focus:border-purple-600 dark:focus:border-purple-500 bg-white dark:bg-white/5 text-slate-900 dark:text-white font-medium" />
                            </div>
                            <div className="flex items-center gap-4 pt-2">
                               <button onClick={() => setEditingUser(null)} className="flex-1 py-3 rounded-xl bg-purple-600 text-white font-black text-sm tracking-tight hover:bg-purple-700 transition-all">
@@ -869,7 +887,7 @@ export function WorkspaceOverview() {
                              onClick={() => setUserFilter('active')}
                              className={cn(
                                "px-4 py-2 rounded-xl text-xs font-bold transition-all",
-                               userFilter === 'active' ? "bg-purple-600 text-white" : "text-slate-400 hover:bg-slate-50"
+                               userFilter === 'active' ? "bg-purple-600 text-white" : "text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5"
                              )}
                            >
                              Active
@@ -878,7 +896,7 @@ export function WorkspaceOverview() {
                              onClick={() => setUserFilter('inactive')}
                              className={cn(
                                "px-4 py-2 rounded-xl text-xs font-bold transition-all",
-                               userFilter === 'inactive' ? "bg-purple-600 text-white" : "text-slate-400 hover:bg-slate-50"
+                               userFilter === 'inactive' ? "bg-purple-600 text-white" : "text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5"
                              )}
                            >
                              Inactive
@@ -886,24 +904,24 @@ export function WorkspaceOverview() {
                         </div>
                         <div className="space-y-3">
                            {users.filter(u => userFilter === 'active' ? u.active : !u.active).map((user) => (
-                              <div key={user.id} className="flex items-center justify-between p-4 rounded-2xl bg-slate-50 border border-slate-100 group">
+                              <div key={user.id} className="flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 group">
                                  <div className="flex items-center gap-4">
-                                    <NextImage src={user.img} width={40} height={40} className="w-10 h-10 rounded-xl object-cover border border-white shadow-sm" alt={user.name} />
+                                    <NextImage src={user.img} width={40} height={40} className="w-10 h-10 rounded-xl object-cover border border-white dark:border-[#150a2e] shadow-sm" alt={user.name} />
                                     <div>
-                                       <h4 className="text-sm font-bold text-slate-900">{user.name}</h4>
-                                       <p className="text-[10px] font-medium text-slate-400 uppercase tracking-widest">{user.role}</p>
+                                       <h4 className="text-sm font-bold text-slate-900 dark:text-white">{user.name}</h4>
+                                       <p className="text-[10px] font-medium text-slate-400 dark:text-slate-500 uppercase tracking-widest">{user.role}</p>
                                     </div>
                                  </div>
                                  <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                     <button 
                                       onClick={() => setEditingUser(user)}
-                                      className="px-3 py-1.5 rounded-lg bg-white border border-gray-200 text-[10px] font-black text-purple-600 uppercase tracking-widest hover:bg-purple-50 transition-colors"
+                                      className="px-3 py-1.5 rounded-lg bg-white dark:bg-white/10 border border-gray-200 dark:border-white/10 text-[10px] font-black text-purple-600 dark:text-purple-400 uppercase tracking-widest hover:bg-purple-50 dark:hover:bg-purple-500/10 transition-colors"
                                     >
                                        Update
                                     </button>
                                     <button 
                                       onClick={() => deleteUser(user.id)}
-                                      className="p-2 hover:bg-rose-50 rounded-lg transition-colors text-rose-500"
+                                      className="p-2 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-lg transition-colors text-rose-500"
                                     >
                                        <X className="w-4 h-4" />
                                     </button>
@@ -911,14 +929,14 @@ export function WorkspaceOverview() {
                               </div>
                            ))}
                            {users.filter(u => userFilter === 'active' ? u.active : !u.active).length === 0 && (
-                             <div className="py-8 text-center bg-slate-50 border border-dashed border-gray-100 rounded-2xl">
-                               <p className="text-xs font-medium text-slate-400">No {userFilter} users found.</p>
+                             <div className="py-8 text-center bg-slate-50 dark:bg-white/5 border border-dashed border-gray-100 dark:border-white/10 rounded-2xl">
+                               <p className="text-xs font-medium text-slate-400 dark:text-slate-500">No {userFilter} users found.</p>
                              </div>
                            )}
                         </div>
                         <button 
                           onClick={() => setIsAddingMember(true)}
-                          className="w-full py-4 rounded-2xl border-2 border-dashed border-gray-200 text-slate-400 font-bold hover:border-purple-600 hover:text-purple-600 transition-all flex items-center justify-center gap-2"
+                          className="w-full py-4 rounded-2xl border-2 border-dashed border-gray-200 dark:border-white/10 text-slate-400 dark:text-slate-500 font-bold hover:border-purple-600 dark:hover:border-purple-500 hover:text-purple-600 dark:hover:text-purple-400 transition-all flex items-center justify-center gap-2"
                         >
                            <Plus className="w-4 h-4" />
                            Add New Team Member
@@ -933,12 +951,12 @@ export function WorkspaceOverview() {
                 <div className="space-y-6">
                   <div className="grid grid-cols-2 gap-4">
                     {['Admin', 'Manager', 'Editor', 'Viewer', 'Developer', 'Designer'].map((role) => (
-                      <div key={role} className="p-4 rounded-2xl border border-gray-100 hover:border-purple-600/20 hover:bg-purple-50/10 transition-all group">
+                      <div key={role} className="p-4 rounded-2xl border border-gray-100 dark:border-white/10 hover:border-purple-600/20 dark:hover:border-purple-500/20 hover:bg-purple-50/10 dark:hover:bg-purple-500/5 transition-all group">
                         <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm font-bold text-slate-900">{role}</span>
-                          <span className="px-2 py-0.5 rounded-md bg-slate-50 text-[10px] font-bold text-slate-400 uppercase tracking-widest group-hover:bg-purple-600 group-hover:text-white transition-colors">Default</span>
+                          <span className="text-sm font-bold text-slate-900 dark:text-white">{role}</span>
+                          <span className="px-2 py-0.5 rounded-md bg-slate-50 dark:bg-white/10 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest group-hover:bg-purple-600 group-hover:text-white transition-colors">Default</span>
                         </div>
-                        <p className="text-[10px] font-medium text-slate-400 leading-tight">Define standard permissions for {role.toLowerCase()} level access.</p>
+                        <p className="text-[10px] font-medium text-slate-400 dark:text-slate-500 leading-tight">Define standard permissions for {role.toLowerCase()} level access.</p>
                       </div>
                     ))}
                   </div>
@@ -996,14 +1014,14 @@ export function WorkspaceOverview() {
               {/* Security Modal */}
               {activeModal === 'security' && (
                 <div className="space-y-8 py-4">
-                   <div className="flex items-center justify-between p-6 rounded-3xl bg-slate-50 border border-slate-100">
+                   <div className="flex items-center justify-between p-6 rounded-3xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10">
                       <div className="flex items-center gap-4">
-                         <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center shadow-sm">
-                            <ShieldCheck className="w-6 h-6 text-purple-600" />
+                         <div className="w-12 h-12 rounded-2xl bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 flex items-center justify-center">
+                            <ShieldCheck className="w-6 h-6 text-slate-400 dark:text-slate-500" />
                          </div>
                          <div>
-                            <h4 className="font-bold text-slate-900">Two-Factor Authentication</h4>
-                            <p className="text-xs font-medium text-slate-400">Secure your account with 2FA protection</p>
+                            <h4 className="text-sm font-bold text-slate-900 dark:text-white">Two-Factor Authentication</h4>
+                            <p className="text-[10px] font-medium text-slate-400 dark:text-slate-500">Security enhanced via SMS or Authenticator app</p>
                          </div>
                       </div>
                       <button 
@@ -1020,154 +1038,177 @@ export function WorkspaceOverview() {
                       </button>
                    </div>
                    
-                   <div className="space-y-4">
-                      <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] px-2">Active Sessions</h4>
-                      <div className="space-y-2">
-                        {activeSessions.map(session => (
-                           <div key={session.id} className="p-4 rounded-2xl border border-gray-100 flex items-center justify-between bg-white hover:border-gray-200 transition-all">
-                              <div className="flex items-center gap-3">
-                                 <Layout className="w-5 h-5 text-slate-400" />
-                                 <div>
-                                    <p className="text-sm font-bold text-slate-900">{session.name}</p>
-                                    <p className="text-[10px] font-medium text-slate-400">{session.ip} • Active Now</p>
-                                 </div>
-                              </div>
-                              <button 
-                                onClick={() => revokeSession(session.id)}
-                                className="text-[10px] font-black text-rose-600 uppercase tracking-widest px-3 py-1.5 rounded-lg hover:bg-rose-50 transition-colors"
-                              >
-                                Revoke
-                              </button>
-                           </div>
-                        ))}
+                   <div className="p-6 rounded-3xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 space-y-4">
+                      <div className="flex items-center justify-between">
+                         <div className="flex items-center gap-4">
+                            <div className="w-12 h-12 rounded-2xl bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 flex items-center justify-center">
+                               <ShieldCheck className="w-6 h-6 text-slate-400 dark:text-slate-500" />
+                            </div>
+                            <div>
+                               <h4 className="text-sm font-bold text-slate-900 dark:text-white">Workspace Session Timeout</h4>
+                               <p className="text-[10px] font-medium text-slate-400 dark:text-slate-500">Automatic logout after inactivity period</p>
+                            </div>
+                         </div>
+                         <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 text-slate-900 dark:text-white text-xs font-bold">
+                            30 Mins
+                            <ChevronRight className="w-4 h-4 text-slate-400 dark:text-slate-500" />
+                         </button>
                       </div>
                    </div>
-                </div>
+                   <div className="space-y-4">
+                       <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] px-2">Active Sessions</h4>
+                        <div className="space-y-2">
+                         {activeSessions.map(session => (
+                            <div key={session.id} className="p-4 rounded-2xl border border-gray-100 dark:border-white/10 flex items-center justify-between bg-white dark:bg-white/5 hover:border-gray-200 dark:hover:border-white/20 transition-all">
+                               <div className="flex items-center gap-3">
+                                  <Layout className="w-5 h-5 text-slate-400 dark:text-slate-500" />
+                                  <div>
+                                     <p className="text-sm font-bold text-slate-900 dark:text-white">{session.name}</p>
+                                     <p className="text-[10px] font-medium text-slate-400 dark:text-slate-500">{session.ip} • Active Now</p>
+                                  </div>
+                               </div>
+                               <button 
+                                 onClick={() => revokeSession(session.id)}
+                                 className="text-[10px] font-black text-rose-600 dark:text-rose-400 uppercase tracking-widest px-3 py-1.5 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors"
+                               >
+                                 Revoke
+                               </button>
+                            </div>
+                         ))}
+                      </div>
+                    </div>
+                 </div>
               )}
 
               {/* Payment Settings Modal */}
               {activeModal === 'billing' && (
                  <div className="space-y-8 py-4">
                     {isCreatingProvider ? (
-                      <div className="space-y-6 animate-in slide-in-from-right-4 duration-300">
-                         <button onClick={() => setIsCreatingProvider(false)} className="text-purple-600 text-sm font-bold flex items-center gap-2">
-                            <ChevronRight className="w-4 h-4 rotate-180" /> Back to Providers
-                         </button>
-                         <div className="space-y-4">
-                            <div className="space-y-2">
-                               <label className="text-sm font-bold text-slate-800">Gateway Name</label>
-                               <input type="text" placeholder="e.g. Stripe, PayPal" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-purple-600 text-slate-900 font-medium" />
-                            </div>
-                            <div className="space-y-2">
-                               <label className="text-sm font-bold text-slate-800">Live API Key</label>
-                               <input type="password" placeholder="sk_live_••••••••" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-purple-600 text-slate-900 font-medium" />
-                            </div>
-                            <button 
-                              onClick={() => {
-                                setIsCreatingProvider(false);
-                                handleSave();
-                              }}
-                              className="w-full py-4 rounded-xl bg-purple-600 text-white font-black text-sm tracking-tight hover:bg-purple-700 transition-all mt-2"
-                            >
-                               Connect Gateway
-                            </button>
-                         </div>
-                      </div>
+                       <div className="space-y-6 animate-in slide-in-from-right-4 duration-300">
+                          <button onClick={() => setIsCreatingProvider(false)} className="text-purple-600 text-sm font-bold flex items-center gap-2">
+                             <ChevronRight className="w-4 h-4 rotate-180" /> Back to Providers
+                          </button>
+                          <div className="space-y-4">
+                             <div className="space-y-2">
+                                <label className="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-tight">Gateway Name</label>
+                                <input type="text" placeholder="e.g. Stripe, PayPal" className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:outline-none focus:border-purple-600 dark:focus:border-purple-500 bg-white dark:bg-white/5 text-slate-900 dark:text-white font-medium" />
+                             </div>
+                             <div className="space-y-2">
+                                <label className="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-tight">Live API Key</label>
+                                <input type="password" placeholder="sk_live_••••••••" className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:outline-none focus:border-purple-600 dark:focus:border-purple-500 bg-white dark:bg-white/5 text-slate-900 dark:text-white font-medium" />
+                             </div>
+                             <button 
+                               onClick={() => {
+                                 setIsCreatingProvider(false);
+                                 handleSave();
+                               }}
+                               className="w-full py-4 rounded-xl bg-purple-600 text-white font-black text-sm tracking-tight hover:bg-purple-700 transition-all mt-2"
+                             >
+                                Connect Gateway
+                             </button>
+                          </div>
+                       </div>
                     ) : (
-                      <div className="space-y-6">
-                         <div className="flex items-center gap-2 p-1 bg-slate-100 rounded-2xl">
-                            {['stripe', 'flutterwave', 'paystack', 'paypal'].map((p) => (
-                              <button 
-                                key={p}
-                                onClick={() => setActiveProvider(p as 'stripe' | 'flutterwave' | 'paystack' | 'paypal')}
-                                className={cn(
-                                  "flex-1 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all",
-                                  activeProvider === p ? "bg-white text-purple-600 shadow-sm" : "text-slate-400 hover:text-slate-600"
-                                )}
-                              >
-                                {p}
-                              </button>
-                            ))}
-                         </div>
-
-                         <div className="space-y-6">
-                            <div className="flex items-center justify-between">
-                               <div className="flex items-center gap-3">
-                                  <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center border border-gray-100">
-                                     <Settings2 className="w-5 h-5 text-slate-600" />
-                                  </div>
-                                  <div>
-                                     <h4 className="font-bold text-slate-900 capitalize">{activeProvider} Configuration</h4>
-                                     <p className="text-xs font-medium text-slate-400">Configure your payment gateway credentials</p>
-                                  </div>
-                               </div>
-                                <button 
-                                   onClick={() => toggleProvider(activeProvider)}
-                                   className={cn(
-                                     "w-12 h-6 rounded-full transition-colors relative flex items-center px-1",
-                                     providersConfig[activeProvider].enabled ? "bg-purple-600" : "bg-slate-200"
-                                   )}
-                                >
-                                  <div className={cn(
-                                    "w-4 h-4 bg-white rounded-full shadow-sm transition-transform duration-200",
-                                    providersConfig[activeProvider].enabled ? "translate-x-6" : "translate-x-0"
-                                  )} />
-                               </button>
-                            </div>
-
-                            <div className="space-y-4 pt-4 border-t border-gray-100">
-                               <div className="space-y-2">
-                                  <label className="text-sm font-bold text-slate-800">
-                                     {activeProvider === 'paypal' ? 'PayPal Client ID' : 'Live API Key'}
-                                  </label>
-                                  <input 
-                                     type="password" 
-                                     placeholder={activeProvider === 'paypal' ? 'Enter Client ID' : 'sk_live_••••••••••••••••'}
-                                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-purple-600 text-slate-900 font-medium" 
-                                  />
-                               </div>
-                               {activeProvider === 'paypal' && (
-                                 <div className="space-y-2">
-                                    <label className="text-sm font-bold text-slate-800">Secret Key</label>
-                                    <input 
-                                       type="password" 
-                                       placeholder="Enter Secret Key"
-                                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-purple-600 text-slate-900 font-medium" 
-                                    />
-                                 </div>
-                               )}
-                               {activeProvider !== 'paypal' && (
-                                 <div className="space-y-2">
-                                   <label className="text-sm font-bold text-slate-800">Webhook Secret</label>
-                                   <input type="text" defaultValue="whsec_••••••••••••••••" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-purple-600 text-slate-900 font-mono text-sm" />
-                                 </div>
-                               )}
-                               <button onClick={handleSave} className="w-full py-4 rounded-xl bg-slate-900 text-white font-black text-sm tracking-tight hover:bg-slate-800 transition-all mt-4">
-                                  Update {activeProvider.charAt(0).toUpperCase() + activeProvider.slice(1)} Credentials
-                               </button>
-
+                       <div className="space-y-6">
+                          <div className="flex items-center gap-2 p-1 bg-slate-100 dark:bg-white/5 rounded-2xl">
+                             {['stripe', 'flutterwave', 'paystack', 'paypal'].map((p) => (
                                <button 
-                                  onClick={() => setIsCreatingProvider(true)}
-                                  className="w-full py-4 rounded-2xl border-2 border-dashed border-gray-200 text-slate-400 font-bold hover:border-purple-600 hover:text-purple-600 transition-all flex items-center justify-center gap-2 mt-4"
+                                 key={p}
+                                 onClick={() => setActiveProvider(p as 'stripe' | 'flutterwave' | 'paystack' | 'paypal')}
+                                 className={cn(
+                                   "flex-1 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all",
+                                   activeProvider === p ? "bg-white dark:bg-white/10 text-purple-600 dark:text-purple-400 shadow-sm" : "text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
+                                 )}
                                >
-                                  <Plus className="w-4 h-4" />
-                                  Add New Payment Method
+                                 {p}
                                </button>
-                            </div>
-                         </div>
-                      </div>
+                             ))}
+                          </div>
+
+                          <div className="space-y-6">
+                             <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                   <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-white/5 flex items-center justify-center border border-gray-100 dark:border-white/10">
+                                      <Settings2 className="w-5 h-5 text-slate-600 dark:text-slate-400" />
+                                   </div>
+                                   <div>
+                                      <h4 className="font-bold text-slate-900 dark:text-white capitalize">{activeProvider} Configuration</h4>
+                                      <p className="text-xs font-medium text-slate-400 dark:text-slate-500">Configure your payment gateway credentials</p>
+                                   </div>
+                                </div>
+                                 <button 
+                                    onClick={() => toggleProvider(activeProvider)}
+                                    className={cn(
+                                      "w-12 h-6 rounded-full transition-colors relative flex items-center px-1",
+                                      providersConfig[activeProvider].enabled ? "bg-purple-600" : "bg-slate-200 dark:bg-white/10"
+                                    )}
+                                 >
+                                   <div className={cn(
+                                     "w-4 h-4 bg-white rounded-full shadow-sm transition-transform duration-200",
+                                     providersConfig[activeProvider].enabled ? "translate-x-6" : "translate-x-0"
+                                   )} />
+                                </button>
+                             </div>
+
+                             <div className="space-y-4 pt-4 border-t border-gray-100 dark:border-white/10">
+                                <div className="space-y-2">
+                                   <label className="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-tight">
+                                      {activeProvider === 'paypal' ? 'PayPal Client ID' : 'Live API Key'}
+                                   </label>
+                                   <input 
+                                      type="password" 
+                                      placeholder={activeProvider === 'paypal' ? 'Enter Client ID' : 'sk_live_••••••••••••••••'}
+                                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:outline-none focus:border-purple-600 dark:focus:border-purple-500 bg-white dark:bg-white/5 text-slate-900 dark:text-white font-medium" 
+                                   />
+                                </div>
+                                {activeProvider === 'paypal' && (
+                                  <div className="space-y-2">
+                                     <label className="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-tight">Secret Key</label>
+                                     <input 
+                                        type="password" 
+                                        placeholder="Enter Secret Key"
+                                        className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:outline-none focus:border-purple-600 dark:focus:border-purple-500 bg-white dark:bg-white/5 text-slate-900 dark:text-white font-medium" 
+                                     />
+                                  </div>
+                                )}
+                                {activeProvider !== 'paypal' && (
+                                  <div className="space-y-2">
+                                    <label className="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-tight">Webhook Secret</label>
+                                    <input type="text" defaultValue="whsec_••••••••••••••••" className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:outline-none focus:border-purple-600 dark:focus:border-purple-500 bg-white dark:bg-white/5 text-slate-900 dark:text-white font-mono text-sm" />
+                                  </div>
+                                )}
+                                <button onClick={handleSave} className="w-full py-4 rounded-xl bg-slate-900 dark:bg-white/10 text-white dark:text-slate-200 font-black text-sm tracking-tight hover:bg-slate-800 dark:hover:bg-white/20 transition-all mt-4 border border-transparent dark:border-white/10">
+                                   Update {activeProvider.charAt(0).toUpperCase() + activeProvider.slice(1)} Credentials
+                                </button>
+
+                                <button 
+                                   onClick={() => setIsCreatingProvider(true)}
+                                   className="w-full py-4 rounded-2xl border-2 border-dashed border-gray-200 dark:border-white/10 text-slate-400 dark:text-slate-500 font-bold hover:border-purple-600 hover:text-purple-600 transition-all flex items-center justify-center gap-2 mt-4"
+                                >
+                                   <Plus className="w-4 h-4" />
+                                   Add New Payment Method
+                                </button>
+                             </div>
+                          </div>
+                       </div>
                     )}
                  </div>
               )}
             </div>
 
-            <div className="p-6 bg-slate-50/50 border-t border-gray-100 flex justify-end gap-3">
-               <button onClick={() => { setActiveModal(null); setEditingUser(null); }} className="px-6 py-2.5 rounded-xl text-slate-500 font-bold text-sm tracking-tight hover:bg-slate-100 transition-colors">
-                 Cancel
-               </button>
-               <button onClick={handleSave} className="px-10 py-2.5 rounded-xl bg-purple-600 text-white font-black text-sm tracking-tight hover:bg-purple-700 transition-all shadow-lg shadow-purple-600/30">
-                 Save Changes
-               </button>
+            <div className="p-6 border-t border-gray-100 dark:border-white/10 flex items-center justify-between bg-slate-50/50 dark:bg-white/5">
+              <button 
+                onClick={() => { setActiveModal(null); setEditingUser(null); }}
+                className="px-6 py-2.5 rounded-xl text-slate-400 dark:text-slate-500 font-bold hover:bg-slate-50 dark:hover:bg-white/10 transition-colors"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleSave}
+                className="px-8 py-2.5 rounded-xl bg-purple-600 text-white font-black text-sm tracking-tight hover:bg-purple-700 transition-all shadow-lg shadow-purple-600/20"
+              >
+                Save Changes
+              </button>
             </div>
           </div>
         </div>
@@ -1227,14 +1268,14 @@ export function WorkspaceOverview() {
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-sm font-bold text-slate-900">Company Details</div>
+                  <div className="text-sm font-bold text-slate-900 dark:text-white">Company Details</div>
                   <div className="text-xs font-medium text-slate-500 mt-1 leading-relaxed">
                     Business Owner Inc.<br />
                     {selectedIndustry}<br />
                     8 Active Members<br />
                     +1 (555) 123-4567<br />
                     www.business.com<br />
-                    <span className="text-[10px]">123 Business Street, Suite 100, New York, NY 10001</span>
+                    <span className="text-[10px] dark:text-slate-500">123 Business Street, Suite 100, New York, NY 10001</span>
                   </div>
                 </div>
               </div>
@@ -1257,8 +1298,8 @@ export function WorkspaceOverview() {
                 <h4 className="text-sm font-black text-slate-900 uppercase tracking-widest border-b border-slate-100 pb-2">Active Controls</h4>
                 <div className="grid grid-cols-2 gap-x-12 gap-y-4">
                   <div className="flex justify-between">
-                    <span className="text-xs font-medium text-slate-500">Autobilling</span>
-                    <span className="text-xs font-bold text-slate-900">{isAutobillingEnabled ? 'Enabled' : 'Disabled'}</span>
+                    <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Autobilling</span>
+                    <span className="text-xs font-bold text-slate-900 dark:text-white">{isAutobillingEnabled ? 'Enabled' : 'Disabled'}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-xs font-medium text-slate-500">Proration Logic</span>
@@ -1284,7 +1325,7 @@ export function WorkspaceOverview() {
             </div>
 
             {/* Footer Actions */}
-            <div className="p-8 bg-slate-50 border-t border-slate-100 flex items-center justify-between print:hidden no-export">
+            <div className="p-8 bg-slate-50 dark:bg-white/5 border-t border-slate-100 dark:border-white/10 flex items-center justify-between print:hidden no-export">
               <button 
                 onClick={() => setIsPreviewingPDF(false)}
                 className="px-8 py-3 rounded-2xl text-slate-500 font-bold text-sm tracking-tight hover:bg-slate-100 transition-colors"

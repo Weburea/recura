@@ -71,7 +71,7 @@ export function AnalyticsRevenueChart() {
             </button>
             
             {isYearDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-full md:w-32 bg-white border border-slate-100 rounded-2xl shadow-xl z-30 py-2 overflow-hidden">
+              <div className="absolute right-0 mt-2 w-full md:w-32 bg-white dark:bg-[#150a2e] border border-slate-100 dark:border-white/10 rounded-2xl shadow-xl shadow-purple-900/5 dark:shadow-purple-900/30 z-30 py-2 overflow-hidden">
                 {Object.keys(yearData).sort().reverse().map((year) => (
                   <button
                     key={year}
@@ -80,8 +80,8 @@ export function AnalyticsRevenueChart() {
                       setIsYearDropdownOpen(false)
                     }}
                     className={cn(
-                      "w-full text-left px-4 py-2 text-xs sm:text-sm font-bold transition-colors hover:bg-purple-50",
-                      selectedYear === year ? "text-purple-600 bg-purple-50/50" : "text-slate-600"
+                      "w-full text-left px-4 py-2 text-xs sm:text-sm font-bold transition-colors hover:bg-purple-50 dark:hover:bg-white/5",
+                      selectedYear === year ? "text-purple-600 dark:text-purple-400 bg-purple-50/50 dark:bg-purple-500/20" : "text-slate-600 dark:text-slate-300"
                     )}
                   >
                     {year}
@@ -105,7 +105,7 @@ export function AnalyticsRevenueChart() {
             </button>
             
             {isChartDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-full md:w-40 bg-white border border-slate-100 rounded-2xl shadow-xl z-30 py-2 overflow-hidden">
+              <div className="absolute right-0 mt-2 w-full md:w-40 bg-white dark:bg-[#150a2e] border border-slate-100 dark:border-white/10 rounded-2xl shadow-xl shadow-purple-900/5 dark:shadow-purple-900/30 z-30 py-2 overflow-hidden">
                 {chartTypes.map((type) => (
                   <button
                     key={type}
@@ -114,8 +114,8 @@ export function AnalyticsRevenueChart() {
                       setIsChartDropdownOpen(false)
                     }}
                     className={cn(
-                      "w-full text-left px-4 py-2 text-xs sm:text-sm font-bold transition-colors hover:bg-purple-50",
-                      selectedChartType === type ? "text-purple-600 bg-purple-50/50" : "text-slate-600"
+                      "w-full text-left px-4 py-2 text-xs sm:text-sm font-bold transition-colors hover:bg-purple-50 dark:hover:bg-white/5",
+                      selectedChartType === type ? "text-purple-600 dark:text-purple-400 bg-purple-50/50 dark:bg-purple-500/20" : "text-slate-600 dark:text-slate-300"
                     )}
                   >
                     {type}
@@ -133,7 +133,7 @@ export function AnalyticsRevenueChart() {
             {data.map((height, i) => (
             <div key={i} className="flex-1 flex flex-col items-center gap-6 group h-full justify-end">
               <div className="relative w-full flex flex-col justify-end h-full min-h-[1px]">
-                <div className="absolute inset-0 bg-slate-50/50 rounded-lg w-full" />
+                <div className="absolute inset-0 bg-slate-50/50 dark:bg-white/5 rounded-lg w-full" />
                 <div 
                   className="w-full bg-gradient-to-t from-purple-600 to-purple-400 rounded-lg transition-all duration-500 ease-out group-hover:from-purple-500 group-hover:to-purple-300 relative cursor-pointer shadow-sm z-10"
                   style={{ height: `${height}%` }}
@@ -143,7 +143,7 @@ export function AnalyticsRevenueChart() {
                   </div>
                 </div>
               </div>
-              <span className="text-[10px] md:text-xs font-bold text-slate-400 group-hover:text-purple-600 transition-colors whitespace-nowrap">
+              <span className="text-[10px] md:text-xs font-bold text-slate-400 dark:text-slate-500 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors whitespace-nowrap">
                 {months[i]}
               </span>
             </div>
@@ -192,7 +192,7 @@ export function AnalyticsRevenueChart() {
               ))}
             </svg>
           </div>
-          <div className="mt-auto flex justify-between px-6 pt-4 border-t border-slate-50">
+          <div className="mt-auto flex justify-between px-6 pt-4 border-t border-slate-50 dark:border-white/5">
             {months.map((month, i) => (
               <span key={i} className="text-[10px] md:text-xs font-bold text-slate-400 whitespace-nowrap">
                 {month}
@@ -210,16 +210,16 @@ export function AnalyticsRevenueChart() {
               style={{ background: `conic-gradient(${conicStops})` }}
             >
               {/* Inner circle for donut chart effect */}
-              <div className="absolute inset-[20%] bg-white rounded-full flex flex-col items-center justify-center shadow-inner">
-                 <span className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">Total</span>
-                 <span className="text-2xl font-black text-slate-900">${(totalRevenue * 1234).toLocaleString()}</span>
+              <div className="absolute inset-[20%] bg-white dark:bg-[#150a2e] rounded-full flex flex-col items-center justify-center shadow-inner">
+                 <span className="text-slate-400 dark:text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Total</span>
+                 <span className="text-2xl font-black text-slate-900 dark:text-white">${(totalRevenue * 1234).toLocaleString()}</span>
               </div>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-3 w-full max-w-sm">
                {months.map((month, i) => (
                  <div key={i} className="flex items-center gap-2 group cursor-default">
                     <div className="w-3 h-3 rounded-full" style={{ backgroundColor: colors[i] }} />
-                    <span className="text-xs font-bold text-slate-500 group-hover:text-slate-900 transition-colors">{month}</span>
+                     <span className="text-xs font-bold text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">{month}</span>
                  </div>
                ))}
             </div>
@@ -229,30 +229,30 @@ export function AnalyticsRevenueChart() {
 
       {selectedChartType === "KPI Chart" && (
         <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 p-4 md:pt-10">
-          <div className="dashboard-card bg-slate-50/50 border-none p-4 md:p-6 w-full flex flex-col justify-center min-w-0">
+          <div className="dashboard-card bg-slate-50/50 dark:bg-white/5 border-none p-4 md:p-6 w-full flex flex-col justify-center min-w-0">
             <p className="dashboard-label text-xs sm:text-[10px] md:text-xs">Total Volume</p>
             <h3 className="dashboard-value text-3xl sm:text-2xl lg:text-3xl xl:text-4xl truncate" title={`$${(totalRevenue * 1234).toLocaleString()}`}>
               ${(totalRevenue * 1234).toLocaleString()}
             </h3>
-            <p className="text-xs font-bold text-slate-400 mt-2 truncate">Sum of {selectedYear}</p>
+            <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mt-2 truncate">Sum of {selectedYear}</p>
           </div>
-          <div className="dashboard-card bg-slate-50/50 border-none p-4 md:p-6 w-full flex flex-col justify-center min-w-0">
+          <div className="dashboard-card bg-slate-50/50 dark:bg-white/5 border-none p-4 md:p-6 w-full flex flex-col justify-center min-w-0">
             <p className="dashboard-label text-xs sm:text-[10px] md:text-xs">Monthly Average</p>
             <h3 className="dashboard-value text-3xl sm:text-2xl lg:text-3xl xl:text-4xl truncate" title={`$${(avgRevenue * 1234).toLocaleString()}`}>
               ${(avgRevenue * 1234).toLocaleString()}
             </h3>
-            <p className="text-xs font-bold text-slate-400 mt-2 truncate">Mean over 12 months</p>
+            <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mt-2 truncate">Mean over 12 months</p>
           </div>
-          <div className="dashboard-card bg-slate-50/50 border-none p-4 md:p-6 w-full flex flex-col justify-center min-w-0">
+          <div className="dashboard-card bg-slate-50/50 dark:bg-white/5 border-none p-4 md:p-6 w-full flex flex-col justify-center min-w-0">
             <p className="dashboard-label text-xs sm:text-[10px] md:text-xs">Max Month</p>
-            <h3 className="dashboard-value text-3xl sm:text-2xl lg:text-3xl xl:text-4xl text-emerald-600 truncate" title={`$${(maxRevenue * 1234).toLocaleString()}`}>
+            <h3 className="dashboard-value text-3xl sm:text-2xl lg:text-3xl xl:text-4xl text-emerald-600 dark:text-emerald-400 truncate" title={`$${(maxRevenue * 1234).toLocaleString()}`}>
               ${(maxRevenue * 1234).toLocaleString()}
             </h3>
             <p className="text-xs font-bold text-emerald-600/60 mt-2 truncate">Peak performance</p>
           </div>
-           <div className="dashboard-card bg-slate-50/50 border-none p-4 md:p-6 w-full flex flex-col justify-center min-w-0">
+           <div className="dashboard-card bg-slate-50/50 dark:bg-white/5 border-none p-4 md:p-6 w-full flex flex-col justify-center min-w-0">
             <p className="dashboard-label text-xs sm:text-[10px] md:text-xs">Min Month</p>
-            <h3 className="dashboard-value text-3xl sm:text-2xl lg:text-3xl xl:text-4xl text-rose-600 truncate" title={`$${(minRevenue * 1234).toLocaleString()}`}>
+            <h3 className="dashboard-value text-3xl sm:text-2xl lg:text-3xl xl:text-4xl text-rose-600 dark:text-rose-400 truncate" title={`$${(minRevenue * 1234).toLocaleString()}`}>
               ${(minRevenue * 1234).toLocaleString()}
             </h3>
             <p className="text-xs font-bold text-rose-600/60 mt-2 truncate">Lowest baseline</p>

@@ -170,12 +170,12 @@ export function SubscriptionTable() {
   };
 
   return (
-    <div className="dashboard-card bg-white border border-slate-100 rounded-[24px] p-0 overflow-hidden shadow-sm mt-8">
+    <div className="dashboard-card bg-white dark:bg-[#150a2e] border border-slate-100 dark:border-white/10 rounded-[24px] p-0 overflow-hidden shadow-sm mt-8">
       {/* Header Container */}
       <div className="p-8 pb-4">
         {/* Table Title and Actions row */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
-          <h3 className="text-xl font-extrabold text-slate-900 tracking-tight">Subscription List</h3>
+          <h3 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">Subscription List</h3>
           
           <div className="flex items-center gap-2 md:gap-3 flex-wrap justify-end">
             <button 
@@ -183,8 +183,8 @@ export function SubscriptionTable() {
               className={cn(
                 "w-11 h-11 rounded-2xl border flex items-center justify-center transition-all cursor-pointer shadow-sm",
                 showActions 
-                  ? "bg-purple-600 border-purple-600 text-white shadow-purple-200" 
-                  : "bg-white border-slate-200 text-slate-400 hover:text-slate-600 hover:bg-slate-50"
+                  ? "bg-purple-600 border-purple-600 text-white shadow-purple-200 dark:shadow-none" 
+                  : "bg-white dark:bg-[#150a2e] border-slate-200 dark:border-white/10 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5"
               )}
             >
               <ListFilter className="w-5 h-5 pointer-events-none" />
@@ -224,8 +224,8 @@ export function SubscriptionTable() {
                 className={cn(
                   "px-5 py-2.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap",
                   isActive 
-                    ? "bg-purple-600 text-white shadow-md shadow-purple-200" 
-                    : "bg-transparent text-slate-400 hover:bg-slate-50 hover:text-slate-600"
+                    ? "bg-purple-600 text-white shadow-md shadow-purple-200 dark:shadow-none" 
+                    : "bg-transparent text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-600 dark:hover:text-white"
                 )}
               >
                 {label} ({count})
@@ -264,7 +264,7 @@ export function SubscriptionTable() {
               <th className="table-header-cell"></th>
             </tr>
           </thead>
-          <tbody className={cn("divide-y divide-slate-50 transition-opacity duration-200", isTransitioning ? "opacity-0" : "opacity-100")}>
+          <tbody className={cn("divide-y divide-slate-50 dark:divide-white/5 transition-opacity duration-200", isTransitioning ? "opacity-0" : "opacity-100")}>
             {paginatedSubscriptions.map((sub) => {
               const isSelected = selectedIds.includes(sub.id)
               return (
@@ -288,7 +288,7 @@ export function SubscriptionTable() {
                   </td>
                   <td className="table-data-cell">
                     <div className="flex items-center gap-3">
-                      <div className="relative w-10 h-10 rounded-full overflow-hidden bg-slate-100">
+                      <div className="relative w-10 h-10 rounded-full overflow-hidden bg-slate-100 dark:bg-white/10">
                         <Image 
                           src={sub.avatar} 
                           alt={sub.name} 
@@ -296,10 +296,10 @@ export function SubscriptionTable() {
                           className="object-cover"
                         />
                       </div>
-                      <span className="font-bold text-slate-900">{sub.name}</span>
+                      <span className="font-bold text-slate-900 dark:text-white">{sub.name}</span>
                     </div>
                   </td>
-                  <td className="table-data-cell font-bold text-slate-600">{sub.plan}</td>
+                  <td className="table-data-cell font-bold text-slate-600 dark:text-slate-300">{sub.plan}</td>
                   <td className="table-data-cell">
                     <span className={cn(
                       "status-badge",
@@ -308,9 +308,9 @@ export function SubscriptionTable() {
                       {sub.status}
                     </span>
                   </td>
-                  <td className="table-data-cell font-bold text-slate-900">{sub.billingCycle}</td>
-                  <td className="table-data-cell font-bold text-slate-600">{sub.lastPayment}</td>
-                  <td className="table-data-cell font-bold text-slate-600">{sub.nextBillingDate}</td>
+                  <td className="table-data-cell font-bold text-slate-900 dark:text-white">{sub.billingCycle}</td>
+                  <td className="table-data-cell font-bold text-slate-600 dark:text-slate-300">{sub.lastPayment}</td>
+                  <td className="table-data-cell font-bold text-slate-600 dark:text-slate-300">{sub.nextBillingDate}</td>
                   <td className="table-data-cell relative">
                     <button 
                       onClick={() => setActiveMenuId(activeMenuId === sub.id ? null : sub.id)}
@@ -326,26 +326,26 @@ export function SubscriptionTable() {
                     {activeMenuId === sub.id && (
                       <div 
                         ref={menuRef}
-                        className="absolute top-[70%] right-10 w-52 bg-white border border-slate-100 rounded-2xl shadow-xl shadow-purple-500/10 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200"
+                        className="absolute top-[70%] right-10 w-52 bg-white dark:bg-[#150a2e] border border-slate-100 dark:border-white/10 rounded-2xl shadow-xl shadow-purple-500/10 dark:shadow-purple-900/40 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200"
                       >
-                        <button className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 flex items-center gap-3 transition-colors text-left cursor-pointer">
+                        <button className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white flex items-center gap-3 transition-colors text-left cursor-pointer">
                           <Eye className="w-4 h-4 text-slate-400" />
                           View Details
                         </button>
-                        <button className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 flex items-center gap-3 transition-colors text-left cursor-pointer">
+                        <button className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white flex items-center gap-3 transition-colors text-left cursor-pointer">
                           <FileEdit className="w-4 h-4 text-slate-400" />
                           Edit Subscription
                         </button>
-                        <button className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 flex items-center gap-3 transition-colors text-left cursor-pointer">
+                        <button className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white flex items-center gap-3 transition-colors text-left cursor-pointer">
                           <PauseCircle className="w-4 h-4 text-slate-400" />
                           Pause Subscription
                         </button>
-                        <div className="h-[1px] bg-slate-50 my-1 mx-2" />
-                        <button className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 flex items-center gap-3 transition-colors text-left cursor-pointer">
+                        <div className="h-[1px] bg-slate-50 dark:bg-white/5 my-1 mx-2" />
+                        <button className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white flex items-center gap-3 transition-colors text-left cursor-pointer">
                           <XCircle className="w-4 h-4 text-slate-400" />
                           Cancel Plan
                         </button>
-                        <button className="w-full px-4 py-2.5 text-sm font-bold text-rose-600 hover:bg-rose-50 flex items-center gap-3 transition-colors text-left cursor-pointer">
+                        <button className="w-full px-4 py-2.5 text-sm font-bold text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-500/10 flex items-center gap-3 transition-colors text-left cursor-pointer">
                           <Trash2 className="w-4 h-4 text-rose-500" />
                           Delete Subscription
                         </button>
@@ -361,13 +361,13 @@ export function SubscriptionTable() {
         {/* Empty State */}
         {!isTransitioning && paginatedSubscriptions.length === 0 && (
           <div className="p-20 text-center">
-            <p className="text-slate-400 font-bold">No subscriptions found for this status.</p>
+            <p className="text-slate-400 dark:text-slate-500 font-bold">No subscriptions found for this status.</p>
           </div>
         )}
       </div>
 
       {/* Pagination */}
-      <div className="p-8 border-t border-slate-50 flex items-center justify-center">
+      <div className="p-8 border-t border-slate-50 dark:border-white/5 flex items-center justify-center">
         <div className="flex items-center gap-2">
           <button 
             onClick={() => handlePageChange(currentPage - 1)}

@@ -17,8 +17,8 @@ import {
   Edit2
 } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { StatusModal, StatusType } from "@/components/dashboard/shared/status-modal"
-import { ReceiptModal, Transaction } from "@/components/dashboard/shared/receipt-modal"
+import { StatusModal, StatusType } from "@/components/dashboard/shared/modals/status-modal"
+import { ReceiptModal, Transaction } from "@/components/dashboard/shared/modals/receipt-modal"
 import { 
   CreditCard,
   Building2,
@@ -290,7 +290,7 @@ export function PaymentSettingsForm() {
       </div>
 
       {/* Navigation Tabs */}
-      <div className="border-b border-gray-100 overflow-x-auto">
+      <div className="border-b border-gray-100 dark:border-white/5 overflow-x-auto">
         <div className="flex items-center gap-8 px-2">
           {[
             { id: "gateway", label: "Gateway Settings" },
@@ -305,7 +305,7 @@ export function PaymentSettingsForm() {
                 "py-4 text-[13px] font-bold tracking-tight transition-all relative whitespace-nowrap",
                 activeTab === tab.id 
                   ? "text-purple-600 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-purple-600" 
-                  : "text-slate-500 hover:text-slate-800"
+                  : "text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200"
               )}
             >
               {tab.label}
@@ -319,17 +319,17 @@ export function PaymentSettingsForm() {
         {activeTab === "customization" && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Design Options - 4 cols */}
-            <div className="lg:col-span-4 space-y-8 bg-white rounded-2xl border border-gray-100 p-8 shadow-sm h-full">
+            <div className="lg:col-span-4 space-y-8 bg-white dark:bg-slate-900/50 rounded-2xl border border-gray-100 dark:border-white/10 p-8 shadow-sm h-full">
               <div className="space-y-1">
-                <h3 className="text-base font-black text-slate-900">Customize Payment Cards</h3>
-                <p className="text-xs font-medium text-slate-400">Design how your customers see your payment cards</p>
+                <h3 className="text-base font-black text-slate-900 dark:text-white">Customize Payment Cards</h3>
+                <p className="text-xs font-medium text-slate-400 dark:text-slate-500">Design how your customers see your payment cards</p>
               </div>
 
               <div className="space-y-8">
                 {/* Visual Options */}
                 <div className="space-y-4">
                    <div className="flex items-center justify-between">
-                     <h4 className="text-sm font-bold text-slate-800">Design Options</h4>
+                     <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200">Design Options</h4>
                    </div>
                    
                    <div className="space-y-6">
@@ -355,7 +355,7 @@ export function PaymentSettingsForm() {
                                 });
                               }}
                                className={cn(
-                                "h-8 w-8 shrink-0 rounded-lg transition-all ring-offset-2 relative overflow-hidden border border-gray-100",
+                                "h-8 w-8 shrink-0 rounded-lg transition-all ring-offset-2 dark:ring-offset-slate-900 relative overflow-hidden border border-gray-100 dark:border-white/10",
                                 cardDesign.style === g.name ? "ring-2 ring-purple-600 scale-[1.02]" : "hover:scale-[1.02]"
                               )}
                               style={{ background: g.bg }}
@@ -369,7 +369,7 @@ export function PaymentSettingsForm() {
 
                      {/* Card Color */}
                      <div className="flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-center">
-                        <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Card Color</span>
+                        <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Card Color</span>
                         <div className="flex items-center gap-2 mt-1 sm:mt-0">
                           {["#6366f1", "#8b5cf6", "#f97316", "#ef4444", "#3b82f6", "#cbd5e1"].map((c) => (
                             <button 
@@ -377,7 +377,7 @@ export function PaymentSettingsForm() {
                               onClick={() => setCardDesign({...cardDesign, color: c, background: c})}
                               style={{ backgroundColor: c }}
                               className={cn(
-                                "w-6 h-6 rounded-full transition-all ring-offset-2",
+                                "w-6 h-6 rounded-full transition-all ring-offset-2 dark:ring-offset-slate-900",
                                 cardDesign.color === c ? "ring-2 ring-purple-600 scale-110" : "hover:scale-105"
                               )}
                             />
@@ -388,8 +388,8 @@ export function PaymentSettingsForm() {
 
                      <div className="space-y-4">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">SIM Style Selection</span>
-                          <span className="text-[10px] font-black text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full uppercase">Premium</span>
+                          <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">SIM Style Selection</span>
+                          <span className="text-[10px] font-black text-purple-600 bg-purple-50 dark:bg-purple-900/30 px-2 py-0.5 rounded-full uppercase">Premium</span>
                         </div>
                          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar lg:grid lg:grid-cols-7 lg:gap-1.5">
                            {["sim.svg",  "sim 2.svg", "sim 3.svg", "sim 4.svg", "sim 5.svg", "sim 6.svg", "sim 7.svg"].map((s) => (
@@ -398,8 +398,8 @@ export function PaymentSettingsForm() {
                                type="button"
                                onClick={() => setCardDesign({...cardDesign, simIcon: s})}
                                className={cn(
-                                "h-10 min-w-[40px] rounded-lg border-2 transition-all flex items-center justify-center overflow-hidden bg-slate-50/30",
-                                cardDesign.simIcon === s ? "border-purple-600 bg-purple-50 ring-2 ring-purple-600/10" : "border-gray-100 hover:border-slate-300"
+                                "h-10 min-w-[40px] rounded-lg border-2 transition-all flex items-center justify-center overflow-hidden bg-slate-50/30 dark:bg-white/5",
+                                cardDesign.simIcon === s ? "border-purple-600 bg-purple-50 dark:bg-purple-900/20 ring-2 ring-purple-600/10" : "border-gray-100 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20"
                               )}
                             >
                               <div className="w-8 h-6 relative opacity-80 group-hover:opacity-100 transition-opacity">
@@ -413,8 +413,8 @@ export function PaymentSettingsForm() {
                      {/* Rounded Corners */}
                      <div className="space-y-3">
                         <div className="flex justify-between items-center">
-                          <span className="text-xs font-bold text-slate-500">Rounded Corners</span>
-                          <span className="text-xs font-black text-slate-900">{cardDesign.roundedCorners}px</span>
+                          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">Rounded Corners</span>
+                          <span className="text-xs font-black text-slate-900 dark:text-white">{cardDesign.roundedCorners}px</span>
                         </div>
                         <div className="flex items-center gap-4">
                           <input 
@@ -423,7 +423,7 @@ export function PaymentSettingsForm() {
                             max="30" 
                             value={cardDesign.roundedCorners}
                             onChange={(e) => setCardDesign({...cardDesign, roundedCorners: parseInt(e.target.value)})}
-                            className="flex-1 h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-purple-600"
+                            className="flex-1 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600"
                           />
                         </div>
                      </div>
@@ -519,16 +519,16 @@ export function PaymentSettingsForm() {
                     </div>
                   </div>
 
-                   {/* Flip Indicator */}
-                   <div className="flex justify-center gap-2 mt-6">
-                     <div className={cn("w-4 h-1.5 rounded-full transition-all duration-300", !isPreviewFlipped ? "bg-purple-600 w-6" : "bg-slate-200")} />
-                     <div className={cn("w-4 h-1.5 rounded-full transition-all duration-300", isPreviewFlipped ? "bg-purple-600 w-6" : "bg-slate-200")} />
-                   </div>
+                    {/* Flip Indicator */}
+                    <div className="flex justify-center gap-2 mt-6">
+                      <div className={cn("w-4 h-1.5 rounded-full transition-all duration-300", !isPreviewFlipped ? "bg-purple-600 w-6" : "bg-slate-200 dark:bg-slate-800")} />
+                      <div className={cn("w-4 h-1.5 rounded-full transition-all duration-300", isPreviewFlipped ? "bg-purple-600 w-6" : "bg-slate-200 dark:bg-slate-800")} />
+                    </div>
                </div>
 
                {/* Section Title */}
                <div className="w-full text-left">
-                  <h4 className="text-sm font-black text-slate-900 uppercase tracking-widest">Card Details</h4>
+                  <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest">Card Details</h4>
                </div>
 
                {/* Design Options - bottom (Customer View) */}
@@ -578,59 +578,59 @@ export function PaymentSettingsForm() {
             <form onSubmit={handleSubmit} className="lg:col-span-4 space-y-6">
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <label className="text-[11px] font-black text-slate-400 uppercase tracking-wider">Card Holder</label>
+                  <label className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Card Holder</label>
                   <input
                     type="text"
                     value={cardDetails.holder}
                     onChange={(e) => setCardDetails({...cardDetails, holder: e.target.value})}
-                    className="w-full px-4 py-3.5 rounded-xl border border-gray-100 bg-slate-50/50 focus:outline-none focus:border-purple-600 focus:bg-white text-slate-900 font-bold transition-all text-sm"
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-100 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 focus:outline-none focus:border-purple-600 focus:bg-white dark:focus:bg-slate-900 text-slate-900 dark:text-white font-bold transition-all text-sm"
                     placeholder="Holder Name"
                   />
                 </div>
                 
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-wider">Card Number</label>
+                    <label className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Card Number</label>
                   </div>
                   <input
                     type="text"
                     value={cardDetails.number}
                     onChange={(e) => setCardDetails({...cardDetails, number: e.target.value})}
-                    className="w-full px-4 py-3.5 rounded-xl border border-gray-100 bg-slate-50/50 focus:outline-none focus:border-purple-600 focus:bg-white text-slate-900 font-bold transition-all text-sm"
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-100 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 focus:outline-none focus:border-purple-600 focus:bg-white dark:focus:bg-slate-900 text-slate-900 dark:text-white font-bold transition-all text-sm"
                     placeholder="**** **** **** ****"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[11px] font-black text-slate-400 uppercase tracking-wider">Expiry Date</label>
+                  <label className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Expiry Date</label>
                   <input
                     type="text"
                     value={cardDetails.expiry}
                     onChange={(e) => setCardDetails({...cardDetails, expiry: e.target.value})}
-                    className="w-full px-4 py-3.5 rounded-xl border border-gray-100 bg-slate-50/50 focus:outline-none focus:border-purple-600 focus:bg-white text-slate-900 font-bold transition-all text-sm h-[48px]"
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-100 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 focus:outline-none focus:border-purple-600 focus:bg-white dark:focus:bg-slate-900 text-slate-900 dark:text-white font-bold transition-all text-sm h-[48px]"
                     placeholder="MM/YY"
                   />
                 </div>
 
                 <div className="space-y-2 relative">
-                  <label className="text-[11px] font-black text-slate-400 uppercase tracking-wider">Brand</label>
+                  <label className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Brand</label>
                   <button 
                     type="button" 
                     onClick={() => setShowBrandDropdown(!showBrandDropdown)}
-                    className="w-full px-4 py-3.5 rounded-xl border border-gray-100 bg-slate-50/50 flex items-center justify-between text-slate-900 font-bold text-sm h-[48px] hover:border-purple-200 transition-all"
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-100 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 flex items-center justify-between text-slate-900 dark:text-white font-bold text-sm h-[48px] hover:border-purple-200 dark:hover:border-purple-600 transition-all"
                   >
                     <div className="flex items-center gap-3">
                        {cardDetails.brand === "Visa" ? (
-                         <Image src="/images/payment/visa.svg" alt="Visa" width={32} height={12} className="object-contain" />
+                         <Image src="/images/payment/visa.svg" alt="Visa" width={32} height={12} className="object-contain dark:brightness-0 dark:invert" />
                        ) : (
-                         <div className="w-8 h-4 bg-slate-200 rounded animate-pulse" />
+                         <div className="w-8 h-4 bg-slate-200 dark:bg-slate-800 rounded animate-pulse" />
                        )}
                        <span>{cardDetails.brand}</span>
                     </div>
                     <ChevronDown className={cn("w-4 h-4 text-slate-400 transition-transform", showBrandDropdown ? "rotate-180" : "")} />
                   </button>
                   {showBrandDropdown && (
-                    <div className="absolute top-full left-0 w-full mt-2 bg-white rounded-xl border border-gray-100 shadow-xl z-20 overflow-hidden py-1">
+                    <div className="absolute top-full left-0 w-full mt-2 bg-white dark:bg-slate-900 rounded-xl border border-gray-100 dark:border-white/10 shadow-xl z-20 overflow-hidden py-1">
                       {["Visa", "Mastercard", "American Express"].map((b) => (
                         <button
                           key={b}
@@ -639,7 +639,7 @@ export function PaymentSettingsForm() {
                             setCardDetails({...cardDetails, brand: b})
                             setShowBrandDropdown(false)
                           }}
-                          className="w-full px-4 py-3 text-left text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors flex items-center justify-between group"
+                          className="w-full px-4 py-3 text-left text-sm font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors flex items-center justify-between group"
                         >
                           <div className="flex items-center gap-3">
                             <div className={cn(
@@ -648,7 +648,7 @@ export function PaymentSettingsForm() {
                             )} />
                             <span className={cn(b === "Mastercard" ? "font-black" : "")}>{b}</span>
                           </div>
-                          {b === "Visa" && <Image src="/images/payment/visa.svg" alt="" width={24} height={8} className="opacity-40" />}
+                          {b === "Visa" && <Image src="/images/payment/visa.svg" alt="" width={24} height={8} className="opacity-40 dark:brightness-0 dark:invert" />}
                         </button>
                       ))}
                     </div>
@@ -656,11 +656,11 @@ export function PaymentSettingsForm() {
                 </div>
 
                 <div className="space-y-2 relative">
-                  <label className="text-[11px] font-black text-slate-400 uppercase tracking-wider">Card Style</label>
+                  <label className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Card Style</label>
                   <button 
                     type="button" 
                     onClick={() => setShowStyleDropdown(!showStyleDropdown)}
-                    className="w-full px-4 py-3.5 rounded-xl border border-gray-100 bg-slate-50/50 flex items-center justify-between text-slate-900 font-bold text-sm h-[48px] hover:border-purple-200 transition-all"
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-100 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 flex items-center justify-between text-slate-900 dark:text-white font-bold text-sm h-[48px] hover:border-purple-200 dark:hover:border-purple-600 transition-all"
                   >
                     <div className="flex items-center gap-3">
                         <div className="w-4 h-4 rounded shadow-sm overflow-hidden relative" style={{ background: getCardBackground() }}>
@@ -671,7 +671,7 @@ export function PaymentSettingsForm() {
                     <ChevronDown className={cn("w-4 h-4 text-slate-400 transition-transform", showStyleDropdown ? "rotate-180" : "")} />
                   </button>
                   {showStyleDropdown && (
-                    <div className="absolute top-full left-0 w-full mt-2 bg-white rounded-xl border border-gray-100 shadow-xl z-20 overflow-hidden py-1">
+                    <div className="absolute top-full left-0 w-full mt-2 bg-white dark:bg-slate-900 rounded-xl border border-gray-100 dark:border-white/10 shadow-xl z-20 overflow-hidden py-1">
                       {[
                         { name: "Purple Gradient", id: "purple-gradient", bg: "linear-gradient(135deg, #1e1b4b 0%, #4338ca 100%)", pattern: "waves" },
                         { name: "Ocean Blue", id: "ocean-gradient", bg: "linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%)", pattern: "mesh" },
@@ -690,9 +690,9 @@ export function PaymentSettingsForm() {
                             })
                             setShowStyleDropdown(false)
                           }}
-                          className="w-full px-4 py-3 text-left text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors flex items-center gap-3"
+                          className="w-full px-4 py-3 text-left text-sm font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors flex items-center gap-3"
                         >
-                          <div className="w-4 h-4 rounded shadow-sm border border-gray-100 relative overflow-hidden" style={{ background: s.bg }}>
+                          <div className="w-4 h-4 rounded shadow-sm border border-gray-100 dark:border-white/10 relative overflow-hidden" style={{ background: s.bg }}>
                             <DesignPattern type={s.pattern} className="w-full h-full text-white/10" />
                           </div>
                           {s.name}
@@ -713,7 +713,7 @@ export function PaymentSettingsForm() {
                  <button 
                   type="button"
                   onClick={handleReset}
-                  className="px-6 py-4 rounded-2xl bg-white border border-gray-100 text-slate-600 font-black text-sm tracking-tight hover:bg-slate-50 transition-all"
+                  className="px-6 py-4 rounded-2xl bg-white dark:bg-slate-900 border border-gray-100 dark:border-white/10 text-slate-600 dark:text-slate-400 font-black text-sm tracking-tight hover:bg-slate-50 dark:hover:bg-white/5 transition-all"
                  >
                    Reset
                  </button>
@@ -725,10 +725,10 @@ export function PaymentSettingsForm() {
         {activeTab === "gateway" && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {/* Gateway Configuration */}
-            <div className="lg:col-span-8 bg-white rounded-2xl border border-gray-100 p-8 space-y-8">
+            <div className="lg:col-span-8 bg-white dark:bg-slate-900/50 rounded-2xl border border-gray-100 dark:border-white/10 p-8 space-y-8">
                <div className="space-y-1">
-                 <h3 className="text-base font-black text-slate-900">Payment Gateway</h3>
-                 <p className="text-xs font-medium text-slate-400">Select & Configure Gateways</p>
+                 <h3 className="text-base font-black text-slate-900 dark:text-white">Payment Gateway</h3>
+                 <p className="text-xs font-medium text-slate-400 dark:text-slate-500">Select & Configure Gateways</p>
                </div>
 
                <div className="space-y-4">
@@ -738,13 +738,13 @@ export function PaymentSettingsForm() {
                    { id: "paypal", name: "PayPal", connected: true, logo: "P" },
                    { id: "flutterwave", name: "Flutterwave", connected: false, logo: "F" },
                  ].map((gw) => (
-                   <div key={gw.id} className="flex items-center justify-between p-4 rounded-2xl border border-gray-100 hover:border-purple-200 transition-all group">
+                   <div key={gw.id} className="flex items-center justify-between p-4 rounded-2xl border border-gray-100 dark:border-white/10 hover:border-purple-200 dark:hover:border-purple-600 transition-all group">
                      <div className="flex items-center gap-4">
-                       <div className="w-12 h-12 rounded-xl bg-slate-50 border border-gray-100 flex items-center justify-center font-black text-slate-600">
+                       <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 flex items-center justify-center font-black text-slate-600 dark:text-slate-400">
                           {gw.logo}
                        </div>
                        <div>
-                         <h4 className="text-sm font-black text-slate-900">{gw.name}</h4>
+                         <h4 className="text-sm font-black text-slate-900 dark:text-white">{gw.name}</h4>
                          {gw.connected && (
                            <div className="flex items-center gap-1.5 mt-0.5">
                              <CheckCircle2 className="w-3 h-3 text-emerald-500" />
@@ -753,7 +753,7 @@ export function PaymentSettingsForm() {
                          )}
                        </div>
                      </div>
-                     <button className="px-6 py-2.5 rounded-xl border border-gray-100 bg-slate-50 text-slate-900 font-bold text-xs tracking-tight hover:bg-slate-100 transition-all">
+                     <button className="px-6 py-2.5 rounded-xl border border-gray-100 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-900 dark:text-white font-bold text-xs tracking-tight hover:bg-slate-100 dark:hover:bg-white/10 transition-all">
                        Configure
                      </button>
                    </div>
@@ -762,9 +762,9 @@ export function PaymentSettingsForm() {
             </div>
 
             {/* Gateway Controls */}
-            <div className="lg:col-span-4 bg-white rounded-2xl border border-gray-100 p-8 space-y-8">
+            <div className="lg:col-span-4 bg-white dark:bg-slate-900/50 rounded-2xl border border-gray-100 dark:border-white/10 p-8 space-y-8">
                <div className="space-y-1">
-                 <h3 className="text-base font-black text-slate-900">Gateway Controls</h3>
+                 <h3 className="text-base font-black text-slate-900 dark:text-white">Gateway Controls</h3>
                </div>
 
                <div className="space-y-6">
@@ -782,16 +782,16 @@ export function PaymentSettingsForm() {
                   active={gatewayControls.notifications}
                   onToggle={() => setGatewayControls({...gatewayControls, notifications: !gatewayControls.notifications})}
                  />
-                  <div className="flex flex-col pt-4 border-t border-gray-50">
+                  <div className="flex flex-col pt-4 border-t border-gray-50 dark:border-white/5">
                     <div className="flex items-center justify-between">
                       <div className="flex gap-4 items-center">
-                        <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400">
+                        <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-white/5 flex items-center justify-center text-slate-400 dark:text-slate-500">
                           <Globe className="w-5 h-5" />
                         </div>
                         <div>
-                          <h4 className="text-sm font-bold text-slate-800">Currency & Tax</h4>
+                          <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200">Currency & Tax</h4>
                           {!gatewayControls.isEditingCurrencyTax && (
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">
+                            <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-tight">
                               {gatewayControls.currency} • {gatewayControls.taxRate}% TAX
                             </p>
                           )}
@@ -801,7 +801,7 @@ export function PaymentSettingsForm() {
                         onClick={() => setGatewayControls({...gatewayControls, isEditingCurrencyTax: !gatewayControls.isEditingCurrencyTax})}
                         className={cn(
                           "p-2.5 rounded-xl border border-gray-100 transition-all",
-                          gatewayControls.isEditingCurrencyTax ? "bg-purple-600 text-white border-purple-600" : "bg-white text-slate-400 hover:text-purple-600"
+                          gatewayControls.isEditingCurrencyTax ? "bg-purple-600 text-white border-purple-600" : "bg-white text-slate-400 hover:text-purple-600 dark:bg-slate-900 dark:border-white/10 dark:text-slate-500 dark:hover:text-purple-400"
                         )}
                       >
                          <Edit2 className="w-4 h-4" />
@@ -809,27 +809,27 @@ export function PaymentSettingsForm() {
                     </div>
 
                     {gatewayControls.isEditingCurrencyTax && (
-                      <div className="mt-4 p-4 rounded-xl bg-slate-50 border border-gray-100 space-y-4 animate-in fade-in slide-in-from-top-2 duration-200">
+                      <div className="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 space-y-4 animate-in fade-in slide-in-from-top-2 duration-200">
                         <div className="grid grid-cols-2 gap-3">
                           <div className="space-y-1.5 relative">
-                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Currency</label>
+                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Currency</label>
                             <button 
                               type="button"
                               onClick={() => setGatewayControls({...gatewayControls, showCurrencyDropdown: !gatewayControls.showCurrencyDropdown})}
-                              className="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-white text-xs font-bold text-slate-700 flex items-center justify-between hover:border-purple-300 hover:shadow-sm transition-all"
+                              className="w-full px-3 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-slate-900 text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center justify-between hover:border-purple-300 dark:hover:border-purple-600 hover:shadow-sm transition-all"
                             >
                               <span>{gatewayControls.currency} ($)</span>
                               <ChevronDown className={cn("w-3.5 h-3.5 text-slate-400 transition-transform duration-300", gatewayControls.showCurrencyDropdown && "rotate-180")} />
                             </button>
                             
                             {gatewayControls.showCurrencyDropdown && (
-                              <div className="absolute top-full left-0 w-full mt-2 bg-white border border-gray-100 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                              <div className="absolute top-full left-0 w-full mt-2 bg-white dark:bg-slate-900 border border-gray-100 dark:border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)] z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                                 {["USD", "EUR", "GBP", "NGN"].map((cur) => (
                                   <button
                                     key={cur}
                                     type="button"
                                     onClick={() => setGatewayControls({...gatewayControls, currency: cur, showCurrencyDropdown: false})}
-                                    className="w-full px-5 py-3 text-left text-xs font-bold text-slate-600 hover:bg-purple-50 hover:text-purple-600 transition-colors flex items-center justify-between"
+                                    className="w-full px-5 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-purple-50 dark:hover:bg-white/5 hover:text-purple-600 dark:hover:text-purple-400 transition-colors flex items-center justify-between"
                                   >
                                     {cur}
                                     {gatewayControls.currency === cur && <CheckCircle2 className="w-3.5 h-3.5 text-purple-600" />}
@@ -839,22 +839,22 @@ export function PaymentSettingsForm() {
                             )}
                           </div>
                           <div className="space-y-1.5">
-                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Tax Rate (%)</label>
+                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Tax Rate (%)</label>
                             <div className="relative">
                               <input 
                                 type="number"
                                 value={gatewayControls.taxRate}
                                 onChange={(e) => setGatewayControls({...gatewayControls, taxRate: e.target.value})}
-                                className="w-full px-3 py-2 rounded-lg border border-gray-200 bg-white text-xs font-bold text-slate-700 outline-none focus:border-purple-600 pr-8"
+                                className="w-full px-3 py-2 rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-slate-900 text-xs font-bold text-slate-700 dark:text-slate-300 outline-none focus:border-purple-600 dark:focus:border-purple-400 pr-8"
                                 placeholder="15"
                               />
-                              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-black text-slate-300">%</span>
+                              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-black text-slate-300 dark:text-slate-600">%</span>
                             </div>
                           </div>
                         </div>
                         <button 
                           onClick={() => setGatewayControls({...gatewayControls, isEditingCurrencyTax: false})}
-                          className="w-full py-2.5 rounded-lg bg-slate-900 text-white font-black text-[10px] uppercase tracking-wider hover:bg-slate-800 transition-all"
+                          className="w-full py-2.5 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black text-[10px] uppercase tracking-wider hover:bg-slate-800 dark:hover:bg-slate-200 transition-all"
                         >
                           Save Changes
                         </button>
@@ -868,16 +868,16 @@ export function PaymentSettingsForm() {
 
         {activeTab === "billing" && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div className="lg:col-span-8 bg-white rounded-2xl border border-gray-100 p-8 space-y-8">
+            <div className="lg:col-span-8 bg-white dark:bg-slate-900/50 rounded-2xl border border-gray-100 dark:border-white/10 p-8 space-y-8">
                <div className="space-y-1">
-                 <h3 className="text-base font-black text-slate-900">Billing Logic & Rules</h3>
-                 <p className="text-xs font-medium text-slate-400">Configure how you collect payments and generate invoices</p>
+                 <h3 className="text-base font-black text-slate-900 dark:text-white">Billing Logic & Rules</h3>
+                 <p className="text-xs font-medium text-slate-400 dark:text-slate-500">Configure how you collect payments and generate invoices</p>
                </div>
 
                <div className="flex flex-col gap-6">
-                 <div className="space-y-4 p-6 rounded-2xl bg-slate-50 border border-gray-100">
-                    <h4 className="text-sm font-black text-slate-800">Auto-Collection</h4>
-                    <p className="text-[11px] text-slate-500 leading-relaxed mb-4">Enable automatic charging of customers&apos; saved payment methods on their billing date.</p>
+                 <div className="space-y-4 p-6 rounded-2xl bg-slate-50 dark:bg-white/5 border border-gray-100 dark:border-white/10">
+                    <h4 className="text-sm font-black text-slate-800 dark:text-slate-200">Auto-Collection</h4>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Enable automatic charging of customers&apos; saved payment methods on their billing date.</p>
                     <ToggleControl 
                       icon={<Zap className="w-4 h-4" />}
                       title="Instant Capture"
@@ -886,24 +886,24 @@ export function PaymentSettingsForm() {
                       onToggle={() => setGatewayControls({...gatewayControls, autoCollect: !gatewayControls.autoCollect})}
                     />
                  </div>
-                 <div className="space-y-4 p-6 rounded-2xl bg-slate-50 border border-gray-100">
+                 <div className="space-y-4 p-6 rounded-2xl bg-slate-50 dark:bg-white/5 border border-gray-100 dark:border-white/10">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="text-sm font-black text-slate-800">Tax Management</h4>
-                        <p className="text-[11px] text-slate-500 leading-relaxed">Choose how taxes are calculated for your products.</p>
+                        <h4 className="text-sm font-black text-slate-800 dark:text-slate-200">Tax Management</h4>
+                        <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">Choose how taxes are calculated for your products.</p>
                       </div>
                       <div className="relative">
                         <button 
                           type="button"
                           onClick={() => setGatewayControls({...gatewayControls, showTaxDropdown: !gatewayControls.showTaxDropdown})}
-                          className="px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-xs font-bold text-slate-700 flex items-center gap-3 hover:border-purple-200 transition-all shadow-sm"
+                          className="px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-slate-900 text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-3 hover:border-purple-200 dark:hover:border-purple-600 transition-all shadow-sm"
                         >
                           <span>{billingRules.taxCalculation === "automatic" ? "Automatic (Recura Tax)" : billingRules.taxCalculation === "manual" ? "Manual Entry" : "No Tax"}</span>
                           <ChevronDown className={cn("w-3.5 h-3.5 text-slate-400 transition-transform", gatewayControls.showTaxDropdown && "rotate-180")} />
                         </button>
 
                         {gatewayControls.showTaxDropdown && (
-                          <div className="absolute top-full right-0 mt-2 w-64 bg-white border border-gray-100 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                          <div className="absolute top-full right-0 mt-2 w-64 bg-white dark:bg-slate-900 border border-gray-100 dark:border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)] z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                             {[
                               { label: "Automatic (Recura Tax)", value: "automatic" },
                               { label: "Manual Entry", value: "manual" },
@@ -916,7 +916,7 @@ export function PaymentSettingsForm() {
                                   setBillingRules({...billingRules, taxCalculation: opt.value});
                                   setGatewayControls({...gatewayControls, showTaxDropdown: false});
                                 }}
-                                className="w-full px-6 py-4 text-left text-xs font-bold text-slate-600 hover:bg-purple-50 hover:text-purple-600 transition-colors flex items-center justify-between border-b border-gray-50 last:border-none"
+                                className="w-full px-6 py-4 text-left text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-purple-50 dark:hover:bg-white/5 hover:text-purple-600 dark:hover:text-purple-400 transition-colors flex items-center justify-between border-b border-gray-50 dark:border-white/5 last:border-none"
                               >
                                 {opt.label}
                                 {billingRules.taxCalculation === opt.value && <CheckCircle2 className="w-4 h-4 text-purple-600" />}
@@ -930,7 +930,7 @@ export function PaymentSettingsForm() {
                </div>
 
                <div className="space-y-4 pt-4">
-                  <h4 className="text-sm font-black text-slate-800">Invoicing Preferences</h4>
+                  <h4 className="text-sm font-black text-slate-800 dark:text-slate-200">Invoicing Preferences</h4>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="space-y-2">
                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Invoice Prefix</label>
@@ -938,15 +938,15 @@ export function PaymentSettingsForm() {
                         type="text" 
                         value={billingRules.invoicePrefix}
                         onChange={(e) => setBillingRules({...billingRules, invoicePrefix: e.target.value})}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-100 bg-slate-50/50 text-sm font-bold text-slate-900"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-100 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm font-bold text-slate-900 dark:text-white"
                        />
                     </div>
                     <div className="space-y-2 text-center flex flex-col items-center justify-center">
-                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Retry Pattern</label>
+                       <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Retry Pattern</label>
                        <div className="flex items-center gap-3">
-                         <button onClick={() => setGatewayControls({...gatewayControls, retryDelay: Math.max(1, gatewayControls.retryDelay - 1)})} className="w-8 h-8 rounded-full border border-gray-100 flex items-center justify-center hover:bg-slate-50">-</button>
-                         <span className="text-sm font-black text-slate-900">{gatewayControls.retryDelay} Days</span>
-                         <button onClick={() => setGatewayControls({...gatewayControls, retryDelay: gatewayControls.retryDelay + 1})} className="w-8 h-8 rounded-full border border-gray-100 flex items-center justify-center hover:bg-slate-50">+</button>
+                         <button onClick={() => setGatewayControls({...gatewayControls, retryDelay: Math.max(1, gatewayControls.retryDelay - 1)})} className="w-8 h-8 rounded-full border border-gray-100 dark:border-white/10 flex items-center justify-center hover:bg-slate-50 dark:hover:bg-white/5 text-slate-600 dark:text-slate-400">-</button>
+                         <span className="text-sm font-black text-slate-900 dark:text-white">{gatewayControls.retryDelay} Days</span>
+                         <button onClick={() => setGatewayControls({...gatewayControls, retryDelay: gatewayControls.retryDelay + 1})} className="w-8 h-8 rounded-full border border-gray-100 dark:border-white/10 flex items-center justify-center hover:bg-slate-50 dark:hover:bg-white/5 text-slate-600 dark:text-slate-400">+</button>
                        </div>
                     </div>
                      <div className="flex items-end">
@@ -995,16 +995,16 @@ export function PaymentSettingsForm() {
         )}
 
         {activeTab === "transactions" && (
-          <div className="bg-white rounded-[32px] border border-gray-100 overflow-hidden shadow-sm">
-            <div className="px-8 py-6 border-b border-gray-50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="bg-white dark:bg-slate-900/50 rounded-[32px] border border-gray-100 dark:border-white/10 overflow-hidden shadow-sm">
+            <div className="px-8 py-6 border-b border-gray-50 dark:border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                <div>
-                  <h3 className="text-base font-black text-slate-900">Recent Transactions</h3>
-                  <p className="text-xs font-medium text-slate-400">Track and manage your customer payments</p>
+                  <h3 className="text-base font-black text-slate-900 dark:text-white">Recent Transactions</h3>
+                  <p className="text-xs font-medium text-slate-400 dark:text-slate-500">Track and manage your customer payments</p>
                </div>
                <div className="flex items-center gap-2">
                  <button 
                   onClick={handleExportCSV}
-                  className="px-5 py-2.5 rounded-xl bg-slate-900 text-white font-black text-sm hover:bg-slate-800 transition-all active:scale-95 shadow-lg shadow-slate-900/10 cursor-pointer flex items-center gap-2"
+                  className="px-5 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black text-sm hover:bg-slate-800 dark:hover:bg-slate-200 transition-all active:scale-95 shadow-lg shadow-slate-900/10 dark:shadow-white/5 cursor-pointer flex items-center gap-2"
                  >
                     <FileSpreadsheet className="w-4 h-4" />
                     Export CSV
@@ -1013,7 +1013,7 @@ export function PaymentSettingsForm() {
             </div>
             <div className="overflow-x-auto min-h-[400px]">
                <table className="w-full">
-                  <thead className="bg-slate-50/50">
+                  <thead className="bg-slate-50/50 dark:bg-white/5">
                     <tr>
                       <th className="px-8 py-4 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">Customer</th>
                       <th className="px-8 py-4 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">Amount</th>
@@ -1022,18 +1022,18 @@ export function PaymentSettingsForm() {
                       <th className="px-8 py-4 text-right text-[10px] font-black text-slate-400 uppercase tracking-widest">Action</th>
                     </tr>
                   </thead>
-                   <tbody className="divide-y divide-gray-50">
+                   <tbody className="divide-y divide-gray-50 dark:divide-white/5">
                     {paginatedTransactions.map((tx, i) => (
-                      <tr key={i} className="hover:bg-slate-50/30 transition-colors">
+                      <tr key={i} className="hover:bg-slate-50/30 dark:hover:bg-white/5 transition-colors">
                         <td className="px-8 py-6">
                            <div className="flex items-center gap-3">
-                             <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-black text-slate-600">
+                             <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/10 flex items-center justify-center text-xs font-black text-slate-600 dark:text-slate-400">
                                 {tx.customer ? tx.customer[0] : ""}
                              </div>
-                             <span className="text-sm font-bold text-slate-900">{tx.customer}</span>
+                             <span className="text-sm font-bold text-slate-900 dark:text-white">{tx.customer}</span>
                            </div>
                         </td>
-                        <td className="px-8 py-6 text-sm font-black text-slate-900">{tx.amount}</td>
+                        <td className="px-8 py-6 text-sm font-black text-slate-900 dark:text-white">{tx.amount}</td>
                         <td className="px-8 py-6">
                            <span className={cn(
                              "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest",
@@ -1043,11 +1043,11 @@ export function PaymentSettingsForm() {
                               {tx.status}
                            </span>
                         </td>
-                        <td className="px-8 py-6 text-xs font-bold text-slate-400">{tx.date}</td>
+                        <td className="px-8 py-6 text-xs font-bold text-slate-400 dark:text-slate-500">{tx.date}</td>
                         <td className="px-8 py-6 text-right">
                            <button 
                             onClick={() => openReceipt(tx)}
-                            className="text-purple-600 text-xs font-black hover:underline uppercase tracking-widest cursor-pointer"
+                            className="text-purple-600 dark:text-purple-400 text-xs font-black hover:underline uppercase tracking-widest cursor-pointer"
                            >
                             View
                            </button>
@@ -1059,15 +1059,15 @@ export function PaymentSettingsForm() {
             </div>
 
             {/* Pagination UI */}
-            <div className="px-8 py-5 bg-slate-50/50 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <p className="text-xs font-bold text-slate-400 text-center sm:text-left">
-                Showing <span className="text-slate-900">{startIndex + 1}</span> to <span className="text-slate-900">{Math.min(startIndex + itemsPerPage, mockTransactions.length)}</span> of <span className="text-slate-900">{mockTransactions.length}</span> results
+            <div className="px-8 py-5 bg-slate-50/50 dark:bg-white/5 border-t border-gray-100 dark:border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <p className="text-xs font-bold text-slate-400 dark:text-slate-500 text-center sm:text-left">
+                Showing <span className="text-slate-900 dark:text-white">{startIndex + 1}</span> to <span className="text-slate-900 dark:text-white">{Math.min(startIndex + itemsPerPage, mockTransactions.length)}</span> of <span className="text-slate-900 dark:text-white">{mockTransactions.length}</span> results
               </p>
               <div className="flex items-center justify-center gap-2">
                 <button 
                   onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
                   disabled={currentPage === 1}
-                  className="p-2 rounded-xl border border-gray-100 bg-white text-slate-400 hover:text-purple-600 hover:border-purple-100 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                  className="p-2 rounded-xl border border-gray-100 dark:border-white/10 bg-white dark:bg-slate-900 text-slate-400 dark:text-slate-500 hover:text-purple-600 dark:hover:text-purple-400 hover:border-purple-100 dark:hover:border-purple-900 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
@@ -1081,7 +1081,7 @@ export function PaymentSettingsForm() {
                         "w-9 h-9 rounded-xl text-xs font-black transition-all cursor-pointer",
                         currentPage === page 
                           ? "bg-purple-600 text-white shadow-lg shadow-purple-600/30" 
-                          : "bg-white border border-gray-100 text-slate-400 hover:border-purple-100 hover:text-purple-600"
+                          : "bg-white dark:bg-slate-900 border border-gray-100 dark:border-white/10 text-slate-400 dark:text-slate-500 hover:border-purple-100 dark:hover:border-purple-900 hover:text-purple-600 dark:hover:text-purple-400"
                       )}
                     >
                       {page}
@@ -1152,17 +1152,17 @@ function OverviewCard({
         </div>
         
         <div className="relative z-10 space-y-4">
-          <p className={cn("text-lg font-black tracking-[0.2em]", isDark ? "text-slate-900" : "")}>
+          <p className={cn("text-lg font-black tracking-[0.2em]", isDark ? "text-slate-900" : "text-white")}>
             {number}
           </p>
           <div className="flex justify-between items-end">
             <div>
               <p className={cn("text-[9px] uppercase font-bold opacity-60", isDark ? "text-slate-500" : "text-white/60")}>Card Holder</p>
-              <p className={cn("text-xs font-black", isDark ? "text-slate-700" : "")}>{holder}</p>
+              <p className={cn("text-xs font-black", isDark ? "text-slate-700" : "text-white")}>{holder}</p>
             </div>
             <div className="text-right">
               <p className={cn("text-[9px] uppercase font-bold opacity-60", isDark ? "text-slate-500" : "text-white/60")}>Expiry Date</p>
-              <p className={cn("text-xs font-black", isDark ? "text-slate-700" : "")}>{expiry}</p>
+              <p className={cn("text-xs font-black", isDark ? "text-slate-700" : "text-white")}>{expiry}</p>
             </div>
           </div>
         </div>
@@ -1170,11 +1170,11 @@ function OverviewCard({
       
       <div className="flex items-center justify-between px-1">
         <div>
-          <h4 className="text-[15px] font-black text-slate-900 tracking-tight">{type}</h4>
-          <p className="text-xs font-bold text-slate-400">{count}</p>
+          <h4 className="text-[15px] font-black text-slate-900 dark:text-white tracking-tight">{type}</h4>
+          <p className="text-xs font-bold text-slate-400 dark:text-slate-500">{count}</p>
         </div>
-        <div className="w-8 h-8 rounded-full bg-slate-50 border border-gray-100 flex items-center justify-center">
-          <div className={cn("w-2 h-2 rounded-full", active ? "bg-emerald-500" : "bg-slate-300")} />
+        <div className="w-8 h-8 rounded-full bg-slate-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 flex items-center justify-center">
+          <div className={cn("w-2 h-2 rounded-full", active ? "bg-emerald-500" : "bg-slate-300 dark:bg-slate-700")} />
         </div>
       </div>
     </div>
@@ -1185,19 +1185,19 @@ function ToggleControl({ icon, title, subtitle, active, onToggle }: ToggleContro
   return (
     <div className="flex items-center justify-between group">
       <div className="flex gap-4 items-start">
-        <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-600 transition-colors group-hover:bg-purple-50 group-hover:text-purple-600 shrink-0">
+        <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-white/5 flex items-center justify-center text-slate-600 dark:text-slate-400 transition-colors group-hover:bg-purple-50 dark:group-hover:bg-purple-900/30 group-hover:text-purple-600 dark:group-hover:text-purple-400 shrink-0">
           {icon}
         </div>
         <div>
-          <h4 className="text-sm font-bold text-slate-800">{title}</h4>
-          <p className="text-[11px] font-medium text-slate-400">{subtitle}</p>
+          <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200">{title}</h4>
+          <p className="text-[11px] font-medium text-slate-400 dark:text-slate-500">{subtitle}</p>
         </div>
       </div>
       <button 
         onClick={onToggle}
         className={cn(
           "w-10 h-5 rounded-full transition-all relative flex items-center px-1 shrink-0",
-          active ? "bg-purple-600 shadow-md shadow-purple-200" : "bg-slate-200"
+          active ? "bg-purple-600 shadow-md shadow-purple-200 dark:shadow-purple-900/40" : "bg-slate-200 dark:bg-slate-800"
         )}
       >
         <div className={cn(

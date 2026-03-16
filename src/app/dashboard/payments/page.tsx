@@ -19,7 +19,7 @@ export default function PaymentsPage() {
         
         {/* Header section */}
         <div>
-          <h1 className="dashboard-title text-3xl font-black text-slate-900 tracking-tight">Payments & Transactions</h1>
+          <h1 className="dashboard-title text-3xl font-black tracking-tight">Payments & Transactions</h1>
           <p className="dashboard-subtitle mt-2">Monitor payments and payment methods</p>
         </div>
 
@@ -31,8 +31,8 @@ export default function PaymentsPage() {
             trend="+12.5%"
             trendType="up"
             icon={DollarSign}
-            iconColor="text-purple-600"
-            iconBg="bg-purple-50"
+            iconColor="text-purple-600 dark:text-purple-400"
+            iconBg="bg-purple-50 dark:bg-purple-500/20"
           />
           <StatsCard 
             title="Approved"
@@ -40,8 +40,8 @@ export default function PaymentsPage() {
             trend="+2"
             trendType="up"
             icon={CheckCircle2}
-            iconColor="text-emerald-500"
-            iconBg="bg-emerald-50"
+            iconColor="text-emerald-500 dark:text-emerald-400"
+            iconBg="bg-emerald-50 dark:bg-emerald-500/20"
           />
           <StatsCard 
             title="Failed"
@@ -49,8 +49,8 @@ export default function PaymentsPage() {
             trend="+1"
             trendType="down"
             icon={XCircle}
-            iconColor="text-rose-500"
-            iconBg="bg-rose-50"
+            iconColor="text-rose-500 dark:text-rose-400"
+            iconBg="bg-rose-50 dark:bg-rose-500/20"
           />
           <StatsCard 
             title="Pending"
@@ -58,14 +58,14 @@ export default function PaymentsPage() {
             trend="0%"
             trendType="up"
             icon={Clock}
-            iconColor="text-orange-500"
-            iconBg="bg-orange-50"
+            iconColor="text-orange-500 dark:text-orange-400"
+            iconBg="bg-orange-50 dark:bg-orange-500/20"
           />
         </div>
 
         {/* Payment Methods Section */}
         <div className="space-y-4">
-          <h2 className="text-lg font-extrabold text-slate-900 tracking-tight">Payment Methods</h2>
+          <h2 className="text-lg font-extrabold text-slate-900 dark:text-white tracking-tight">Payment Methods</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <PaymentCard 
               type="credit-card"

@@ -18,7 +18,7 @@ import {
   Smartphone
 } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { ReceiptModal, Transaction } from "@/components/dashboard/shared/receipt-modal"
+import { ReceiptModal, Transaction } from "@/components/dashboard/shared/modals/receipt-modal"
 
 const mockTransactions: Transaction[] = [
   { id: "A1X9-B223", customer: "Sarah Johnson", email: "sarahj@email.com", plan: "Premium", amount: "$149.00", method: { type: "Credit Card", details: "•••• 4242", icon: CreditCard }, date: "Mar 15, 2026, 2:30 PM", status: "Approved", avatar: "/images/dashboard/24 1.png" },
@@ -190,7 +190,7 @@ export function PaymentTable() {
 
   return (
     <>
-    <div className="dashboard-card bg-white border border-slate-100 rounded-[24px] p-0 overflow-hidden shadow-sm">
+    <div className="dashboard-card bg-white dark:bg-[#150a2e] border border-slate-100 dark:border-white/10 rounded-[24px] p-0 overflow-hidden shadow-sm">
       {/* Header Container */}
       <div className="p-8 pb-4">
         {/* Search and Actions Row */}
@@ -253,8 +253,8 @@ export function PaymentTable() {
                 className={cn(
                   "px-5 py-2.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap",
                   isActive 
-                    ? "bg-purple-50 text-purple-600 shadow-sm shadow-purple-100" 
-                    : "bg-transparent text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+                    ? "bg-purple-50 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 shadow-sm shadow-purple-100 dark:shadow-none" 
+                    : "bg-transparent text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white"
                 )}
               >
                 {label} ({count})
@@ -264,7 +264,7 @@ export function PaymentTable() {
         </div>
       </div>
 
-        <div className="table-container border-t border-slate-50">
+        <div className="table-container border-t border-slate-50 dark:border-white/5">
           <table className="w-full">
             <thead>
               <tr>
@@ -294,7 +294,7 @@ export function PaymentTable() {
               </tr>
             </thead>
             <tbody className={cn(
-              "divide-y divide-slate-50 transition-opacity duration-200",
+              "divide-y divide-slate-50 dark:divide-white/5 transition-opacity duration-200",
               isTransitioning ? "opacity-0" : "opacity-100"
             )}>
               {paginatedTransactions.map((transaction) => {
@@ -319,11 +319,11 @@ export function PaymentTable() {
                       />
                     </td>
                     <td className="table-data-cell">
-                      <span className="font-bold text-slate-600 text-xs tracking-wider">#{transaction.id}</span>
+                      <span className="font-bold text-slate-600 dark:text-slate-300 text-xs tracking-wider">#{transaction.id}</span>
                     </td>
                     <td className="table-data-cell">
                       <div className="flex items-center gap-3">
-                        <div className="relative w-8 h-8 rounded-full overflow-hidden bg-slate-100 border border-slate-200">
+                        <div className="relative w-8 h-8 rounded-full overflow-hidden bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/10">
                           <Image 
                             src={transaction.avatar} 
                             alt={transaction.customer} 
@@ -332,28 +332,28 @@ export function PaymentTable() {
                           />
                         </div>
                         <div>
-                          <p className="font-bold text-slate-900 text-sm">{transaction.customer}</p>
-                          <p className="font-bold text-slate-400 text-[11px] lowercase">{transaction.email}</p>
+                          <p className="font-bold text-slate-900 dark:text-white text-sm">{transaction.customer}</p>
+                          <p className="font-bold text-slate-400 dark:text-slate-500 text-[11px] lowercase">{transaction.email}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="table-data-cell font-bold text-slate-600">{transaction.plan}</td>
-                    <td className="table-data-cell font-extrabold text-slate-900">{transaction.amount}</td>
+                    <td className="table-data-cell font-bold text-slate-600 dark:text-slate-300">{transaction.plan}</td>
+                    <td className="table-data-cell font-extrabold text-slate-900 dark:text-white">{transaction.amount}</td>
                     <td className="table-data-cell">
                       <div className="flex items-center gap-2">
                         {transaction.method.icon && (
-                          <div className="w-8 h-8 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0">
+                          <div className="w-8 h-8 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 flex items-center justify-center shrink-0">
                             <transaction.method.icon className="w-4 h-4 text-slate-500" />
                           </div>
                         )}
                         <div>
-                          <p className="text-xs font-bold text-slate-900">{transaction.method.type}</p>
-                          <p className="text-[10px] font-bold text-slate-400">{transaction.method.details}</p>
+                          <p className="text-xs font-bold text-slate-900 dark:text-white">{transaction.method.type}</p>
+                          <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500">{transaction.method.details}</p>
                         </div>
                       </div>
                     </td>
                     <td className="table-data-cell">
-                      <span className="font-bold text-slate-500 text-xs">{transaction.date}</span>
+                      <span className="font-bold text-slate-500 dark:text-slate-400 text-xs">{transaction.date}</span>
                     </td>
                     <td className="table-data-cell">
                       <span className={cn(
@@ -378,21 +378,21 @@ export function PaymentTable() {
                       {activeMenuId === transaction.id && (
                         <div 
                           ref={menuRef}
-                          className="absolute top-[70%] right-6 w-48 bg-white border border-slate-100 rounded-2xl shadow-xl shadow-purple-500/10 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200 text-left"
+                          className="absolute top-[70%] right-6 w-48 bg-white dark:bg-[#150a2e] border border-slate-100 dark:border-white/10 rounded-2xl shadow-xl shadow-purple-500/10 dark:shadow-purple-900/40 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200 text-left"
                         >
                           <button 
                             onClick={() => openReceipt(transaction)}
-                            className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 flex items-center gap-3 transition-colors cursor-pointer"
+                            className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white flex items-center gap-3 transition-colors cursor-pointer"
                           >
                             <Receipt className="w-4 h-4 text-slate-400" />
                             View Receipt
                           </button>
-                          <button className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 flex items-center gap-3 transition-colors cursor-pointer">
+                          <button className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white flex items-center gap-3 transition-colors cursor-pointer">
                             <Mail className="w-4 h-4 text-slate-400" />
                             Resend Email
                           </button>
-                          <div className="h-[1px] bg-slate-50 my-1 mx-2" />
-                          <button className="w-full px-4 py-2.5 text-sm font-bold text-rose-600 hover:bg-rose-50 flex items-center gap-3 transition-colors cursor-pointer">
+                          <div className="h-[1px] bg-slate-50 dark:bg-white/5 my-1 mx-2" />
+                          <button className="w-full px-4 py-2.5 text-sm font-bold text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-500/10 flex items-center gap-3 transition-colors cursor-pointer">
                             <Trash2 className="w-4 h-4 text-rose-500" />
                             Delete Record
                           </button>
@@ -408,13 +408,13 @@ export function PaymentTable() {
           {/* Empty State */}
           {!isTransitioning && paginatedTransactions.length === 0 && (
             <div className="p-20 text-center">
-              <p className="text-slate-400 font-bold">No transactions found match your criteria.</p>
+              <p className="text-slate-400 dark:text-slate-500 font-bold">No transactions found match your criteria.</p>
             </div>
           )}
         </div>
 
         {/* Pagination */}
-        <div className="p-8 border-t border-slate-50 flex items-center justify-center">
+        <div className="p-8 border-t border-slate-50 dark:border-white/5 flex items-center justify-center">
           <div className="flex items-center gap-2">
             <button 
               onClick={() => handlePageChange(currentPage - 1)}

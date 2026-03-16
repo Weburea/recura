@@ -24,17 +24,17 @@ export function SubscriptionGrowth() {
       
       <div className="space-y-4">
         {data.map((item, index) => (
-          <div key={index} className="flex justify-between items-center p-4 rounded-xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100">
+          <div key={index} className="flex justify-between items-center p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-white/5 transition-colors border border-transparent hover:border-slate-100 dark:hover:border-white/10">
             <div>
-              <p className="font-bold text-slate-900 text-sm">{item.month}</p>
-              <p className="font-bold text-slate-400 text-xs mt-0.5">New subscriptions</p>
+              <p className="font-bold text-slate-900 dark:text-white text-sm">{item.month}</p>
+              <p className="font-bold text-slate-400 dark:text-slate-500 text-xs mt-0.5">New subscriptions</p>
             </div>
             <div className="text-right">
-              <p className="font-extrabold text-slate-900 text-lg md:text-xl tracking-tight">{item.newSubscriptions}</p>
+              <p className="font-extrabold text-slate-900 dark:text-white text-lg md:text-xl tracking-tight">{item.newSubscriptions}</p>
               {item.growth !== 0 && (
                 <p className={cn(
                   "font-bold text-[10px] md:text-xs",
-                  item.trend === "up" ? "text-emerald-500" : "text-rose-500"
+                  item.trend === "up" ? "text-emerald-500 dark:text-emerald-400" : "text-rose-500 dark:text-rose-400"
                 )}>
                   {item.trend === "up" ? "+" : ""}{item.growth}%
                 </p>

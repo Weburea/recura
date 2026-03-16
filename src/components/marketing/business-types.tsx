@@ -47,11 +47,11 @@ export function BusinessTypes() {
           <h2 className="section-title tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-400">
             One Platform For Every Subscription Business
           </h2>
-          <div className="inline-block px-6 py-2 rounded-full text-md text-gray-300 mb-8">
+          <div className="inline-block px-6 py-2 rounded-full text-md text-gray-800 dark:text-gray-300 mb-8">
             From startups to gyms and agencies, Recura adapts to your business model
           </div>
           <div>
-            <h4 className=" px-4 py-1 rounded text-xl text-gray-300">
+            <h4 className=" px-4 py-1 rounded text-xl text-gray-800 dark:text-gray-300">
               Built For Recurring Revenue Businesses.
             </h4>
           </div>
@@ -74,10 +74,10 @@ export function BusinessTypes() {
               </div>
               
               <div className="flex flex-col">
-                <h3 className="text-lg font-bold text-slate-900 mb-2 leading-tight">
+                <h3 className="text-lg font-bold text-slate-900 dark:text-slate-900 mb-2 leading-tight">
                   {type.title}
                 </h3>
-                <p className="text-slate-800 text-sm leading-snug">
+                <p className="text-slate-800 dark:text-slate-800 text-sm leading-snug">
                   {type.description}
                 </p>
               </div>

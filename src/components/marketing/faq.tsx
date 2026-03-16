@@ -41,7 +41,7 @@ export const Faq = () => {
   };
 
   return (
-    <section className="w-full py-20 bg-gray-50 relative overflow-hidden">
+    <section className="w-full py-20 bg-gray-50 dark:bg-transparent relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         
         {/* Header */}
@@ -61,18 +61,18 @@ export const Faq = () => {
               <div 
                 key={index}
                 className={cn(
-                  "bg-white rounded-2xl overflow-hidden transition-all duration-300",
-                   openIndex === index ? "shadow-lg shadow-purple-100" : "shadow-sm"
+                  "bg-white dark:bg-white/5 rounded-2xl overflow-hidden transition-all duration-300 dark:border dark:border-white/10",
+                   openIndex === index ? "shadow-lg shadow-purple-100 dark:shadow-purple-900/20" : "shadow-sm"
                 )}
               >
                 <button
                   onClick={() => toggleFaq(index)}
                   className="w-full flex items-center justify-between p-6 text-left"
                 >
-                  <span className="font-semibold text-slate-800 text-lg pr-4">{faq.question}</span>
+                  <span className="font-semibold text-slate-800 dark:text-white text-lg pr-4">{faq.question}</span>
                   <div className={cn(
                     "w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 shrink-0",
-                    openIndex === index ? "bg-slate-900 text-white" : "bg-white text-slate-900"
+                    openIndex === index ? "bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900" : "bg-white dark:bg-white/10 text-slate-900 dark:text-white"
                   )}>
                     {openIndex === index ? <Minus size={18} /> : <Plus size={18} />}
                   </div>
@@ -85,7 +85,7 @@ export const Faq = () => {
                   )}
                 >
                   <div className="overflow-hidden">
-                    <div className="p-6 pt-0 text-gray-600 leading-relaxed">
+                    <div className="p-6 pt-0 text-gray-600 dark:text-slate-300 leading-relaxed">
                       {faq.answer}
                     </div>
                   </div>

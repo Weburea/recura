@@ -23,12 +23,12 @@ export function AuthLayout({
   reverse = false 
 }: AuthLayoutProps) {
   return (
-    <div className="min-h-screen flex w-full bg-white relative">
+    <div className="min-h-screen flex w-full bg-white dark:bg-[#0D0518] relative">
       {/* Back to Home Button - Absolute only if you want it over content, or fixed */}
       <div className="absolute top-6 left-6 z-20">
         <Link 
           href="/" 
-          className="flex items-center gap-2 text-gray-600 hover:text-purple-600 transition-colors bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm hover:shadow-md"
+          className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors bg-white/80 dark:bg-black/20 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm hover:shadow-md border border-transparent dark:border-white/10"
         >
           <ArrowLeft className="w-4 h-4" />
           <span className="font-medium">Back to Home</span>
@@ -74,10 +74,11 @@ export function AuthLayout({
         </div>
 
         {/* Content Section */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-12 overflow-y-auto bg-white relative ">
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-12 overflow-y-auto bg-white dark:bg-[#0D0518] relative">
            {/* Logo Top Right */}
            <div className="absolute top-6 right-6">
-                <Image src="/images/landing/logo.png" alt="Recura" width={100} height={32} className="w-auto h-5" />
+                <Image src="/images/landing/logo.png" alt="Recura" width={100} height={32} className="w-auto h-5 dark:hidden" />
+                <Image src="/logo.svg" alt="Recura" width={100} height={32} className="w-auto h-5 hidden dark:block" />
            </div>
 
           <div className="w-full max-w-md space-y-8 mt-12 lg:mt-0">

@@ -4,9 +4,9 @@ import { Button } from '@/components/ui/button';
 
 export function Booking() {
   return (
-    <section className="py-10 bg-slate-50">
+    <section className="py-10 bg-slate-50 dark:bg-transparent">
       <div className="container mx-auto px-4">
-        <div className="bg-white rounded-[2.5rem] p-2 md:p-4 shadow-sm border border-slate-100 flex flex-col md:flex-row items-center gap-12 overflow-hidden relative">
+        <div className="bg-white dark:bg-white/5 rounded-[2.5rem] p-2 md:p-4 shadow-sm border border-slate-100 dark:border-white/10 flex flex-col md:flex-row items-center gap-12 overflow-hidden relative">
             
           {/* Image Section */}
           <div className="w-full md:w-3/12 relative min-h-[100px] md:min-h-[200px]">
@@ -32,7 +32,7 @@ export function Booking() {
                 <br className="hidden md:block" />
                 <span className="text-gradient-bold"> your billing experience </span>
                 </h2>
-                <p className="section-description mx-0 mb-6">
+                <p className="section-description mx-0 mb-6 text-gray-600 dark:text-slate-300">
                 Get a quick overview of Recura&apos;s capabilities over a 45-minute session with our product experts.
                 </p>
             </div>

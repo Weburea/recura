@@ -4,6 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
+import { useTheme } from "next-themes"
 import { 
   LayoutDashboard, 
   Users, 
@@ -33,27 +34,37 @@ interface SidebarProps {
 
 export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
   const pathname = usePathname()
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
 
   return (
     <aside className={cn(
-      "w-[250px] h-screen bg-white border-r border-gray-100 flex flex-col fixed left-0 top-0 z-50 transition-transform duration-300 lg:translate-x-0",
+      "w-[250px] h-screen bg-white dark:bg-[#0D0518] border-r border-gray-100 dark:border-white/10 flex flex-col fixed left-0 top-0 z-50 transition-transform duration-300 lg:translate-x-0 transition-colors",
       isOpen ? "translate-x-0" : "-translate-x-full"
     )}>
       <div className="px-8 flex items-center justify-between">
         <Link href="/" className="flex items-center">
-          <div className="relative w-24 h-24">
-            <Image 
-              src="/images/landing/logo.png" 
-              alt="Recura Logo" 
-              fill
-              className="object-contain"
-              priority
-            />
+          <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex items-center">
+            {mounted ? (
+              <Image 
+                src={resolvedTheme === 'dark' ? "/logo.svg" : "/images/landing/logo.png"} 
+                alt="Recura Logo" 
+                fill
+                className="object-contain"
+                priority
+              />
+            ) : (
+              <div className="w-full h-full" />
+            )}
           </div>
         </Link>
         <button 
           onClick={() => setIsOpen(false)}
-          className="lg:hidden p-2 rounded-lg bg-slate-50 text-slate-500 hover:bg-slate-100 transition-colors"
+          className="lg:hidden p-2 rounded-lg bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
@@ -70,13 +81,13 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
               className={cn(
                 "flex items-center gap-4 px-5 py-3.5 rounded-2xl transition-all duration-200 group",
                 isActive 
-                  ? "bg-purple-50 text-purple-600 shadow-sm shadow-purple-100" 
-                  : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+                  ? "bg-purple-50 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 shadow-sm shadow-purple-100 dark:shadow-purple-900/20" 
+                  : "text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white"
               )}
             >
               <item.icon className={cn(
                 "w-5 h-5 transition-colors",
-                isActive ? "text-purple-600" : "text-slate-400 group-hover:text-slate-600"
+                isActive ? "text-purple-600 dark:text-purple-400" : "text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300"
               )} />
               <span className="font-bold text-sm tracking-tight">{item.label}</span>
             </Link>
@@ -84,19 +95,23 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
         })}
       </nav>
 
-      <div className="p-6 mt-auto border-t border-gray-50 bg-slate-50/50">
-        <div className="flex items-center gap-4 p-2 rounded-2xl">
-          <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 overflow-hidden shrink-0 shadow-sm">
-            <div className="w-full h-full flex items-center justify-center bg-purple-600 text-white font-bold text-sm">
+      <Link 
+        href="/dashboard/settings/profile"
+        onClick={() => setIsOpen(false)}
+        className="block p-6 mt-auto border-t border-gray-50 dark:border-white/5 bg-slate-50/50 dark:bg-white/5 hover:bg-purple-50/50 dark:hover:bg-purple-500/10 transition-colors group cursor-pointer"
+      >
+        <div className="flex items-center gap-4 p-2 rounded-2xl group-hover:bg-white dark:group-hover:bg-white/5 transition-colors duration-300">
+          <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400 overflow-hidden shrink-0 shadow-sm group-hover:shadow-md dark:group-hover:shadow-purple-900/20 transition-shadow duration-300">
+            <div className="w-full h-full flex items-center justify-center bg-purple-600 dark:bg-purple-500/80 text-white font-bold text-sm">
               AU
             </div>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-bold text-slate-900 truncate">Admin User</p>
-            <p className="text-xs font-bold text-slate-400 truncate tracking-tight">admin@business.com</p>
+            <p className="text-sm font-bold text-slate-900 dark:text-white truncate group-hover:text-purple-700 dark:group-hover:text-purple-400 transition-colors">Admin User</p>
+            <p className="text-xs font-bold text-slate-400 dark:text-slate-500 truncate tracking-tight">admin@recura.com</p>
           </div>
         </div>
-      </div>
+      </Link>
     </aside>
   )
 }

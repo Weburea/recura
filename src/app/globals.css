@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -32,11 +34,22 @@
   --bg-gradient-branded: linear-gradient(135deg, #FD6585 0%, #0D25B9 100%);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #0D0518; /* Dark blue/purple mix */
+  --foreground: #ededed;
+  --color-primary: #a855f7;
+  --color-secondary: #e879f9;
+  --color-accent: #c084fc;
+  --color-muted: #332155;
+  --color-input: #1e103c;
+  --color-ring: #d946ef;
+}
+
+.dark body {
+  background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent 40%),
+              radial-gradient(circle at bottom left, rgba(232, 121, 249, 0.1), transparent 40%),
+              var(--background);
+  background-attachment: fixed;
 }
 
 body {
@@ -51,7 +64,7 @@ body {
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-gradient-to-r from-primary via-accent to-secondary bg-[length:200%_auto] hover:bg-right transition-all duration-500 text-white shadow-lg shadow-violet-500/20 hover:scale-105 border-0 cursor-pointer;
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-purple-600 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-gradient-to-r from-primary via-accent to-secondary bg-[length:200%_auto] hover:bg-right transition-all duration-500 text-white shadow-lg shadow-violet-500/20 hover:scale-105 border-0 cursor-pointer;
   }
 
   .btn-outline {
@@ -97,39 +110,39 @@ body {
 
   /* Dashboard Reusable Styles */
   .dashboard-card {
-    @apply bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm transition-all duration-300;
+    @apply bg-white dark:bg-[#150a2e] p-6 md:p-8 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm transition-all duration-300;
   }
 
   .dashboard-card-hover {
-    @apply hover:shadow-lg hover:shadow-purple-500/5 transition-all duration-300;
+    @apply hover:shadow-lg hover:shadow-purple-500/5 dark:hover:shadow-purple-900/20 dark:hover:border-white/20 transition-all duration-300;
   }
 
   .dashboard-title {
-    @apply text-xl md:text-2xl font-extrabold text-slate-900 tracking-tight;
+    @apply text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight;
   }
 
   .dashboard-subtitle {
-    @apply text-sm font-bold text-slate-400 tracking-tight;
+    @apply text-sm font-bold text-slate-400 dark:text-slate-500 tracking-tight;
   }
 
   .dashboard-label {
-    @apply text-xs font-bold text-slate-500 uppercase tracking-wider mb-1;
+    @apply text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1;
   }
 
   .dashboard-value {
-    @apply text-3xl font-extrabold text-slate-900 tracking-tight;
+    @apply text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight;
   }
 
   .dashboard-button-secondary {
-    @apply flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all cursor-pointer bg-white;
+    @apply flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-all cursor-pointer bg-white dark:bg-[#150a2e]/50;
   }
 
   .dashboard-icon-box {
-    @apply w-5 h-5 rounded-xl flex items-center justify-center shadow-sm transition-transform duration-300 group-hover:scale-110 shrink-0;
+    @apply w-10 h-10 rounded-xl flex items-center justify-center shadow-sm transition-transform duration-300 group-hover:scale-110 shrink-0 bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10;
   }
 
   .dashboard-badge {
-    @apply flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-full;
+    @apply flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full border border-transparent dark:border-white/10;
   }
 
   .dashboard-search-container {
@@ -137,7 +150,7 @@ body {
   }
 
   .dashboard-search-input {
-    @apply w-full pl-12 pr-4 py-3.5 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-purple-500/10 text-slate-600 font-medium transition-all outline-none;
+    @apply w-full pl-12 pr-4 py-3.5 rounded-2xl bg-slate-50 dark:bg-white/5 border-none focus:ring-2 focus:ring-purple-500/10 dark:focus:ring-purple-500/30 text-slate-600 dark:text-slate-300 font-medium transition-all outline-none dark:placeholder-slate-500;
   }
 
   .dashboard-action-toggle {
@@ -145,11 +158,11 @@ body {
   }
 
   .dashboard-action-toggle-active {
-    @apply bg-purple-600 border-purple-600 text-white;
+    @apply bg-purple-600 border-purple-600 text-white dark:bg-purple-500 dark:border-purple-500;
   }
 
   .dashboard-action-toggle-inactive {
-    @apply bg-white border-slate-200 text-slate-400 hover:text-slate-600;
+    @apply bg-white dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300;
   }
 
   .dashboard-action-btn {
@@ -157,11 +170,11 @@ body {
   }
 
   .dashboard-action-btn-primary {
-    @apply bg-slate-900 text-white hover:bg-slate-800;
+    @apply bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-200;
   }
 
   .dashboard-action-btn-secondary {
-    @apply border border-slate-200 text-slate-600 hover:bg-slate-50 bg-white;
+    @apply border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/10 bg-white dark:bg-transparent;
   }
 
   /* Table Custom Styles */
@@ -170,7 +183,7 @@ body {
   }
 
   .table-header-cell {
-    @apply p-6 text-left text-xs font-bold text-slate-400 uppercase tracking-wider border-y border-slate-50;
+    @apply p-6 text-left text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider border-y border-slate-50 dark:border-white/5;
   }
 
   .table-data-cell {
@@ -178,64 +191,117 @@ body {
   }
 
   .table-row-hover {
-    @apply hover:bg-slate-50/50 transition-colors;
+    @apply hover:bg-slate-50/50 dark:hover:bg-white/5 transition-colors;
   }
 
   .table-row-selected {
-    @apply bg-purple-50/30;
+    @apply bg-purple-50/30 dark:bg-purple-500/10;
   }
 
   /* Status Badges */
   .status-badge {
-    @apply px-3 py-1 rounded-full text-xs font-bold inline-flex items-center;
+    @apply px-3 py-1 rounded-full text-xs font-bold inline-flex items-center dark:border dark:border-white/10;
   }
 
-  .status-badge-active { @apply bg-cyan-50 text-cyan-600; }
-  .status-badge-trial { @apply bg-indigo-50 text-indigo-600; }
-  .status-badge-paused { @apply bg-orange-50 text-orange-600; }
-  .status-badge-canceled { @apply bg-rose-50 text-rose-600; }
+  .status-badge-active { @apply bg-cyan-50 text-cyan-600 dark:bg-cyan-500/20 dark:text-cyan-400; }
+  .status-badge-trial { @apply bg-indigo-50 text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-400; }
+  .status-badge-paused { @apply bg-orange-50 text-orange-600 dark:bg-orange-500/20 dark:text-orange-400; }
+  .status-badge-canceled { @apply bg-rose-50 text-rose-600 dark:bg-rose-500/20 dark:text-rose-400; }
 
   /* Checkbox Custom */
   .checkbox-custom {
-    @apply w-4 h-4 rounded border-slate-300 text-slate-900 accent-slate-900 focus:ring-slate-900 cursor-pointer;
+    @apply w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white accent-slate-900 dark:accent-purple-500 focus:ring-slate-900 dark:focus:ring-purple-500 cursor-pointer bg-white dark:bg-[#0D0518];
   }
 
   /* Filter Tabs */
   .filter-tab {
-    @apply px-4 py-2 rounded-xl text-sm font-bold transition-all cursor-pointer bg-slate-50 text-slate-400 hover:bg-slate-100 whitespace-nowrap;
+    @apply px-4 py-2 rounded-xl text-sm font-bold transition-all cursor-pointer bg-slate-50 dark:bg-white/5 text-slate-400 dark:text-slate-500 hover:bg-slate-100 dark:hover:bg-white/10 whitespace-nowrap;
   }
 
   .filter-tab-active {
-    @apply bg-purple-600 text-white shadow-md shadow-purple-200 hover:bg-purple-700;
+    @apply bg-purple-600 dark:bg-purple-500 text-white shadow-md shadow-purple-200 dark:shadow-purple-900/40 hover:bg-purple-700 dark:hover:bg-purple-600;
   }
 
   /* Pagination */
   .pagination-btn {
-    @apply flex items-center gap-1 px-4 py-2 rounded-xl border border-slate-200 text-sm font-bold text-slate-500 hover:bg-slate-50 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer bg-white;
+    @apply flex items-center gap-1 px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 text-sm font-bold text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/10 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer bg-white dark:bg-transparent;
   }
 
   .pagination-page-btn {
-    @apply w-10 h-10 rounded-xl text-sm font-bold transition-all cursor-pointer text-slate-500 hover:bg-slate-50;
+    @apply w-10 h-10 rounded-xl text-sm font-bold transition-all cursor-pointer text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/10;
   }
 
   .pagination-page-btn-active {
-    @apply bg-black text-white shadow-lg hover:bg-black/90;
+    @apply bg-black dark:bg-white text-white dark:text-slate-900 shadow-lg hover:bg-black/90 dark:hover:bg-slate-200;
   }
 
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-  /* Payment Card Flip Styles */
+  /* Dashboard Form Reusable Styles */
+  .dashboard-form-group {
+    @apply space-y-2;
+  }
+
+  .dashboard-form-label {
+    @apply text-sm font-bold text-slate-800 dark:text-slate-200 mb-2 block;
+  }
+
+  .dashboard-form-input {
+    @apply w-full px-4 py-3 rounded-xl border bg-white dark:bg-[#0D0518] border-gray-200 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-600/20 dark:focus:ring-purple-500/30 focus:border-purple-600 dark:focus:border-purple-500 transition-all;
+  }
+
+  .dashboard-form-input-error {
+    @apply border-red-500 dark:border-red-500 focus:border-red-500 dark:focus:border-red-500 focus:ring-red-600/20 dark:focus:ring-red-500/30;
+  }
+
+  .dashboard-form-select-trigger {
+    @apply w-full px-4 py-3 rounded-xl border bg-white dark:bg-[#0D0518] border-gray-200 dark:border-white/10 text-slate-900 dark:text-white flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-purple-600/20 dark:focus:ring-purple-500/30 transition-all;
+  }
+
+  .dashboard-form-select-trigger-active {
+    @apply border-purple-600 dark:border-purple-500 ring-2 ring-purple-600/20 dark:ring-purple-500/30;
+  }
+
+  .dashboard-form-dropdown {
+    @apply absolute z-20 w-full mt-2 bg-white dark:bg-[#150a2e] border border-gray-100 dark:border-white/10 rounded-2xl shadow-xl shadow-purple-900/5 dark:shadow-purple-900/30 py-2 transition-all duration-200 transform origin-top left-0 overflow-hidden;
+  }
+
+  .dashboard-form-dropdown-item {
+    @apply w-full text-left px-4 py-2.5 text-sm transition-colors flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 font-medium;
+  }
+
+  .dashboard-form-dropdown-item-active {
+    @apply bg-purple-50 dark:bg-purple-500/20 text-purple-700 dark:text-purple-400 font-bold;
+  }
+
+  .dashboard-button-save {
+    @apply flex items-center gap-2 px-6 py-3 rounded-xl bg-purple-600 dark:bg-purple-500 text-white font-bold text-sm tracking-wide hover:bg-purple-700 dark:hover:bg-purple-600 transition-all shadow-lg shadow-purple-600/20 dark:shadow-purple-900/40 active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .dashboard-card-header {
+    @apply flex items-center justify-between mb-6;
+  }
+
+  .dashboard-card-icon-container {
+    @apply w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-sm border dark:border-white/10;
+  }
+
+  .dashboard-card-title-container {
+    @apply flex items-center gap-3;
+  }
+
+  /* 3D Flip Card Utilities */
   .perspective-1000 {
     perspective: 1000px;
   }
 
   .flip-card-inner {
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-style: preserve-3d;
     position: relative;
     width: 100%;
     height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
   }
 
   .flip-card-active .flip-card-inner {
@@ -243,32 +309,19 @@ body {
   }
 
   .flip-card-front, .flip-card-back {
-    backface-visibility: hidden;
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 1rem;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 1.5rem;
   }
 
   .flip-card-back {
     transform: rotateY(180deg);
-  }
-
-  .scrollbar-purple::-webkit-scrollbar {
-    height: 4px;
-  }
-  .scrollbar-purple::-webkit-scrollbar-track {
-    background: #f1f5f9;
-    border-radius: 10px;
-  }
-  .scrollbar-purple::-webkit-scrollbar-thumb {
-    background: #c084fc;
-    border-radius: 10px;
-  }
-  .scrollbar-purple::-webkit-scrollbar-thumb:hover {
-    background: #a855f7;
   }
 }
 

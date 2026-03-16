@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import { cn } from "@/lib/utils"
 import { ChevronDown, Check, Save } from "lucide-react"
-import { StatusModal, StatusType } from "@/components/dashboard/shared/status-modal"
+import { StatusModal, StatusType } from "@/components/dashboard/shared/modals/status-modal"
 
 export function CompanyProfileForm() {
   const [formData, setFormData] = useState({

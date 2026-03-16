@@ -25,19 +25,19 @@ const services = [
 
 export function Services() {
   return (
-    <section className="py-10 bg-slate-50">
+    <section className="py-10 bg-slate-50 dark:bg-transparent">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {services.map((service, index) => (
             <div 
               key={index} 
-              className="bg-white rounded-[2rem] p-8 md:p-12 shadow-sm border border-slate-100 flex flex-col h-full hover:shadow-md transition-shadow duration-300"
+              className="bg-white dark:bg-white/5 rounded-[2rem] p-8 md:p-12 shadow-sm border border-slate-100 dark:border-white/10 flex flex-col h-full hover:shadow-md transition-shadow duration-300"
             >
               <div className="mb-8">
-                <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-6">
+                <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-6">
                   {service.title}
                 </h3>
-                <p className="text-slate-600 leading-relaxed text-lg">
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-lg">
                   {service.description}
                 </p>
               </div>

@@ -3,7 +3,8 @@
 import * as React from "react"
 import { createPortal } from "react-dom"
 import Image from "next/image"
-import { X, Printer } from "lucide-react"
+import { X, Download } from "lucide-react"
+import { toPng } from "html-to-image"
 import { cn } from "@/lib/utils"
 
 export interface Transaction {
@@ -35,8 +36,28 @@ export function ReceiptModal({ isOpen, onClose, transaction }: ReceiptModalProps
     setMounted(true)
   }, [])
 
-  const handlePrint = () => {
-    window.print()
+  const receiptRef = React.useRef<HTMLDivElement>(null)
+
+  const handleDownload = async () => {
+    if (receiptRef.current === null || !transaction) return
+
+    try {
+      const dataUrl = await toPng(receiptRef.current, {
+        cacheBust: true,
+        pixelRatio: 3,
+        style: {
+          borderRadius: '0',
+          overflow: 'visible',
+        }
+      })
+      
+      const link = document.createElement("a")
+      link.download = `receipt-${transaction.id}.png`
+      link.href = dataUrl
+      link.click()
+    } catch (err) {
+      console.error("Failed to download receipt:", err)
+    }
   }
 
   if (!isOpen || !transaction || !mounted) return null
@@ -106,21 +127,24 @@ export function ReceiptModal({ isOpen, onClose, transaction }: ReceiptModalProps
           {/* Controls */}
           <div className="absolute top-4 right-4 sm:top-6 sm:right-6 flex items-center gap-2 z-[1100] print:hidden no-print">
             <button 
-              onClick={handlePrint}
-              className="p-2 sm:p-2.5 rounded-xl bg-slate-900/10 hover:bg-slate-900/20 text-slate-900 transition-all backdrop-blur-md border border-slate-900/10 hover:border-slate-900/20 hover:shadow-lg cursor-pointer"
-              title="Print Receipt"
+              onClick={handleDownload}
+              className="p-2 sm:p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all backdrop-blur-md border border-white/20 hover:border-white/30 hover:shadow-lg cursor-pointer"
+              title="Download Receipt"
             >
-              <Printer className="w-4 h-4 sm:w-5 sm:h-5" />
+              <Download className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
             <button 
               onClick={onClose}
-              className="p-2 sm:p-2.5 rounded-xl bg-slate-900/10 hover:bg-slate-900/20 text-slate-900 transition-all backdrop-blur-md border border-slate-900/10 hover:border-slate-900/20 hover:shadow-lg cursor-pointer"
+              className="p-2 sm:p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all backdrop-blur-md border border-white/20 hover:border-white/30 hover:shadow-lg cursor-pointer"
             >
               <X className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto no-scrollbar rounded-xl sm:rounded-3xl print:overflow-visible print:block">
+          <div 
+            ref={receiptRef}
+            className="flex-1 overflow-y-auto no-scrollbar rounded-xl sm:rounded-3xl print:overflow-visible print:block bg-white"
+          >
             {/* Gradient Header */}
             <div className="relative p-8 sm:p-12 overflow-hidden print:bg-white print:text-slate-900" style={{ background: "linear-gradient(135deg, #7c3aed 0%, #c026d3 100%)" }}>
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay print:hidden" />
@@ -135,18 +159,18 @@ export function ReceiptModal({ isOpen, onClose, transaction }: ReceiptModalProps
                 
                 {/* Status Badge */}
                 <div className={cn(
-                  "inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/20 backdrop-blur-md transition-colors",
-                  transaction.status === "Approved" && "bg-white/10 text-emerald-300",
-                  transaction.status === "Failed" && "bg-white/10 text-rose-300",
-                  transaction.status === "Pending" && "bg-white/10 text-blue-300"
+                  "inline-flex items-center gap-3 px-5 py-2 rounded-full border backdrop-blur-md transition-all mb-4",
+                  transaction.status === "Approved" && "bg-emerald-500/20 text-white border-emerald-500/30",
+                  transaction.status === "Failed" && "bg-rose-500/20 text-white border-rose-500/30",
+                  transaction.status === "Pending" && "bg-blue-500/20 text-white border-blue-500/30"
                 )}>
                   <span className={cn(
-                    "w-2 h-2 rounded-full animate-pulse",
-                    transaction.status === "Approved" && "bg-emerald-400",
-                    transaction.status === "Failed" && "bg-rose-400",
-                    transaction.status === "Pending" && "bg-blue-400"
+                    "w-2.5 h-2.5 rounded-full animate-pulse",
+                    transaction.status === "Approved" && "bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.6)]",
+                    transaction.status === "Failed" && "bg-rose-400 shadow-[0_0_10px_rgba(248,113,113,0.6)]",
+                    transaction.status === "Pending" && "bg-blue-400 shadow-[0_0_10px_rgba(96,165,250,0.6)]"
                   )} />
-                  <span className="text-[10px] font-black uppercase tracking-wider text-white">{transaction.status}</span>
+                  <span className="text-[11px] font-black uppercase tracking-[0.1em]">{transaction.status}</span>
                 </div>
               </div>
 

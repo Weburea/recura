@@ -31,7 +31,7 @@ const legal = [
 
 const support = [
   { name: 'Contact Us', href: '#' },
-  { name: 'Email: support@webname.com', href: '#' },
+  { name: 'Email: support@recure.com', href: '#' },
 ];
 
 export function Footer() {
