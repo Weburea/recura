@@ -55,7 +55,7 @@ const CustomCheckbox = ({ checked, onChange, color = "bg-purple-600" }: { checke
       className={cn(
         "w-5 h-5 rounded-full border-2 transition-all duration-300 flex items-center justify-center cursor-pointer select-none",
         checked 
-          ? cn("scale-110 shadow-lg shadow-purple-200 border-transparent", color)
+          ? cn("scale-110 shadow-lg shadow-purple-600/15 dark:shadow-purple-900/40 border-transparent", color)
           : "border-slate-200 dark:border-white/20 bg-white dark:bg-[#150a2e] hover:border-purple-300"
       )}
     >
@@ -335,13 +335,13 @@ export function NotificationsSettingsForm() {
                                             setGroups(newGroups);
                                           }}
                                           className={cn(
-                                            "w-10 h-5 rounded-full relative flex items-center px-1 cursor-pointer transition-all duration-300",
-                                            notif.settings?.bypassQuietHours ? "bg-purple-600" : "bg-slate-200"
+                                            "w-9 h-5 rounded-full relative flex items-center px-1 cursor-pointer transition-all duration-300 shadow-inner",
+                                            notif.settings?.bypassQuietHours ? "bg-purple-600" : "bg-slate-200 dark:bg-white/10"
                                           )}
                                         >
                                           <div className={cn(
-                                            "w-3 h-3 bg-white dark:bg-slate-200 rounded-full transition-transform duration-300 shadow-sm",
-                                            notif.settings?.bypassQuietHours ? "translate-x-5" : "translate-x-0"
+                                            "w-3 h-3 bg-white rounded-full transition-all duration-300 shadow-md border border-slate-200/50 dark:border-transparent",
+                                            notif.settings?.bypassQuietHours ? "translate-x-4" : "translate-x-0"
                                           )} />
                                         </button>
                                       </div>
@@ -371,13 +371,13 @@ export function NotificationsSettingsForm() {
                                             setGroups(newGroups);
                                           }}
                                           className={cn(
-                                            "w-10 h-5 rounded-full relative flex items-center px-1 cursor-pointer transition-all duration-300",
-                                            notif.settings?.includeContext ? "bg-indigo-600" : "bg-slate-200"
+                                            "w-9 h-5 rounded-full relative flex items-center px-1 cursor-pointer transition-all duration-300 shadow-inner",
+                                            notif.settings?.includeContext ? "bg-indigo-600" : "bg-slate-200 dark:bg-white/10"
                                           )}
                                         >
                                           <div className={cn(
-                                            "w-3 h-3 bg-white dark:bg-slate-200 rounded-full transition-transform duration-300 shadow-sm",
-                                            notif.settings?.includeContext ? "translate-x-5" : "translate-x-0"
+                                            "w-3 h-3 bg-white rounded-full transition-all duration-300 shadow-md border border-slate-200/50 dark:border-transparent",
+                                            notif.settings?.includeContext ? "translate-x-4" : "translate-x-0"
                                           )} />
                                         </button>
                                       </div>
@@ -439,44 +439,44 @@ export function NotificationsSettingsForm() {
               </div>
             </div>
 
-            <div className="p-8 bg-slate-50 dark:bg-white/5 flex items-center justify-between border-t border-slate-100 dark:border-white/10">
-               <div className="flex items-center gap-6">
-                 <div className="flex items-center gap-3">
-                   <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 flex items-center justify-center">
+            <div className="p-6 md:p-8 bg-slate-50 dark:bg-white/5 flex flex-col md:flex-row md:items-center justify-between border-t border-slate-100 dark:border-white/10 gap-6">
+               <div className="flex items-center gap-4 md:gap-6">
+                 <div className="flex items-start md:items-center gap-3">
+                   <div className="w-10 h-10 shrink-0 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 flex items-center justify-center">
                      <Moon className="w-5 h-5 text-slate-400 dark:text-slate-500" />
                    </div>
                    <div className="flex flex-col">
-                     <span className="text-sm font-bold text-slate-900 dark:text-white">Quiet Hours <span className="text-slate-400 dark:text-slate-500 font-medium ml-1">Auto stop</span></span>
-                     <div className="flex items-center gap-2 mt-1">
-                        <div className="flex items-center gap-2 px-3 py-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-lg text-[11px] font-bold text-slate-600 dark:text-slate-300">
-                          <Clock className="w-3 h-3" /> 10:00 PM
+                     <span className="text-sm font-bold text-slate-900 dark:text-white">Quiet Hours <span className="text-slate-400 dark:text-slate-500 font-medium ml-1 whitespace-nowrap">Auto stop</span></span>
+                     <div className="flex flex-wrap items-center gap-2 mt-2 md:mt-1">
+                        <div className="flex items-center gap-2 px-3 py-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-lg text-[11px] font-bold text-slate-600 dark:text-slate-300 shadow-sm">
+                          <Clock className="w-3 h-3 text-purple-600" /> 10:00 PM
                         </div>
-                        <span className="text-slate-300 dark:text-slate-700">—</span>
-                        <div className="flex items-center gap-2 px-3 py-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-lg text-[11px] font-bold text-slate-600 dark:text-slate-300">
-                          <Clock className="w-3 h-3" /> 8:00 AM
+                        <span className="text-slate-300 dark:text-slate-700 font-medium">—</span>
+                        <div className="flex items-center gap-2 px-3 py-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-lg text-[11px] font-bold text-slate-600 dark:text-slate-300 shadow-sm">
+                          <Clock className="w-3 h-3 text-purple-600" /> 8:00 AM
                         </div>
-                        <div className="flex items-center gap-1.5 px-3 py-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-lg text-[11px] font-bold text-slate-900 dark:text-white ml-2">
+                        <div className="flex items-center gap-1.5 px-3 py-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-lg text-[11px] font-bold text-slate-900 dark:text-white ml-0 sm:ml-2 shadow-sm cursor-pointer hover:border-purple-300 dark:hover:border-purple-900/50 transition-colors">
                           5:00 <ChevronDown className="w-3 h-3 text-slate-400 dark:text-slate-500" />
                         </div>
                      </div>
                    </div>
                  </div>
                </div>
-               <div className="flex items-center gap-4">
-                 <div className="flex items-center gap-2 bg-white dark:bg-[#150a2e] px-3 py-2 rounded-xl border border-slate-200 dark:border-white/20">
-                   <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                   <span className="text-xs font-bold text-slate-600 dark:text-slate-300">Syncing with Google Cal</span>
+               <div className="flex items-center justify-between md:justify-end gap-4 w-full md:w-auto pt-4 md:pt-0 border-t md:border-t-0 border-slate-100 dark:border-white/5">
+                 <div className="flex items-center gap-2 bg-white dark:bg-[#150a2e] px-3 py-2 rounded-xl border border-slate-200 dark:border-white/20 shadow-sm">
+                   <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                   <span className="text-[10px] sm:text-xs font-bold text-slate-600 dark:text-slate-300 whitespace-nowrap">Syncing with Google Cal</span>
                  </div>
                  <button 
                    onClick={() => setQuietHoursEnabled(!quietHoursEnabled)}
                    className={cn(
-                     "w-12 h-6 rounded-full transition-all relative flex items-center px-1 cursor-pointer",
-                     quietHoursEnabled ? "bg-purple-600" : "bg-slate-200"
+                     "w-11 h-6 rounded-full transition-all relative flex items-center px-1 cursor-pointer shadow-inner",
+                     quietHoursEnabled ? "bg-purple-600 shadow-lg shadow-purple-600/30" : "bg-slate-200 dark:bg-white/10"
                    )}
                  >
                     <div className={cn(
-                      "w-4 h-4 bg-white dark:bg-slate-200 rounded-full shadow-sm transition-all duration-200",
-                      quietHoursEnabled ? "translate-x-6" : "translate-x-0"
+                      "w-4 h-4 bg-white rounded-full shadow-md transition-all duration-300 border border-slate-200/50 dark:border-transparent",
+                      quietHoursEnabled ? "translate-x-5" : "translate-x-0"
                     )} />
                  </button>
                </div>
@@ -524,7 +524,7 @@ export function NotificationsSettingsForm() {
                </div>
                <button 
                 onClick={() => setShowInvoice(true)}
-                className="w-full py-2.5 bg-purple-600 text-white rounded-xl text-[11px] font-black tracking-tight hover:bg-purple-700 transition-all shadow-lg shadow-purple-200 cursor-pointer relative z-10"
+                className="w-full py-2.5 bg-purple-600 text-white rounded-xl text-[11px] font-black tracking-tight hover:bg-purple-700 transition-all shadow-lg shadow-purple-600/10 dark:shadow-purple-900/40 cursor-pointer relative z-10"
                >
                  View Invoice
                </button>
@@ -566,10 +566,10 @@ export function NotificationsSettingsForm() {
                    <div className="w-8 h-8 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600">
                      <Plus className="w-4 h-4" />
                    </div>
-                   <span className="text-xs font-bold text-purple-600">Create Notification Rule</span>
-                </div>
-                <ChevronRight className="w-4 h-4 text-purple-400 group-hover:translate-x-1 transition-transform" />
-              </button>
+                    <span className="text-xs font-black text-purple-600 whitespace-nowrap">Create Rule</span>
+                 </div>
+                 <ChevronRight className="w-4 h-4 text-purple-400 group-hover:translate-x-1 transition-transform shrink-0" />
+               </button>
               <button type="button" className="w-full flex items-center justify-between group p-1 cursor-pointer">
                 <div className="flex items-center gap-3">
                    <div className="w-8 h-8 rounded-xl bg-slate-50 dark:bg-white/5 flex items-center justify-center text-slate-400 dark:text-slate-500">

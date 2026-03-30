@@ -205,12 +205,12 @@ export function TeamMembers() {
           <div className="bg-white dark:bg-[#150a2e] rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm relative z-20">
             {/* Table Filters */}
             <div className="p-4 border-b border-gray-50 flex flex-wrap items-center justify-between gap-4">
-              <div className="relative flex-1 min-w-[240px]">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500 dark:text-slate-400 dark:text-slate-500" />
+              <div className="relative w-full sm:w-72">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
                 <input 
                   type="text" 
                   placeholder="Search members..."
-                  className="w-full pl-11 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-transparent focus:border-purple-200 focus:ring-4 focus:ring-purple-600/5 transition-all text-sm font-medium focus:bg-white dark:bg-[#150a2e]"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-transparent focus:border-purple-200 focus:ring-4 focus:ring-purple-600/5 transition-all text-sm font-medium focus:bg-white dark:focus:bg-[#150a2e]"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -483,7 +483,8 @@ export function TeamMembers() {
       </div>
 
       <TeamModals 
-        activeModal={activeModal} 
+        type={activeModal} 
+        isOpen={activeModal !== null}
         onClose={() => setActiveModal(null)}
         onSave={handleSave}
       />

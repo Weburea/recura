@@ -10,23 +10,23 @@ export function AuthTabs() {
   const isSignIn = pathname === '/sign-in';
 
   return (
-    <div className="flex w-full mb-8 border border-gray-200 dark:border-white/10 rounded-lg p-1 bg-white dark:bg-white/5">
+    <div className="flex w-full mb-6 p-1 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-200 dark:border-white/10">
       <Link 
         href="/sign-up" 
-        className={`flex-1 text-center py-2.5 rounded-md text-sm font-medium transition-all ${
+        className={`flex-1 text-center py-2 rounded-lg text-sm font-black uppercase tracking-wider transition-all duration-300 ${
           isSignUp 
-            ? 'bg-purple-600 text-white shadow-md' 
-            : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-white/5'
+            ? 'bg-purple-600 text-white shadow-md shadow-purple-600/20' 
+            : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
         }`}
       >
         Sign Up
       </Link>
       <Link 
         href="/sign-in" 
-        className={`flex-1 text-center py-2.5 rounded-md text-sm font-medium transition-all ${
+        className={`flex-1 text-center py-2 rounded-lg text-sm font-black uppercase tracking-wider transition-all duration-300 ${
           isSignIn 
-            ? 'bg-purple-600 text-white shadow-md' 
-            : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-white/5'
+            ? 'bg-purple-600 text-white shadow-md shadow-purple-600/20' 
+            : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
         }`}
       >
         Sign In

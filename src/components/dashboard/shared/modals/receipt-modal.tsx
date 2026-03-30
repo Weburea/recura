@@ -27,9 +27,11 @@ interface ReceiptModalProps {
   isOpen: boolean
   onClose: () => void
   transaction: Transaction | null
+  onDownload?: () => void
+  isDownloading?: boolean
 }
 
-export function ReceiptModal({ isOpen, onClose, transaction }: ReceiptModalProps) {
+export function ReceiptModal({ isOpen, onClose, transaction, onDownload, isDownloading }: ReceiptModalProps) {
   const [mounted, setMounted] = React.useState(false)
 
   React.useEffect(() => {
@@ -117,21 +119,22 @@ export function ReceiptModal({ isOpen, onClose, transaction }: ReceiptModalProps
         }
       `}} />
       
-      <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm overflow-y-auto custom-scrollbar p-0 sm:p-4 print-modal-container">
+      <div className="fixed inset-0 z-[1000] flex items-start sm:items-center justify-center bg-slate-900/60 backdrop-blur-sm overflow-y-auto custom-scrollbar p-0 sm:p-4 print-modal-container">
         {/* Overlay Close Trigger */}
         <div className="fixed inset-0 z-0 print:hidden no-print" onClick={onClose} />
         
         {/* Modal Content container */}
-        <div className="relative z-10 w-full max-w-md bg-white rounded-xl sm:rounded-3xl shadow-2xl animate-in fade-in zoom-in-95 duration-200 print:shadow-none print:rounded-none flex flex-col h-auto max-h-[95vh] print:max-h-none my-0 print:my-0 print:block">
+        <div className="relative z-10 w-full max-w-md bg-white rounded-xl sm:rounded-3xl shadow-2xl animate-in fade-in zoom-in-95 duration-200 print:shadow-none print:rounded-none flex flex-col h-auto max-h-[95vh] print:max-h-none my-4 sm:my-0 print:my-0 print:block">
           
           {/* Controls */}
           <div className="absolute top-4 right-4 sm:top-6 sm:right-6 flex items-center gap-2 z-[1100] print:hidden no-print">
             <button 
-              onClick={handleDownload}
-              className="p-2 sm:p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all backdrop-blur-md border border-white/20 hover:border-white/30 hover:shadow-lg cursor-pointer"
+              onClick={onDownload || handleDownload}
+              disabled={isDownloading}
+              className="p-2 sm:p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all backdrop-blur-md border border-white/20 hover:border-white/30 hover:shadow-lg cursor-pointer disabled:opacity-50"
               title="Download Receipt"
             >
-              <Download className="w-4 h-4 sm:w-5 sm:h-5" />
+              <Download className={cn("w-4 h-4 sm:w-5 sm:h-5", isDownloading && "animate-spin")} />
             </button>
             <button 
               onClick={onClose}
@@ -146,52 +149,52 @@ export function ReceiptModal({ isOpen, onClose, transaction }: ReceiptModalProps
             className="flex-1 overflow-y-auto no-scrollbar rounded-xl sm:rounded-3xl print:overflow-visible print:block bg-white"
           >
             {/* Gradient Header */}
-            <div className="relative p-8 sm:p-12 overflow-hidden print:bg-white print:text-slate-900" style={{ background: "linear-gradient(135deg, #7c3aed 0%, #c026d3 100%)" }}>
+            <div className="relative p-6 sm:p-8 overflow-hidden print:bg-white print:text-slate-900" style={{ background: "linear-gradient(135deg, #7c3aed 0%, #c026d3 100%)" }}>
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay print:hidden" />
               <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-white/20 rounded-full blur-3xl print:hidden" />
               <div className="absolute top-[-50px] left-[-20px] w-48 h-48 bg-purple-400/30 rounded-full blur-2xl print:hidden" />
               
-              <div className="relative z-10 text-center mb-6 print:mb-4">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center p-3 shadow-xl transform rotate-3 print:rotate-0 print:shadow-none mb-6 print:mb-4 border border-white/20">
-                  <Image src="/logo_dark.svg" alt="Recura" width={48} height={48} className="object-contain brightness-0 invert" />
+              <div className="relative z-10 text-center mb-4 print:mb-4">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl flex items-center justify-center p-2.5 sm:p-3 shadow-xl transform rotate-3 print:rotate-0 print:shadow-none mb-3 sm:mb-4 border border-white/20">
+                  <Image src="/logo_dark.svg" alt="Recura" width={40} height={40} className="object-contain brightness-0 invert" />
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2">Payment Receipt</h2>
+                <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight mb-1 leading-tight">Payment Receipt</h2>
                 
                 {/* Status Badge */}
                 <div className={cn(
-                  "inline-flex items-center gap-3 px-5 py-2 rounded-full border backdrop-blur-md transition-all mb-4",
+                  "inline-flex items-center gap-2 sm:gap-2.5 px-4 py-1 sm:px-4 sm:py-1.5 rounded-full border backdrop-blur-md transition-all mb-3",
                   transaction.status === "Approved" && "bg-emerald-500/20 text-white border-emerald-500/30",
                   transaction.status === "Failed" && "bg-rose-500/20 text-white border-rose-500/30",
                   transaction.status === "Pending" && "bg-blue-500/20 text-white border-blue-500/30"
                 )}>
                   <span className={cn(
-                    "w-2.5 h-2.5 rounded-full animate-pulse",
+                    "w-2 sm:w-2 h-2 sm:h-2 rounded-full animate-pulse",
                     transaction.status === "Approved" && "bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.6)]",
                     transaction.status === "Failed" && "bg-rose-400 shadow-[0_0_10px_rgba(248,113,113,0.6)]",
                     transaction.status === "Pending" && "bg-blue-400 shadow-[0_0_10px_rgba(96,165,250,0.6)]"
                   )} />
-                  <span className="text-[11px] font-black uppercase tracking-[0.1em]">{transaction.status}</span>
+                  <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.1em]">{transaction.status}</span>
                 </div>
               </div>
 
               <div className="relative z-10 text-center space-y-1">
-                <p className="text-white/60 text-[10px] font-black uppercase tracking-[0.2em]">Amount Paid</p>
-                <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tighter mix-blend-overlay print:mix-blend-normal">{transaction.amount}</h1>
+                <p className="text-white/60 text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em]">Amount Paid</p>
+                <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tighter mix-blend-overlay print:mix-blend-normal">{transaction.amount}</h1>
               </div>
             </div>
 
             {/* Receipt Body */}
-            <div className="bg-white p-8 sm:p-12 pt-10 space-y-8 sm:space-y-10">
+            <div className="bg-white p-6 sm:p-8 pt-8 sm:pt-8 space-y-5 sm:space-y-6">
               
               {/* Receipt Info Cards */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Date Paid</p>
-                  <p className="text-xs font-bold text-slate-900">{transaction.date}</p>
+              <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-3.5">
+                <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-xl bg-slate-50 border border-slate-100">
+                  <p className="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-widest mb-0.5">Date Paid</p>
+                  <p className="text-[11px] sm:text-[11px] font-bold text-slate-900">{transaction.date}</p>
                 </div>
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Receipt ID</p>
-                  <p className="text-xs font-bold text-slate-900 truncate">#${transaction.id}</p>
+                <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-xl bg-slate-50 border border-slate-100">
+                  <p className="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-widest mb-0.5">Receipt ID</p>
+                  <p className="text-[11px] sm:text-[11px] font-bold text-slate-900 truncate">#${transaction.id}</p>
                 </div>
               </div>
 

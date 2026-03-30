@@ -13,6 +13,7 @@ import {
   Settings, 
   FileText,
   Package,
+  BookOpen,
   X
 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -25,6 +26,7 @@ const navItems = [
   { icon: Package, label: "Payments", href: "/dashboard/payments" },
   { icon: BarChart3, label: "Analytics", href: "/dashboard/analytics" },
   { icon: Settings, label: "Settings", href: "/dashboard/settings" },
+  { icon: BookOpen, label: "Documentation", href: "/dashboard/documentation" },
 ]
 
 interface SidebarProps {
@@ -58,7 +60,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                 priority
               />
             ) : (
-              <div className="w-full h-full" />
+              <div className="w-24 h-6 bg-slate-100 dark:bg-white/10 rounded-lg animate-pulse" />
             )}
           </div>
         </Link>
@@ -71,28 +73,42 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
       </div>
 
       <nav className="flex-1 px-6 space-y-2">
-        {navItems.map((item) => {
-          const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setIsOpen(false)}
-              className={cn(
-                "flex items-center gap-4 px-5 py-3.5 rounded-2xl transition-all duration-200 group",
-                isActive 
-                  ? "bg-purple-50 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 shadow-sm shadow-purple-100 dark:shadow-purple-900/20" 
-                  : "text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white"
-              )}
-            >
-              <item.icon className={cn(
-                "w-5 h-5 transition-colors",
-                isActive ? "text-purple-600 dark:text-purple-400" : "text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300"
-              )} />
-              <span className="font-bold text-sm tracking-tight">{item.label}</span>
-            </Link>
-          )
-        })}
+        {mounted ? (
+          navItems.map((item) => {
+            const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+                className={cn(
+                  "flex items-center gap-4 px-5 py-3.5 rounded-2xl transition-all duration-200 group",
+                  isActive 
+                    ? "bg-purple-50 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 shadow-sm shadow-purple-100 dark:shadow-purple-900/20" 
+                    : "text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white"
+                )}
+              >
+                <item.icon className={cn(
+                  "w-5 h-5 transition-colors",
+                  isActive ? "text-purple-600 dark:text-purple-400" : "text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300"
+                )} />
+                <span className="font-bold text-sm tracking-tight">{item.label}</span>
+              </Link>
+            )
+          })
+        ) : (
+          <div className="space-y-4 px-2">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="flex items-center gap-4 animate-pulse">
+                <div className="w-5 h-5 rounded-lg bg-slate-100 dark:bg-white/5" />
+                <div className={cn(
+                  "h-3 bg-slate-100 dark:bg-white/5 rounded-full",
+                  i % 2 === 0 ? "w-24" : "w-32"
+                )} />
+              </div>
+            ))}
+          </div>
+        )}
       </nav>
 
       <Link 
@@ -101,15 +117,27 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
         className="block p-6 mt-auto border-t border-gray-50 dark:border-white/5 bg-slate-50/50 dark:bg-white/5 hover:bg-purple-50/50 dark:hover:bg-purple-500/10 transition-colors group cursor-pointer"
       >
         <div className="flex items-center gap-4 p-2 rounded-2xl group-hover:bg-white dark:group-hover:bg-white/5 transition-colors duration-300">
-          <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400 overflow-hidden shrink-0 shadow-sm group-hover:shadow-md dark:group-hover:shadow-purple-900/20 transition-shadow duration-300">
-            <div className="w-full h-full flex items-center justify-center bg-purple-600 dark:bg-purple-500/80 text-white font-bold text-sm">
-              AU
+          {mounted ? (
+            <>
+              <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400 overflow-hidden shrink-0 shadow-sm group-hover:shadow-md dark:group-hover:shadow-purple-900/20 transition-shadow duration-300">
+                <div className="w-full h-full flex items-center justify-center bg-purple-600 dark:bg-purple-500/80 text-white font-bold text-sm">
+                  AU
+                </div>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-bold text-slate-900 dark:text-white truncate group-hover:text-purple-700 dark:group-hover:text-purple-400 transition-colors">Admin User</p>
+                <p className="text-xs font-bold text-slate-400 dark:text-slate-500 truncate tracking-tight">admin@recura.com</p>
+              </div>
+            </>
+          ) : (
+            <div className="flex items-center gap-4 w-full animate-pulse">
+              <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-white/5 shrink-0" />
+              <div className="space-y-2 flex-1">
+                <div className="w-20 h-2 bg-slate-100 dark:bg-white/5 rounded-full" />
+                <div className="w-32 h-2 bg-slate-100 dark:bg-white/5 rounded-full opacity-50" />
+              </div>
             </div>
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-bold text-slate-900 dark:text-white truncate group-hover:text-purple-700 dark:group-hover:text-purple-400 transition-colors">Admin User</p>
-            <p className="text-xs font-bold text-slate-400 dark:text-slate-500 truncate tracking-tight">admin@recura.com</p>
-          </div>
+          )}
         </div>
       </Link>
     </aside>

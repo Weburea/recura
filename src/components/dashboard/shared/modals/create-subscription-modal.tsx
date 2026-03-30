@@ -85,16 +85,16 @@ export function CreateSubscriptionModal({ isOpen, onClose }: CreateSubscriptionM
       />
       
       {/* Modal Content */}
-      <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl shadow-purple-500/10 overflow-hidden transform transition-all">
+      <div className="relative w-full max-w-lg bg-white dark:bg-[#150a2e] rounded-3xl shadow-2xl shadow-purple-500/10 dark:shadow-purple-900/30 overflow-hidden transform transition-all border border-slate-50 dark:border-white/10">
         {/* Header */}
-        <div className="px-8 py-6 border-b border-slate-50 flex items-center justify-between bg-white">
+        <div className="px-8 py-6 border-b border-slate-50 dark:border-white/5 flex items-center justify-between bg-white dark:bg-[#150a2e]/50">
           <div>
-            <h3 className="text-xl font-extrabold text-slate-900 tracking-tight">Create Subscription</h3>
-            <p className="text-sm font-bold text-slate-400">Add a new customer to a plan</p>
+            <h3 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">Create Subscription</h3>
+            <p className="text-sm font-bold text-slate-400 dark:text-slate-500">Add a new customer to a plan</p>
           </div>
           <button 
             onClick={onClose}
-            className="p-2 rounded-xl hover:bg-slate-50 text-slate-400 transition-colors"
+            className="p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-white/5 text-slate-400 dark:text-slate-500 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -104,26 +104,28 @@ export function CreateSubscriptionModal({ isOpen, onClose }: CreateSubscriptionM
         <div className="p-8">
           {isSuccess ? (
             <div className="py-12 flex flex-col items-center text-center space-y-4">
-              <div className="w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-500 mb-2">
+              <div className="w-20 h-20 rounded-full bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center text-emerald-500 dark:text-emerald-400 mb-2 border border-emerald-100 dark:border-emerald-500/20">
                 <CheckCircle2 className="w-10 h-10" />
               </div>
-              <h4 className="text-2xl font-extrabold text-slate-900">Subscription Created!</h4>
-              <p className="text-slate-500 font-bold max-w-[280px]">The new subscription has been successfully added to the system.</p>
+              <h4 className="text-2xl font-extrabold text-slate-900 dark:text-white">Subscription Created!</h4>
+              <p className="text-slate-500 dark:text-slate-400 font-bold max-w-[280px]">The new subscription has been successfully added to the system.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 gap-6">
                 {/* Customer Name */}
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-slate-700 ml-1">Customer Name</label>
+                  <label className="text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">Customer Name</label>
                   <input
                     type="text"
                     value={formData.customerName}
                     onChange={(e) => setFormData({...formData, customerName: e.target.value})}
                     placeholder="Enter full name"
                     className={cn(
-                      "w-full px-5 py-3.5 rounded-2xl border bg-slate-50/50 text-sm font-bold transition-all focus:outline-none focus:ring-2 focus:ring-purple-500/20",
-                      errors.customerName ? "border-rose-200 bg-rose-50/30 text-rose-900" : "border-slate-100 text-slate-900"
+                      "w-full px-5 py-3.5 rounded-2xl border bg-slate-50/50 dark:bg-white/5 text-sm font-bold transition-all focus:outline-none focus:ring-2 focus:ring-purple-500/20 dark:placeholder-slate-600",
+                      errors.customerName 
+                        ? "border-rose-200 dark:border-rose-500/30 bg-rose-50/30 dark:bg-rose-500/5 text-rose-900 dark:text-rose-400" 
+                        : "border-slate-100 dark:border-white/5 text-slate-900 dark:text-white"
                     )}
                   />
                   {errors.customerName && (
@@ -135,15 +137,17 @@ export function CreateSubscriptionModal({ isOpen, onClose }: CreateSubscriptionM
 
                 {/* Email Address */}
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-slate-700 ml-1">Email Address</label>
+                  <label className="text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">Email Address</label>
                   <input
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
                     placeholder="customer@example.com"
                     className={cn(
-                      "w-full px-5 py-3.5 rounded-2xl border bg-slate-50/50 text-sm font-bold transition-all focus:outline-none focus:ring-2 focus:ring-purple-500/20",
-                      errors.email ? "border-rose-200 bg-rose-50/30 text-rose-900" : "border-slate-100 text-slate-900"
+                      "w-full px-5 py-3.5 rounded-2xl border bg-slate-50/50 dark:bg-white/5 text-sm font-bold transition-all focus:outline-none focus:ring-2 focus:ring-purple-500/20 dark:placeholder-slate-600",
+                      errors.email 
+                        ? "border-rose-200 dark:border-rose-500/30 bg-rose-50/30 dark:bg-rose-500/5 text-rose-900 dark:text-rose-400" 
+                        : "border-slate-100 dark:border-white/5 text-slate-900 dark:text-white"
                     )}
                   />
                   {errors.email && (
@@ -156,22 +160,22 @@ export function CreateSubscriptionModal({ isOpen, onClose }: CreateSubscriptionM
                 {/* Plan Selection */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2 relative" ref={dropdownRef}>
-                    <label className="text-sm font-bold text-slate-700 ml-1">Select Plan</label>
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">Select Plan</label>
                     <button
                       type="button"
                       onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                       className={cn(
-                        "w-full px-5 py-3.5 rounded-2xl border border-slate-100 bg-slate-50/50 text-sm font-bold text-slate-900 text-left flex items-center justify-between transition-all hover:bg-slate-100/50",
-                        isDropdownOpen && "ring-2 ring-purple-500/20 border-purple-200"
+                        "w-full px-5 py-3.5 rounded-2xl border border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/5 text-sm font-bold text-slate-900 dark:text-white text-left flex items-center justify-between transition-all hover:bg-slate-100/50 dark:hover:bg-white/10",
+                        isDropdownOpen && "ring-2 ring-purple-500/20 border-purple-200 dark:border-purple-500/50"
                       )}
                     >
                       {formData.plan}
-                      <ChevronDown className={cn("w-4 h-4 text-slate-400 transition-transform", isDropdownOpen && "rotate-180")} />
+                      <ChevronDown className={cn("w-4 h-4 text-slate-400 dark:text-slate-500 transition-transform", isDropdownOpen && "rotate-180")} />
                     </button>
 
                     {/* Custom Dropdown Menu */}
                     {isDropdownOpen && (
-                      <div className="absolute top-[calc(100%+8px)] left-0 w-full bg-white border border-slate-100 rounded-2xl shadow-xl shadow-purple-500/10 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                      <div className="absolute top-[calc(100%+8px)] left-0 w-full bg-white dark:bg-[#1e103c] border border-slate-100 dark:border-white/10 rounded-2xl shadow-xl shadow-purple-500/10 dark:shadow-purple-900/40 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200 overflow-hidden">
                         {plans.map((plan) => (
                           <button
                             key={plan}
@@ -183,8 +187,8 @@ export function CreateSubscriptionModal({ isOpen, onClose }: CreateSubscriptionM
                             className={cn(
                               "w-full px-5 py-3 text-sm font-bold text-left flex items-center justify-between transition-colors",
                               formData.plan === plan 
-                                ? "text-purple-600 bg-purple-50" 
-                                : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                                ? "text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-500/10" 
+                                : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white"
                             )}
                           >
                             {plan}
@@ -195,15 +199,17 @@ export function CreateSubscriptionModal({ isOpen, onClose }: CreateSubscriptionM
                     )}
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700 ml-1">Amount ($)</label>
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">Amount ($)</label>
                     <input
                       type="number"
                       value={formData.amount}
                       onChange={(e) => setFormData({...formData, amount: e.target.value})}
                       placeholder="0.00"
                       className={cn(
-                        "w-full px-5 py-3.5 rounded-2xl border bg-slate-50/50 text-sm font-bold transition-all focus:outline-none focus:ring-2 focus:ring-purple-500/20",
-                        errors.amount ? "border-rose-200 bg-rose-50/30 text-rose-900" : "border-slate-100 text-slate-900"
+                        "w-full px-5 py-3.5 rounded-2xl border bg-slate-50/50 dark:bg-white/5 text-sm font-bold transition-all focus:outline-none focus:ring-2 focus:ring-purple-500/20 dark:placeholder-slate-600",
+                        errors.amount 
+                          ? "border-rose-200 dark:border-rose-500/30 bg-rose-50/30 dark:bg-rose-500/5 text-rose-900 dark:text-rose-400" 
+                          : "border-slate-100 dark:border-white/5 text-slate-900 dark:text-white"
                       )}
                     />
                   </div>
@@ -211,7 +217,7 @@ export function CreateSubscriptionModal({ isOpen, onClose }: CreateSubscriptionM
 
                 {/* Billing Cycle */}
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-slate-700 ml-1">Billing Cycle</label>
+                  <label className="text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">Billing Cycle</label>
                   <div className="flex gap-4">
                     {["Monthly", "Yearly"].map((cycle) => (
                       <button
@@ -221,8 +227,8 @@ export function CreateSubscriptionModal({ isOpen, onClose }: CreateSubscriptionM
                         className={cn(
                           "flex-1 py-3.5 rounded-2xl text-sm font-bold border transition-all",
                           formData.billingCycle === cycle 
-                            ? "bg-purple-50 border-purple-200 text-purple-600" 
-                            : "bg-slate-50/50 border-slate-100 text-slate-400 hover:bg-slate-100"
+                            ? "bg-purple-50 dark:bg-purple-500/10 border-purple-200 dark:border-purple-500/30 text-purple-600 dark:text-purple-400" 
+                            : "bg-slate-50/50 dark:bg-white/5 border-slate-100 dark:border-white/5 text-slate-400 dark:text-slate-500 hover:bg-slate-100 dark:hover:bg-white/10"
                         )}
                       >
                         {cycle}
@@ -236,7 +242,7 @@ export function CreateSubscriptionModal({ isOpen, onClose }: CreateSubscriptionM
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 py-4 rounded-2xl text-sm font-bold text-slate-500 hover:bg-slate-50 transition-all cursor-pointer"
+                  className="flex-1 py-4 rounded-2xl text-sm font-bold text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 transition-all cursor-pointer"
                 >
                   Cancel
                 </button>

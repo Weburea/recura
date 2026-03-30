@@ -183,7 +183,7 @@ export function SubscriptionTable() {
               className={cn(
                 "w-11 h-11 rounded-2xl border flex items-center justify-center transition-all cursor-pointer shadow-sm",
                 showActions 
-                  ? "bg-purple-600 border-purple-600 text-white shadow-purple-200 dark:shadow-none" 
+                ? "bg-purple-600 border-purple-600 text-white shadow-md shadow-purple-600/10 dark:shadow-purple-900/30" 
                   : "bg-white dark:bg-[#150a2e] border-slate-200 dark:border-white/10 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5"
               )}
             >
@@ -224,7 +224,7 @@ export function SubscriptionTable() {
                 className={cn(
                   "px-5 py-2.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap",
                   isActive 
-                    ? "bg-purple-600 text-white shadow-md shadow-purple-200 dark:shadow-none" 
+                    ? "bg-purple-600 text-white shadow-md shadow-purple-600/10 dark:shadow-purple-900/40" 
                     : "bg-transparent text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-600 dark:hover:text-white"
                 )}
               >

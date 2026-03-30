@@ -128,8 +128,8 @@ export function AnalyticsRevenueChart() {
       </div>
 
       {selectedChartType === "Column Chart" && (
-        <div className="flex-1 overflow-x-auto no-scrollbar pb-2 group/scroll pt-12">
-          <div className="flex items-end justify-between gap-3 md:gap-5 px-2 min-w-[600px] md:min-w-0 h-full">
+        <div className="overflow-x-auto no-scrollbar pb-6 group/scroll pt-12">
+          <div className="flex items-end justify-between gap-3 md:gap-5 px-4 min-w-[600px] md:min-w-0 h-[300px]">
             {data.map((height, i) => (
             <div key={i} className="flex-1 flex flex-col items-center gap-6 group h-full justify-end">
               <div className="relative w-full flex flex-col justify-end h-full min-h-[1px]">

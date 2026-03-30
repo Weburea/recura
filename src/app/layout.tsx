@@ -7,11 +7,13 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 import { ThemeProvider } from "@/components/theme-provider";
+import { SimulatorDetector } from "@/components/SimulatorDetector";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={plusJakartaSans.variable} suppressHydrationWarning>
       <body className="antialiased font-sans flex flex-col min-h-screen">
+        <SimulatorDetector />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

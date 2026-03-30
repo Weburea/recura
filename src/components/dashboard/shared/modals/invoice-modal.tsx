@@ -3,16 +3,19 @@
 import * as React from "react"
 import { createPortal } from "react-dom"
 import Image from "next/image"
-import { X, Printer } from "lucide-react"
+import { X, Printer, Download, Loader2 } from "lucide-react"
+import { toPng } from "html-to-image"
 import type { Invoice } from "@/components/dashboard/billing/mock-data"
 
 interface InvoiceModalProps {
   isOpen: boolean
   onClose: () => void
   invoice: Invoice
+  onDownload?: () => void
+  isDownloading?: boolean
 }
 
-export function InvoiceModal({ isOpen, onClose, invoice }: InvoiceModalProps) {
+export function InvoiceModal({ isOpen, onClose, invoice, onDownload, isDownloading }: InvoiceModalProps) {
   const [mounted, setMounted] = React.useState(false)
   const invoiceRef = React.useRef<HTMLDivElement>(null)
 
@@ -30,6 +33,31 @@ export function InvoiceModal({ isOpen, onClose, invoice }: InvoiceModalProps) {
 
   const handlePrint = () => {
     window.print()
+  }
+
+  const handleDownloadInternal = async () => {
+    if (invoiceRef.current === null || !invoice) return
+    
+    // If parent provided onDownload, use it, otherwise use internal logic
+    if (onDownload) {
+      onDownload();
+      return;
+    }
+
+    try {
+      const dataUrl = await toPng(invoiceRef.current, {
+        quality: 1.0,
+        pixelRatio: 2,
+        backgroundColor: '#ffffff',
+      })
+      
+      const link = document.createElement("a")
+      link.download = `invoice-${invoice.id}.png`
+      link.href = dataUrl
+      link.click()
+    } catch (err) {
+      console.error("Failed to download invoice:", err)
+    }
   }
 
   if (!isOpen || !invoice || !mounted) return null
@@ -73,15 +101,23 @@ export function InvoiceModal({ isOpen, onClose, invoice }: InvoiceModalProps) {
         }
       `}</style>
       
-      <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm overflow-y-auto no-print print-modal-container px-0 sm:px-4">
+      <div className="fixed inset-0 z-[1000] flex items-start sm:items-center justify-center bg-slate-900/60 backdrop-blur-sm overflow-y-auto no-print print-modal-container px-0 sm:px-4 custom-scrollbar">
         {/* Overlay Close Trigger */}
         <div className="fixed inset-0 z-0 print:hidden no-print" onClick={onClose} />
         
         {/* Modal Content - Refined Visual Weight */}
-        <div className="relative z-10 w-full max-w-5xl bg-white rounded-xl sm:rounded-2xl shadow-2xl animate-in fade-in slide-in-from-bottom sm:zoom-in duration-300 print:shadow-none print:rounded-none flex flex-col h-auto max-h-[98vh] sm:max-h-[96vh] my-0 print:my-0 print:w-full print:block print-area">
+        <div className="relative z-10 w-full max-w-5xl bg-white rounded-xl sm:rounded-2xl shadow-2xl animate-in fade-in slide-in-from-bottom sm:zoom-in duration-300 print:shadow-none print:rounded-none flex flex-col h-auto max-h-[96vh] sm:max-h-[96vh] my-4 sm:my-0 print:my-0 print:w-full print:block print-area">
           
           {/* Controls */}
           <div className="absolute top-3 right-3 sm:top-4 sm:right-6 flex items-center gap-2 z-[1100] print:hidden no-print">
+            <button 
+              onClick={handleDownloadInternal}
+              disabled={isDownloading}
+              className="p-2 rounded-xl bg-white/80 backdrop-blur-md hover:bg-white text-slate-900 transition-all border border-slate-200 shadow-sm cursor-pointer disabled:opacity-50"
+              title="Save as Image"
+            >
+              {isDownloading ? <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" /> : <Download className="w-4 h-4 sm:w-5 sm:h-5" />}
+            </button>
             <button 
               onClick={handlePrint}
               className="p-2 rounded-xl bg-white/80 backdrop-blur-md hover:bg-white text-slate-900 transition-all border border-slate-200 shadow-sm cursor-pointer"
@@ -102,13 +138,13 @@ export function InvoiceModal({ isOpen, onClose, invoice }: InvoiceModalProps) {
             {/* Invoice Body */}
             <div 
               ref={invoiceRef} 
-              data-invoice-container
+              id="invoice-content"
               className="p-0 flex flex-col bg-white w-full mx-auto min-h-full print:block"
               style={{ color: "#1e293b" }} 
             >
               {/* Branded Header Section - Pronounced Height & Curved Bottom */}
               <div 
-                className="relative p-10 sm:p-12 md:p-14 overflow-hidden rounded-b-[3.5rem] print:rounded-none" 
+                className="relative p-6 sm:p-7 md:p-8 overflow-hidden rounded-b-[2rem] sm:rounded-b-[2.5rem] print:rounded-none" 
                 style={{ 
                   background: "linear-gradient(135deg, #7c3aed 0%, #c026d3 100%)",
                 }}
@@ -132,17 +168,17 @@ export function InvoiceModal({ isOpen, onClose, invoice }: InvoiceModalProps) {
                     </div>
                   </div>
 
-                  <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-[2rem] p-5 sm:p-7 flex items-center gap-5 print:bg-transparent print:border-slate-100 shadow-2xl">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white flex items-center justify-center text-purple-600 shadow-xl print:shadow-none">
-                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#7c3aed] to-[#c026d3] text-white font-black text-xl rounded-full border-4 border-white/30">
+                  <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl sm:rounded-[2rem] p-4 sm:p-5 flex items-center gap-4 sm:gap-4 print:bg-transparent print:border-slate-100 shadow-2xl">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white flex items-center justify-center text-purple-600 shadow-xl print:shadow-none shrink-0">
+                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#7c3aed] to-[#c026d3] text-white font-black text-lg sm:text-lg rounded-full border-2 sm:border-3 border-white/30">
                         {invoice.customer.substring(0, 1)}
                       </div>
                     </div>
                     <div>
-                      <p className="text-white uppercase text-[9px] font-black tracking-[0.25em] opacity-80 mb-1">Total Amount:</p>
-                      <div className="flex items-baseline gap-2">
-                        <h2 className="text-white text-3xl sm:text-4xl font-black tracking-tighter">{invoice.amount.replace('$', '')}</h2>
-                        <span className="text-white/70 font-bold text-sm sm:text-base tracking-tight">$ USD</span>
+                      <p className="text-white uppercase text-[8px] sm:text-[9px] font-black tracking-[0.25em] opacity-80 mb-0.5 sm:mb-0.5">Total Amount:</p>
+                      <div className="flex items-baseline gap-1.5 sm:gap-1.5">
+                        <h2 className="text-white text-2xl sm:text-3xl font-black tracking-tighter">{invoice.amount.replace('$', '')}</h2>
+                        <span className="text-white/70 font-bold text-xs sm:text-sm tracking-tight">$ USD</span>
                       </div>
                     </div>
                   </div>
@@ -197,9 +233,9 @@ export function InvoiceModal({ isOpen, onClose, invoice }: InvoiceModalProps) {
               </div>
 
               {/* Items Table - Restored Visual Weight */}
-              <div className="px-6 sm:px-12 py-3 flex-1 print:px-0">
-                <div className="rounded-2xl border border-slate-100 overflow-hidden print:border-none print:overflow-visible">
-                  <table className="w-full">
+              <div className="px-6 sm:px-12 py-2 flex-1 print:px-0">
+                <div className="rounded-xl border border-slate-100 overflow-x-auto no-scrollbar print:border-none print:overflow-visible">
+                  <table className="w-full min-w-[500px] sm:min-w-0">
                     <thead className="bg-slate-50 border-b border-slate-100 print:bg-white print:border-b-2">
                       <tr>
                         <th className="px-6 py-4 text-left text-[10px] font-extrabold text-slate-400 uppercase tracking-[0.2em]">Description</th>

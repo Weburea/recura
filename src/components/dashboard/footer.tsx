@@ -12,7 +12,7 @@ export function DashboardFooter() {
     { name: "Support", href: "/dashboard/help" },
     { name: "Privacy Policy", href: "/privacy-policy" },
     { name: "Terms of Service", href: "/terms-of-service" },
-    { name: "Documentation", href: "#" },
+    { name: "Documentation", href: "/dashboard/documentation" },
   ]
 
   const socialLinks = [

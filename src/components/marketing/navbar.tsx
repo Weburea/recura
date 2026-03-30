@@ -192,7 +192,7 @@ export function Navbar() {
           <Link href="#pricing" className="hover:text-primary dark:hover:text-primary transition-colors">Pricing</Link>
           <Link href="#integrations" className="hover:text-primary dark:hover:text-primary transition-colors">Integrations</Link>
           <Link href="#about" className="hover:text-primary dark:hover:text-primary transition-colors">About Us</Link>
-          <Link href="#" className="hover:text-primary dark:hover:text-primary transition-colors">Documentation</Link>
+          <Link href="/dashboard/documentation" className="hover:text-primary dark:hover:text-primary transition-colors">Documentation</Link>
         </div>
 
         {/* 3. Action Buttons & Mobile Toggle */}

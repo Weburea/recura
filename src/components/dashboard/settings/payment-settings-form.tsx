@@ -290,7 +290,7 @@ export function PaymentSettingsForm() {
       </div>
 
       {/* Navigation Tabs */}
-      <div className="border-b border-gray-100 dark:border-white/5 overflow-x-auto">
+      <div className="border-b border-white/5 overflow-x-auto">
         <div className="flex items-center gap-8 px-2">
           {[
             { id: "gateway", label: "Gateway Settings" },
@@ -319,7 +319,7 @@ export function PaymentSettingsForm() {
         {activeTab === "customization" && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Design Options - 4 cols */}
-            <div className="lg:col-span-4 space-y-8 bg-white dark:bg-slate-900/50 rounded-2xl border border-gray-100 dark:border-white/10 p-8 shadow-sm h-full">
+            <div className="lg:col-span-4 dashboard-card p-8 h-full">
               <div className="space-y-1">
                 <h3 className="text-base font-black text-slate-900 dark:text-white">Customize Payment Cards</h3>
                 <p className="text-xs font-medium text-slate-400 dark:text-slate-500">Design how your customers see your payment cards</p>
@@ -334,7 +334,7 @@ export function PaymentSettingsForm() {
                    
                    <div className="space-y-6">
                      {/* Gradient Styles */}
-                        <div className="grid grid-cols-4 gap-2">
+                        <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-7 gap-2">
                           {[
                             { id: "purple-gradient", name: "Purple Gradient", class: "bg-indigo-700", pattern: "waves", bg: "linear-gradient(135deg, #1e1b4b 0%, #4338ca 100%)" },
                             { id: "ocean-gradient", name: "Ocean Blue", class: "bg-blue-500", pattern: "mesh", bg: "linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%)" },
@@ -389,9 +389,9 @@ export function PaymentSettingsForm() {
                      <div className="space-y-4">
                         <div className="flex items-center justify-between">
                           <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">SIM Style Selection</span>
-                          <span className="text-[10px] font-black text-purple-600 bg-purple-50 dark:bg-purple-900/30 px-2 py-0.5 rounded-full uppercase">Premium</span>
+                          <span className="text-[10px] font-black text-purple-600 bg-purple-50 dark:bg-purple-900/30 px-2 py-0.5 rounded-full uppercase tracking-tighter sm:tracking-normal">Premium</span>
                         </div>
-                         <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar lg:grid lg:grid-cols-7 lg:gap-1.5">
+                         <div className="grid grid-cols-4 sm:grid-cols-7 gap-1.5 sm:gap-2">
                            {["sim.svg",  "sim 2.svg", "sim 3.svg", "sim 4.svg", "sim 5.svg", "sim 6.svg", "sim 7.svg"].map((s) => (
                              <button 
                                key={s}
@@ -542,7 +542,7 @@ export function PaymentSettingsForm() {
                       <p className="text-[10px] font-medium text-slate-400">Previewing with current design</p>
                     </div>
                   </div>
-                   <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-purple">
+                   <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-purple transition-all">
                      {[
                       { id: "purple-gradient", name: "Purple Gradient", bg: "linear-gradient(135deg, #1e1b4b 0%, #4338ca 100%)", pattern: "waves" },
                       { id: "ocean-gradient", name: "Ocean Blue", bg: "linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%)", pattern: "mesh" },
@@ -578,36 +578,36 @@ export function PaymentSettingsForm() {
             <form onSubmit={handleSubmit} className="lg:col-span-4 space-y-6">
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <label className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Card Holder</label>
+                  <label className="dashboard-label">Card Holder</label>
                   <input
                     type="text"
                     value={cardDetails.holder}
                     onChange={(e) => setCardDetails({...cardDetails, holder: e.target.value})}
-                    className="w-full px-4 py-3.5 rounded-xl border border-gray-100 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 focus:outline-none focus:border-purple-600 focus:bg-white dark:focus:bg-slate-900 text-slate-900 dark:text-white font-bold transition-all text-sm"
+                    className="dashboard-form-input"
                     placeholder="Holder Name"
                   />
                 </div>
                 
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <label className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Card Number</label>
+                    <label className="dashboard-label">Card Number</label>
                   </div>
                   <input
                     type="text"
                     value={cardDetails.number}
                     onChange={(e) => setCardDetails({...cardDetails, number: e.target.value})}
-                    className="w-full px-4 py-3.5 rounded-xl border border-gray-100 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 focus:outline-none focus:border-purple-600 focus:bg-white dark:focus:bg-slate-900 text-slate-900 dark:text-white font-bold transition-all text-sm"
+                    className="dashboard-form-input"
                     placeholder="**** **** **** ****"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Expiry Date</label>
+                  <label className="dashboard-label">Expiry Date</label>
                   <input
                     type="text"
                     value={cardDetails.expiry}
                     onChange={(e) => setCardDetails({...cardDetails, expiry: e.target.value})}
-                    className="w-full px-4 py-3.5 rounded-xl border border-gray-100 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 focus:outline-none focus:border-purple-600 focus:bg-white dark:focus:bg-slate-900 text-slate-900 dark:text-white font-bold transition-all text-sm h-[48px]"
+                    className="dashboard-form-input"
                     placeholder="MM/YY"
                   />
                 </div>
@@ -725,7 +725,7 @@ export function PaymentSettingsForm() {
         {activeTab === "gateway" && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {/* Gateway Configuration */}
-            <div className="lg:col-span-8 bg-white dark:bg-slate-900/50 rounded-2xl border border-gray-100 dark:border-white/10 p-8 space-y-8">
+            <div className="lg:col-span-8 dashboard-card p-8 space-y-8">
                <div className="space-y-1">
                  <h3 className="text-base font-black text-slate-900 dark:text-white">Payment Gateway</h3>
                  <p className="text-xs font-medium text-slate-400 dark:text-slate-500">Select & Configure Gateways</p>
@@ -762,7 +762,7 @@ export function PaymentSettingsForm() {
             </div>
 
             {/* Gateway Controls */}
-            <div className="lg:col-span-4 bg-white dark:bg-slate-900/50 rounded-2xl border border-gray-100 dark:border-white/10 p-8 space-y-8">
+            <div className="lg:col-span-4 dashboard-card p-8 space-y-8">
                <div className="space-y-1">
                  <h3 className="text-base font-black text-slate-900 dark:text-white">Gateway Controls</h3>
                </div>
@@ -868,7 +868,7 @@ export function PaymentSettingsForm() {
 
         {activeTab === "billing" && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div className="lg:col-span-8 bg-white dark:bg-slate-900/50 rounded-2xl border border-gray-100 dark:border-white/10 p-8 space-y-8">
+            <div className="lg:col-span-8 dashboard-card p-8 space-y-8">
                <div className="space-y-1">
                  <h3 className="text-base font-black text-slate-900 dark:text-white">Billing Logic & Rules</h3>
                  <p className="text-xs font-medium text-slate-400 dark:text-slate-500">Configure how you collect payments and generate invoices</p>
@@ -995,8 +995,8 @@ export function PaymentSettingsForm() {
         )}
 
         {activeTab === "transactions" && (
-          <div className="bg-white dark:bg-slate-900/50 rounded-[32px] border border-gray-100 dark:border-white/10 overflow-hidden shadow-sm">
-            <div className="px-8 py-6 border-b border-gray-50 dark:border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="dashboard-card overflow-hidden !p-0">
+            <div className="px-8 py-6 border-b border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                <div>
                   <h3 className="text-base font-black text-slate-900 dark:text-white">Recent Transactions</h3>
                   <p className="text-xs font-medium text-slate-400 dark:text-slate-500">Track and manage your customer payments</p>
@@ -1197,7 +1197,7 @@ function ToggleControl({ icon, title, subtitle, active, onToggle }: ToggleContro
         onClick={onToggle}
         className={cn(
           "w-10 h-5 rounded-full transition-all relative flex items-center px-1 shrink-0",
-          active ? "bg-purple-600 shadow-md shadow-purple-200 dark:shadow-purple-900/40" : "bg-slate-200 dark:bg-slate-800"
+          active ? "bg-purple-600 shadow-md shadow-purple-600/15 dark:shadow-purple-900/40" : "bg-slate-200 dark:bg-slate-800"
         )}
       >
         <div className={cn(

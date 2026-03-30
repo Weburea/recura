@@ -5,13 +5,15 @@ import { cn } from "@/lib/utils"
 import { useState } from "react"
 
 interface TeamModalsProps {
-  activeModal: 'invite' | 'create-role' | 'edit-member' | 'save-confirm' | null
+  type: 'invite' | 'create-role' | 'edit-member' | 'save-confirm' | 'remove-confirm' | null
+  isOpen: boolean
   onClose: () => void
   onSave?: () => void
+  onConfirm?: () => void
 }
 
-export function TeamModals({ activeModal, onClose, onSave }: TeamModalsProps) {
-  if (!activeModal) return null
+export function TeamModals({ type, isOpen, onClose, onSave, onConfirm }: TeamModalsProps) {
+  if (!isOpen || !type) return null
 
   return (
     <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
@@ -21,10 +23,11 @@ export function TeamModals({ activeModal, onClose, onSave }: TeamModalsProps) {
         {/* Header */}
         <div className="p-6 border-b border-gray-100 dark:border-white/10 flex items-center justify-between">
           <h3 className="text-xl font-bold text-slate-900 dark:text-white capitalize tracking-tight">
-            {activeModal === 'invite' && 'Invite New Member'}
-            {activeModal === 'create-role' && 'Create New Role'}
-            {activeModal === 'edit-member' && 'Edit Member Permissions'}
-            {activeModal === 'save-confirm' && 'Confirm Changes'}
+            {type === 'invite' && 'Invite New Member'}
+            {type === 'create-role' && 'Create New Role'}
+            {type === 'edit-member' && 'Edit Member Permissions'}
+            {type === 'save-confirm' && 'Confirm Changes'}
+            {type === 'remove-confirm' && 'Remove Member'}
           </h3>
           <button onClick={onClose} className="p-2 hover:bg-slate-50 dark:hover:bg-white/5 dark:bg-white/5 dark:hover:bg-white dark:bg-[#150a2e]/5 dark:bg-white dark:bg-[#150a2e]/5 rounded-xl transition-colors">
             <X className="w-5 h-5 text-slate-400 dark:text-slate-500 dark:text-slate-400 dark:text-slate-500" />
@@ -33,7 +36,7 @@ export function TeamModals({ activeModal, onClose, onSave }: TeamModalsProps) {
 
         {/* Content */}
         <div className="p-8">
-          {activeModal === 'invite' && (
+          {type === 'invite' && (
             <div className="space-y-6">
               <div className="space-y-2">
                 <label className="text-sm font-bold text-slate-800 dark:text-slate-200">Email Address</label>
@@ -58,7 +61,7 @@ export function TeamModals({ activeModal, onClose, onSave }: TeamModalsProps) {
             </div>
           )}
 
-          {activeModal === 'create-role' && (
+          {type === 'create-role' && (
             <div className="space-y-6 text-left">
               <div className="space-y-2">
                 <label className="text-sm font-bold text-slate-800 dark:text-slate-200">Role Name</label>
@@ -85,7 +88,7 @@ export function TeamModals({ activeModal, onClose, onSave }: TeamModalsProps) {
             </div>
           )}
 
-          {activeModal === 'edit-member' && (
+          {type === 'edit-member' && (
             <div className="space-y-6 text-center py-4">
               <div className="w-16 h-16 rounded-2xl bg-purple-50 flex items-center justify-center mx-auto mb-4">
                 <Shield className="w-8 h-8 text-purple-600" />
@@ -127,7 +130,7 @@ export function TeamModals({ activeModal, onClose, onSave }: TeamModalsProps) {
             </div>
           )}
 
-          {activeModal === 'save-confirm' && (
+          {type === 'save-confirm' && (
             <div className="text-center py-6 space-y-6">
               <div className="relative mx-auto w-24 h-24">
                 <div className="absolute inset-0 bg-emerald-500/20 blur-2xl rounded-full animate-pulse" />
@@ -143,6 +146,23 @@ export function TeamModals({ activeModal, onClose, onSave }: TeamModalsProps) {
               </div>
             </div>
           )}
+
+          {type === 'remove-confirm' && (
+            <div className="text-center py-6 space-y-6">
+              <div className="relative mx-auto w-24 h-24">
+                <div className="absolute inset-0 bg-rose-500/20 blur-2xl rounded-full animate-pulse" />
+                <div className="relative w-full h-full rounded-[2rem] bg-rose-50 border border-rose-100 flex items-center justify-center shadow-inner">
+                  <Trash2 className="w-10 h-10 text-rose-500 animate-siri-float" />
+                </div>
+              </div>
+              <div className="max-w-[280px] mx-auto">
+                <h4 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Remove Member?</h4>
+                <p className="text-[13px] font-bold text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                  Are you sure you want to remove this member? This action is permanent and cannot be undone.
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Footer */}
@@ -154,13 +174,17 @@ export function TeamModals({ activeModal, onClose, onSave }: TeamModalsProps) {
             Cancel
           </button>
           <button 
-            onClick={activeModal === 'save-confirm' || activeModal === 'invite' || activeModal === 'create-role' || activeModal === 'edit-member' ? onSave : onClose}
-            className="flex-1 py-3 rounded-xl bg-purple-600 text-white font-bold text-sm tracking-tight hover:bg-purple-700 transition-colors shadow-lg shadow-purple-600/20"
+            onClick={type === 'save-confirm' || type === 'invite' || type === 'create-role' || type === 'edit-member' || type === 'remove-confirm' ? (type === 'remove-confirm' ? onConfirm : onSave) : onClose}
+            className={cn(
+              "flex-1 py-3 rounded-xl text-white font-bold text-sm tracking-tight transition-colors shadow-lg",
+              type === 'remove-confirm' ? "bg-rose-600 hover:bg-rose-700 shadow-rose-600/20" : "bg-purple-600 hover:bg-purple-700 shadow-purple-600/20"
+            )}
           >
-            {activeModal === 'invite' && 'Send Invite'}
-            {activeModal === 'create-role' && 'Create Role'}
-            {activeModal === 'edit-member' && 'Apply Changes'}
-            {activeModal === 'save-confirm' && 'Confirm & Save'}
+            {type === 'invite' && 'Send Invite'}
+            {type === 'create-role' && 'Create Role'}
+            {type === 'edit-member' && 'Apply Changes'}
+            {type === 'save-confirm' && 'Confirm & Save'}
+            {type === 'remove-confirm' && 'Remove Member'}
           </button>
         </div>
       </div>

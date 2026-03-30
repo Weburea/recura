@@ -11,7 +11,6 @@ import {
   FileSpreadsheet, 
   ListFilter,
   Search,
-  Eye,
   FileEdit,
   Mail,
   Trash2
@@ -331,7 +330,7 @@ export function CustomerTable() {
                 <td className="table-data-cell relative">
                   <div className="flex items-center gap-3">
                     <Link 
-                      href={`/dashboard/customers/${customer.id}`}
+                      href="/dashboard/settings/profile"
                       className="px-5 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-all cursor-pointer"
                     >
                       View Profile
@@ -353,13 +352,6 @@ export function CustomerTable() {
                       ref={menuRef}
                       className="absolute top-[70%] right-10 w-52 bg-white dark:bg-[#150a2e] border border-slate-100 dark:border-white/10 rounded-2xl shadow-xl shadow-purple-500/10 dark:shadow-purple-900/40 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200"
                     >
-                      <Link 
-                        href={`/dashboard/customers/${customer.id}`}
-                        className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white flex items-center gap-3 transition-colors text-left cursor-pointer"
-                      >
-                        <Eye className="w-4 h-4 text-slate-400" />
-                        View Profile
-                      </Link>
                       <button className="w-full px-4 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white flex items-center gap-3 transition-colors text-left cursor-pointer">
                         <FileEdit className="w-4 h-4 text-slate-400" />
                         Edit Customer

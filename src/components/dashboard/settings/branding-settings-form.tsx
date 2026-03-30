@@ -377,8 +377,8 @@ export function BrandingSettingsForm() {
                         "flex-1 py-3 px-4 border transition-all text-xs font-black text-center shadow-sm",
                         style.class,
                         formData.buttonStyle === style.name 
-                          ? "bg-slate-900 border-slate-900 text-white shadow-xl shadow-slate-200" 
-                          : "bg-white border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50/50"
+                          ? "bg-gradient-to-r from-primary to-secondary border-transparent text-white shadow-xl shadow-purple-600/20" 
+                          : "bg-white dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-white/20 hover:bg-slate-50 dark:hover:bg-white/10"
                       )}
                     >
                       {style.name}
