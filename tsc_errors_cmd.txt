@@ -1,0 +1,10 @@
+src/app/dashboard/documentation/components/modals/page.tsx(326,9): error TS2322: Type 'Dispatch<SetStateAction<"stripe" | "flutterwave" | "paystack" | "paypal">>' is not assignable to type '(provider: string) => void'.
+  Types of parameters 'value' and 'provider' are incompatible.
+    Type 'string' is not assignable to type 'SetStateAction<"stripe" | "flutterwave" | "paystack" | "paypal">'.
+src/app/dashboard/documentation/components/modals/page.tsx(332,9): error TS2322: Type 'Dispatch<SetStateAction<{ name: string; role: string; }>>' is not assignable to type '(member: { name?: string | undefined; role?: string | undefined; }) => void'.
+  Types of parameters 'value' and 'member' are incompatible.
+    Type '{ name?: string | undefined; role?: string | undefined; }' is not assignable to type 'SetStateAction<{ name: string; role: string; }>'.
+      Type '{ name?: string | undefined; role?: string | undefined; }' is not assignable to type '{ name: string; role: string; }'.
+        Types of property 'name' are incompatible.
+          Type 'string | undefined' is not assignable to type 'string'.
+            Type 'undefined' is not assignable to type 'string'.

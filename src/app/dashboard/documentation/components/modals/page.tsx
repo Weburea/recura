@@ -52,7 +52,7 @@ export default function ModalsDocPage() {
 
   // Security & Billing Config State (Mock Data)
   const [twoFactorEnabled, setTwoFactorEnabled] = React.useState(false);
-  const [activeProvider, setActiveProvider] = React.useState<'stripe' | 'flutterwave' | 'paystack' | 'paypal'>('stripe');
+  const [activeProvider, setActiveProvider] = React.useState<string>('stripe');
   const [providersConfig, setProvidersConfig] = React.useState<Record<string, { enabled: boolean; apiKey: string; secretKey?: string }>>({
     stripe: { enabled: true, apiKey: 'sk_live_••••••••••••••••' },
     flutterwave: { enabled: false, apiKey: '' },
@@ -75,7 +75,7 @@ export default function ModalsDocPage() {
 
   const [userFilter, setUserFilter] = React.useState<'active' | 'inactive'>('active');
   const [isAddingMember, setIsAddingMember] = React.useState(false);
-  const [newMember, setNewMember] = React.useState({ name: '', role: '' });
+  const [newMember, setNewMember] = React.useState<{ name?: string; role?: string }>({ name: '', role: '' });
   const [editingUser, setEditingUser] = React.useState<{ id: number; name: string; role: string; img: string; active: boolean } | null>(null);
 
   const [selectedIndustry, setSelectedIndustry] = React.useState("SaaS & Software");
