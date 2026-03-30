@@ -5,8 +5,6 @@ import {
   Code2, 
   Palette, 
   ArrowRight,
-  Zap,
-  Shield,
   Component,
   Users,
   Layout as LayoutIcon,
@@ -155,7 +153,7 @@ export default function DocumentationHome() {
             </div>
             <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">Enterprise Principles</h2>
             <p className="text-xl text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
-              Recura isn't just about UI; it's a structural philosophy built for long-term scalability and developer ergonomics.
+              Recura isn&apos;t just about UI; it&apos;s a structural philosophy built for long-term scalability and developer ergonomics.
             </p>
           </div>
           <div className="flex gap-4 min-w-[300px]">

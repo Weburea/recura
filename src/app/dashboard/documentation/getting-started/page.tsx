@@ -6,7 +6,7 @@ export default function GettingStartedDoc() {
   return (
     <DocContent 
       title="Getting Started" 
-      description="Learn how to integrate Recura's design system into your development workflow."
+      description="Learn how to integrate Recura&apos;s design system into your development workflow."
     >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {[

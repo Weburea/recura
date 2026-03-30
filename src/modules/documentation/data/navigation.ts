@@ -58,7 +58,6 @@ export const documentationNav = [
     items: [
       { label: "Payments UI", href: "/dashboard/documentation/payments", icon: CreditCard },
       { label: "Charts & Analytics", href: "/dashboard/documentation/components/charts-analytics", icon: BarChart3 },
-      { label: "Theming", href: "/dashboard/documentation/theming", icon: Palette },
       { label: "Developer Guide", href: "/dashboard/documentation/guide", icon: Code2 },
     ]
   }

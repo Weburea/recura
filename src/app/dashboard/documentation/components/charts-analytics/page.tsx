@@ -25,7 +25,7 @@ export default function ChartsAnalyticsDocPage() {
   return (
     <DocContent 
       title="Charts & Analytics" 
-      description="Recura's data visualization system leverages custom SVG and CSS-based components for high-performance, responsive charting."
+      description="Recura&apos;s data visualization system leverages custom SVG and CSS-based components for high-performance, responsive charting."
     >
       {/* 1. Technical Overview Hero */}
       <div className="relative p-12 md:p-20 rounded-[3.5rem] bg-slate-900 border border-white/10 overflow-hidden shadow-2xl mb-16 group">

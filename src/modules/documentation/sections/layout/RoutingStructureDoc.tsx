@@ -272,7 +272,7 @@ export function RoutingStructureDoc() {
                file: "package.json", 
                title: "Dependency Graph", 
                icon: FileJson,
-               desc: "Manages all third-party libraries, from React 19 to the documentation's Lucide icon set."
+               desc: "Manages all third-party libraries, from React 19 to the documentation&apos;s Lucide icon set."
              }
            ].map((config, i) => (
              <div key={i} className="p-10 rounded-[2.5rem] bg-indigo-50 dark:bg-white/[0.02] border border-indigo-100/50 dark:border-white/5 space-y-4 shadow-sm hover:shadow-lg hover:border-blue-200/50 transition-all duration-300">
