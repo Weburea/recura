@@ -17,6 +17,14 @@ import { cn } from "@/lib/utils"
 
 export type SettingsModalType = 'profile' | 'users' | 'security' | 'billing' | 'roles'
 
+interface User {
+  id: number;
+  name: string;
+  role: string;
+  img: string;
+  active: boolean;
+}
+
 interface WorkspaceSettingsModalsProps {
   type: SettingsModalType | null
   isOpen: boolean
@@ -24,45 +32,39 @@ interface WorkspaceSettingsModalsProps {
   onSave: () => void
 
   // Data props (passed from parent state)
-  profileData?: any
-  setProfileData?: (data: any) => void
-  profileErrors?: any
+  profileData?: { name: string; email: string; phone: string; address: string; website: string }
+  setProfileData?: (data: { name: string; email: string; phone: string; address: string; website: string }) => void
+  profileErrors?: Record<string, string>
 
   selectedIndustry?: string
   setSelectedIndustry?: (industry: string) => void
   isIndustryOpen?: boolean
   setIsIndustryOpen?: (open: boolean) => void
 
-  users?: any[]
-  // setUsers?: (users: any[]) => void // Removed: Unused
+  users?: User[]
   deleteUser?: (id: number) => void
 
-  activeSessions?: any[]
+  activeSessions?: { id: number; name: string; ip: string }[]
   revokeSession?: (id: number) => void
 
   twoFactorEnabled?: boolean
   toggle2FA?: () => void
 
   activeProvider?: string
-  setActiveProvider?: (provider: any) => void
-  providersConfig?: any
+  setActiveProvider?: (provider: string) => void
+  providersConfig?: Record<string, { enabled: boolean; apiKey?: string; secretKey?: string }>
   toggleProvider?: (provider: string) => void
 
   isAddingMember?: boolean
   setIsAddingMember?: (adding: boolean) => void
-  newMember?: any
-  setNewMember?: (member: any) => void
+  newMember?: { name?: string; role?: string }
+  setNewMember?: (member: { name?: string; role?: string }) => void
 
-  editingUser?: any
-  setEditingUser?: (user: any) => void
+  editingUser?: User | null
+  setEditingUser?: (user: User | null) => void
 
   userFilter?: 'active' | 'inactive'
   setUserFilter?: (filter: 'active' | 'inactive') => void
-
-  // isCreatingRole?: boolean // Removed: Unused
-  // setIsCreatingRole?: (creating: boolean) => void // Removed: Unused
-  // newRoleData?: any // Removed: Unused
-  // setNewRoleData?: (data: any) => void // Removed: Unused
 
   isCreatingProvider?: boolean
   setIsCreatingProvider?: (creating: boolean) => void
@@ -338,7 +340,7 @@ export function WorkspaceSettingsModals({
 
                   {/* Users List */}
                   <div className="space-y-3">
-                    {users.filter(u => userFilter === 'active' ? u.active : !u.active).map((user: any) => (
+                    {users.filter(u => userFilter === 'active' ? u.active : !u.active).map((user: User) => (
                       <div key={user.id} className="flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-white/5 border border-slate-50 dark:border-white/5 group shadow-sm hover:shadow-md transition-all">
                         <div className="flex items-center gap-4">
                           <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white dark:border-slate-800 shadow-sm relative">
@@ -522,7 +524,7 @@ export function WorkspaceSettingsModals({
                          {['stripe', 'flutterwave', 'paystack', 'paypal'].map((p) => (
                            <button 
                              key={p}
-                             onClick={() => setActiveProvider?.(p as any)}
+                             onClick={() => setActiveProvider?.(p)}
                              className={cn(
                                "flex-1 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all",
                                activeProvider === p ? "bg-white dark:bg-white/10 text-purple-600 shadow-sm" : "text-slate-400 hover:text-slate-600"

@@ -2,7 +2,6 @@
 
 import { X, Mail, Shield, UserPlus, Trash2, Power, Check } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { useState } from "react"
 
 interface TeamModalsProps {
   type: 'invite' | 'create-role' | 'edit-member' | 'save-confirm' | 'remove-confirm' | null

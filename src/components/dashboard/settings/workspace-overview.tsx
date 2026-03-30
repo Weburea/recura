@@ -51,7 +51,7 @@ export function WorkspaceOverview() {
 
   // Security & Billing Config State
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
-  const [activeProvider, setActiveProvider] = useState<'stripe' | 'flutterwave' | 'paystack' | 'paypal'>('stripe');
+  const [activeProvider, setActiveProvider] = useState<string>('stripe');
   const [providersConfig, setProvidersConfig] = useState<Record<string, { enabled: boolean; apiKey: string; secretKey?: string }>>({
     stripe: { enabled: true, apiKey: 'sk_live_••••••••••••••••' },
     flutterwave: { enabled: false, apiKey: '' },
@@ -72,13 +72,11 @@ export function WorkspaceOverview() {
   ]);
   const [userFilter, setUserFilter] = useState<'active' | 'inactive'>('active');
   const [isAddingMember, setIsAddingMember] = useState(false);
-  const [newMember, setNewMember] = useState({ name: '', role: '' });
+  const [newMember, setNewMember] = useState<{name?: string, role?: string}>({ name: '', role: '' });
   const [editingUser, setEditingUser] = useState<User | null>(null);
 
   // Creation State
   const [isCreatingProvider, setIsCreatingProvider] = useState(false);
-  const [isCreatingRole, setIsCreatingRole] = useState(false);
-  const [newRoleData, setNewRoleData] = useState({ name: '', description: '' });
 
   // Industry State
   const [selectedIndustry, setSelectedIndustry] = useState("SaaS & Software");
@@ -708,7 +706,6 @@ export function WorkspaceOverview() {
         isIndustryOpen={isIndustryOpen}
         setIsIndustryOpen={setIsIndustryOpen}
         users={users}
-        setUsers={setUsers}
         deleteUser={deleteUser}
         activeSessions={activeSessions}
         revokeSession={revokeSession}
@@ -726,10 +723,6 @@ export function WorkspaceOverview() {
         setEditingUser={setEditingUser}
         userFilter={userFilter}
         setUserFilter={setUserFilter}
-        isCreatingRole={isCreatingRole}
-        setIsCreatingRole={setIsCreatingRole}
-        newRoleData={newRoleData}
-        setNewRoleData={setNewRoleData}
         isCreatingProvider={isCreatingProvider}
         setIsCreatingProvider={setIsCreatingProvider}
       />
