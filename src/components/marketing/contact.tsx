@@ -2,8 +2,24 @@
 import { Button } from '@/components/ui/button';
 
 import React from 'react';
-import { MapPin } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
+import Image from 'next/image';
+
+interface GeographyObject {
+  rsmKey: string;
+  properties?: Record<string, unknown>;
+  geometry?: Record<string, unknown>;
+  [key: string]: unknown;
+}
+
+const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+
+const mapMarkers = [
+    { name: "Canada", coordinates: [-106, 56] as [number, number], image: "/images/landing/map/tag-2.png" }, 
+    { name: "Brazil", coordinates: [-51, -14] as [number, number], image: "/images/landing/map/tag-3.png" },
+    { name: "Germany", coordinates: [10, 51] as [number, number], image: "/images/landing/map/tag-1.png" },
+    { name: "Pakistan", coordinates: [69, 30] as [number, number], image: "/images/landing/map/tag.png" },
+];
 
 export function Contact() {
   return (
@@ -66,19 +82,51 @@ export function Contact() {
             </form>
           </div>
 
-          {/* Map Placeholder */}
-          <div className="relative w-full h-[400px] lg:h-[500px] flex items-center justify-center">
-            <Card className="w-full h-full flex items-center justify-center bg-gray-50/50 dark:bg-white/5 border-dashed border-2">
-              <CardContent className="flex flex-col items-center justify-center text-center p-6 space-y-4">
-                <div className="w-16 h-16 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400">
-                  <MapPin className="w-8 h-8" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Global Reach</h3>
-                <p className="text-gray-500 dark:text-gray-400 max-w-sm">
-                  Map visualization is temporarily unavailable while we upgrade our infrastructure, but we support customers worldwide.
-                </p>
-              </CardContent>
-            </Card>
+          {/* Map */}
+          <div className="relative w-full h-[400px] lg:h-[500px]">
+            <ComposableMap
+              projection="geoMercator"
+              projectionConfig={{
+                scale: 100,
+                center: [0, 20]
+              }}
+              className="w-full h-full"
+            >
+              <Geographies geography={geoUrl}>
+                {({ geographies }: { geographies: GeographyObject[] }) =>
+                  geographies.map((geo: GeographyObject) => (
+                    <Geography
+                      key={geo.rsmKey}
+                      geography={geo}
+                      fill="#e5e7eb"
+                      stroke="#FFFFFF"
+                      strokeWidth={0.5}
+                      style={{
+                        default: { outline: "none" },
+                        hover: { fill: "#d1d5db", outline: "none" },
+                        pressed: { outline: "none" },
+                      }}
+                    />
+                  ))
+                }
+              </Geographies>
+              
+              {mapMarkers.map(({ name, coordinates, image }) => (
+                <Marker key={name} coordinates={coordinates}>
+                  <foreignObject x="-104" y="-100" width="208" height="104">
+                    <div className="relative group cursor-pointer transition-transform hover:scale-110 hover:z-10">
+                        <Image 
+                            src={image} 
+                            alt={name} 
+                            width={208} 
+                            height={104} 
+                            className="w-52 h-auto object-contain drop-shadow-xl"
+                        />
+                    </div>
+                  </foreignObject>
+                </Marker>
+              ))}
+            </ComposableMap>
           </div>
         </div>
       </div>
