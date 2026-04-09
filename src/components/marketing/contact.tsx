@@ -1,16 +1,10 @@
 'use client';
 import { Button } from '@/components/ui/button';
 
-import React from 'react';
-import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
+import React, { useEffect, useState, useMemo } from 'react';
+import { geoMercator, geoPath } from 'd3-geo';
+import { feature } from 'topojson-client';
 import Image from 'next/image';
-
-interface GeographyObject {
-  rsmKey: string;
-  properties?: Record<string, unknown>;
-  geometry?: Record<string, unknown>;
-  [key: string]: unknown;
-}
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
@@ -84,52 +78,72 @@ export function Contact() {
 
           {/* Map */}
           <div className="relative w-full h-[400px] lg:h-[500px]">
-            <ComposableMap
-              projection="geoMercator"
-              projectionConfig={{
-                scale: 100,
-                center: [0, 20]
-              }}
-              className="w-full h-full"
-            >
-              <Geographies geography={geoUrl}>
-                {({ geographies }: { geographies: GeographyObject[] }) =>
-                  geographies.map((geo: GeographyObject) => (
-                    <Geography
-                      key={geo.rsmKey}
-                      geography={geo}
-                      fill="#e5e7eb"
-                      stroke="#FFFFFF"
-                      strokeWidth={0.5}
-                      style={{
-                        default: { outline: "none" },
-                        hover: { fill: "#d1d5db", outline: "none" },
-                        pressed: { outline: "none" },
-                      }}
-                    />
-                  ))
-                }
-              </Geographies>
-              
-              {mapMarkers.map(({ name, coordinates, image }) => (
-                <Marker key={name} coordinates={coordinates}>
-                  <foreignObject x="-104" y="-100" width="208" height="104">
-                    <div className="relative group cursor-pointer transition-transform hover:scale-110 hover:z-10">
-                        <Image 
-                            src={image} 
-                            alt={name} 
-                            width={208} 
-                            height={104} 
-                            className="w-52 h-auto object-contain drop-shadow-xl"
-                        />
-                    </div>
-                  </foreignObject>
-                </Marker>
-              ))}
-            </ComposableMap>
+            <WorldMap />
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function WorldMap() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [geographies, setGeographies] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch(geoUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const parsed: any = feature(data, data.objects.countries);
+        setGeographies(parsed.features);
+      })
+      .catch((err) => console.error("Failed to load map data", err));
+  }, []);
+
+  const projection = useMemo(() => {
+    return geoMercator()
+      .scale(100)
+      .center([0, 20])
+      .translate([800 / 2, 600 / 2]); 
+  }, []);
+
+  const pathGenerator = useMemo(() => geoPath().projection(projection), [projection]);
+
+  return (
+    <svg viewBox="0 0 800 600" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
+      <g>
+        {geographies.map((geo, i) => (
+          <path
+            key={i}
+            d={pathGenerator(geo) || ""}
+            fill="#e5e7eb"
+            stroke="#FFFFFF"
+            strokeWidth={0.5}
+            className="outline-none hover:fill-[#d1d5db] transition-colors cursor-pointer"
+          />
+        ))}
+      </g>
+      {mapMarkers.map(({ name, coordinates, image }) => {
+        const coords = projection(coordinates as [number, number]);
+        if (!coords) return null;
+        const [x, y] = coords;
+        return (
+          <g key={name} transform={`translate(${x}, ${y})`}>
+            <foreignObject x="-104" y="-100" width="208" height="104">
+              <div className="relative group cursor-pointer transition-transform hover:scale-110 hover:z-10 flex items-center justify-center h-full">
+                <Image 
+                    src={image} 
+                    alt={name} 
+                    width={208} 
+                    height={104} 
+                    className="w-52 h-auto object-contain drop-shadow-xl mx-auto"
+                />
+              </div>
+            </foreignObject>
+          </g>
+        );
+      })}
+    </svg>
   );
 }
